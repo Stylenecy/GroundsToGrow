@@ -2,65 +2,67 @@
 @import "tw-animate-css";
 
 /* ============================================================
-   GroundsToGrow × WasteLoop — "Coffee × Carbon" Design System
-   Light Mode default (Master Doc v0.2 §9)
+   GroundsToGrow — Design Language v1 (LOCKED)
+   Blend: Editorial Roastery (A) 50% · Carbon Tech (B) 30% · Organic Craft (C) 20%
+   Lihat docs/DESIGN-LANGUAGE.md
    ============================================================ */
 
 :root {
-  --radius: 0.75rem;
+  --radius: 0.875rem;
 
-  /* Brand surface scale */
-  --background: #fbf5ec;        /* cream */
-  --foreground: #1c0a00;        /* espresso dark */
-  --surface: #f5ecd7;           /* light roast */
+  /* Surface scale — kraft & cream hangat (A) */
+  --background: #f7f0e3;   /* cream hangat */
+  --foreground: #2a1810;   /* espresso ink */
+  --surface: #efe6d6;      /* kraft — seksi alternatif */
+  --ink: #211309;          /* seksi gelap kontras (B drama) */
 
-  --card: #fffdf8;              /* warm white card */
-  --card-foreground: #1c0a00;
-  --popover: #fffdf8;
-  --popover-foreground: #1c0a00;
+  --card: #fbf6ec;
+  --card-foreground: #2a1810;
+  --popover: #fbf6ec;
+  --popover-foreground: #2a1810;
 
-  /* Primary = latte deep */
-  --primary: #6b3a2a;
-  --primary-foreground: #fbf5ec;
+  /* Primary = terracotta (A) — brand & CTA utama */
+  --primary: #c0552b;
+  --primary-foreground: #f7f0e3;
 
-  /* Secondary = light roast surface */
-  --secondary: #f5ecd7;
-  --secondary-foreground: #6b3a2a;
+  --secondary: #efe6d6;
+  --secondary-foreground: #2a1810;
 
-  --muted: #f0e6d2;
-  --muted-foreground: #6b5a45;  /* text-muted */
+  --muted: #eadfc8;
+  --muted-foreground: #7a6a54;
 
-  /* Accent = carbon/eco tech teal */
+  /* Accent = teal carbon (B) — data / eco / tech */
   --accent: #008b7c;
-  --accent-foreground: #fbf5ec;
+  --accent-foreground: #f7f0e3;
 
-  /* Highlight = eco gold (CTA) */
+  /* Highlight = eco-gold (C) */
   --highlight: #e8a93d;
-  --highlight-foreground: #1c0a00;
+  --highlight-foreground: #2a1810;
 
-  /* Success = matcha (eco metric) */
+  /* Success = matcha (C) */
   --success: #3d5c3f;
-  --success-foreground: #fbf5ec;
+  --success-foreground: #f7f0e3;
 
   --destructive: #b3261e;
-  --destructive-foreground: #fbf5ec;
+  --destructive-foreground: #f7f0e3;
 
-  --border: #e3d5bc;
-  --input: #e3d5bc;
-  --ring: #008b7c;
+  --border: #ddcdb2;     /* garis rule majalah */
+  --input: #ddcdb2;
+  --ring: #c0552b;
 
-  /* Chart palette (dashboards) */
-  --chart-1: #6b3a2a;
-  --chart-2: #008b7c;
-  --chart-3: #e8a93d;
-  --chart-4: #3d5c3f;
-  --chart-5: #6b5a45;
+  /* Chart / data viz */
+  --chart-1: #c0552b;  /* terracotta */
+  --chart-2: #008b7c;  /* teal */
+  --chart-3: #e8a93d;  /* gold */
+  --chart-4: #3d5c3f;  /* matcha */
+  --chart-5: #7a6a54;  /* muted */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
+  --color-ink: var(--ink);
 
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
@@ -100,28 +102,68 @@
   --font-display: var(--font-display);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
+  --font-script: var(--font-script);
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 6px);
+  --radius-2xl: calc(var(--radius) + 12px);
 }
 
 @layer base {
   * {
     border-color: var(--border);
   }
+
   body {
     background: var(--background);
     color: var(--foreground);
     font-family: var(--font-sans), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
+    /* grain editorial halus (A) */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
   }
+
   h1, h2, h3, h4, h5 {
-    font-family: var(--font-display), system-ui, sans-serif;
+    font-family: var(--font-display), Georgia, serif;
+    font-weight: 600;
     letter-spacing: -0.02em;
+    line-height: 1.05;
   }
-  .font-mono, code, kbd {
+
+  .font-mono, code, kbd, samp {
     font-family: var(--font-mono), ui-monospace, monospace;
+  }
+
+  .font-display {
+    font-family: var(--font-display), Georgia, serif;
+  }
+
+  .font-script {
+    font-family: var(--font-script), cursive;
+  }
+}
+
+@layer components {
+  /* Eyebrow label editorial+tech (B): mono uppercase, tracking lebar */
+  .eyebrow {
+    font-family: var(--font-mono), ui-monospace, monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--muted-foreground);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  /* Garis rule pendek pendamping eyebrow */
+  .eyebrow::before {
+    content: "";
+    width: 1.75rem;
+    height: 1px;
+    background: var(--primary);
+    display: inline-block;
   }
 }

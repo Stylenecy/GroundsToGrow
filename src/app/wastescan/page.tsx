@@ -16,6 +16,8 @@ import {
   CoffeeIcon,
   ShieldCheckIcon,
   ZapIcon,
+  LeafIcon,
+  ArrowRightIcon,
 } from "lucide-react";
 
 import { smartMatches, umkms } from "@/data";
@@ -199,19 +201,21 @@ function MetricRow({
   accent?: boolean;
 }) {
   return (
-    <div className="flex items-center justify-between gap-3 py-2">
-      <span className="flex items-center gap-2 text-sm text-muted-foreground">
-        <Icon className="size-4 text-accent" />
-        {label}
+    <div className="flex items-center gap-3 py-3">
+      <span className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-accent/10 text-accent">
+        <Icon className="size-4" />
       </span>
-      <span
-        className={
-          "font-mono text-sm font-medium " +
-          (accent ? "text-accent" : "text-foreground")
-        }
-      >
-        {value}
-      </span>
+      <div className="min-w-0 flex-1">
+        <p className="eyebrow text-[0.625rem] text-muted-foreground">{label}</p>
+        <p
+          className={
+            "mt-0.5 font-mono text-base font-semibold tracking-tight " +
+            (accent ? "text-accent" : "text-foreground")
+          }
+        >
+          {value}
+        </p>
+      </div>
     </div>
   );
 }
@@ -221,27 +225,35 @@ function MatchCard({ item, index }: { item: DisplayMatch; index: number }) {
   const isAccept = status === "accept";
   return (
     <div
-      className="animate-in fade-in slide-in-from-bottom-3 fill-mode-both rounded-xl border border-border bg-card p-4 shadow-sm transition-shadow hover:shadow-md"
-      style={{ animationDelay: `${index * 140}ms`, animationDuration: "500ms" }}
+      className={
+        "animate-in fade-in slide-in-from-bottom-4 fill-mode-both group/match relative overflow-hidden rounded-2xl border border-border border-l-4 bg-card p-5 transition-all hover:border-l-accent hover:shadow-md " +
+        (isAccept ? "border-l-success" : "border-l-highlight")
+      }
+      style={{ animationDelay: `${index * 140}ms`, animationDuration: "550ms" }}
     >
+      {/* Rank editorial */}
+      <span className="absolute top-3 right-4 font-display text-4xl font-semibold text-foreground/5 select-none">
+        {String(index + 1).padStart(2, "0")}
+      </span>
+
       <div className="flex items-start gap-3">
         <img
           src={umkm?.imageUrl ?? "https://placehold.co/120x120/008b7c/fbf5ec?text=UMKM"}
           alt={match.umkmName}
-          className="size-12 shrink-0 rounded-lg object-cover ring-1 ring-border"
+          className="size-14 shrink-0 rounded-xl object-cover ring-1 ring-border"
         />
         <div className="min-w-0 flex-1">
-          <div className="flex items-center justify-between gap-2">
-            <p className="truncate font-display text-base font-medium text-foreground">
+          <div className="flex items-center gap-1.5">
+            <p className="truncate font-display text-lg leading-tight font-semibold text-foreground">
               {match.umkmName}
             </p>
             {umkm?.isVerified ? (
               <ShieldCheckIcon className="size-4 shrink-0 text-success" />
             ) : null}
           </div>
-          <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+          <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
             <span className="flex items-center gap-1">
-              <MapPinIcon className="size-3.5" />
+              <MapPinIcon className="size-3.5 text-accent" />
               <span className="font-mono">{match.distanceKm.toFixed(1)} km</span>
             </span>
             <span className="capitalize">{match.jenisProduk}</span>
@@ -250,12 +262,14 @@ function MatchCard({ item, index }: { item: DisplayMatch; index: number }) {
         </div>
       </div>
 
-      <div className="mt-3 flex items-center justify-between gap-2">
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground">Match score</span>
-          <Badge className="bg-highlight text-highlight-foreground">
-            <span className="font-mono">{match.score}%</span>
-          </Badge>
+      <div className="mt-4 flex items-center justify-between gap-2 border-t border-border pt-4">
+        <div className="flex items-baseline gap-2">
+          <span className="font-display text-3xl font-bold tracking-tight text-accent">
+            <span className="font-mono">{match.score}</span>
+            <span className="ml-0.5 align-baseline text-sm font-medium text-muted-foreground">
+              % match
+            </span>
+          </span>
         </div>
         {isAccept ? (
           <Badge className="bg-success text-success-foreground">
@@ -263,14 +277,14 @@ function MatchCard({ item, index }: { item: DisplayMatch; index: number }) {
             Accept
           </Badge>
         ) : (
-          <Badge variant="outline" className="text-muted-foreground">
+          <Badge variant="outline" className="border-highlight/50 text-muted-foreground">
             <Loader2Icon className="size-3 animate-spin" />
-            Waiting
+            Menunggu
           </Badge>
         )}
       </div>
 
-      <ul className="mt-3 space-y-1">
+      <ul className="mt-3 space-y-1.5">
         {match.reasons.slice(0, 2).map((r) => (
           <li
             key={r}
@@ -367,32 +381,41 @@ export default function WasteScanPage() {
   return (
     <>
       {/* ===== INTRO BANNER ===== */}
-      <section className="border-b border-border bg-surface">
-        <div className="mx-auto w-full max-w-6xl px-4 py-12 md:py-16">
-          <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+      <section className="relative overflow-hidden border-b border-border bg-surface">
+        {/* Organic blobs (C) */}
+        <div className="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-accent/15 blur-3xl" />
+        <div className="pointer-events-none absolute -bottom-32 -left-24 size-72 rounded-full bg-highlight/10 blur-3xl" />
+
+        <div className="relative mx-auto w-full max-w-6xl px-5 py-16 md:px-8 md:py-24">
+          <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
-              <Badge className="mb-3 bg-accent text-accent-foreground">
-                <SparklesIcon className="size-3" />
-                WasteScan AI
-              </Badge>
-              <h1 className="font-display text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+              <p className="eyebrow text-accent">01 — WasteScan AI Demo</p>
+              <h1 className="mt-5 font-display text-4xl leading-[1.05] font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
                 Submit ampas kopi dalam{" "}
-                <span className="text-accent">30 detik</span>.
+                <span className="text-primary italic">30 detik</span>.
               </h1>
-              <p className="mt-3 text-base text-muted-foreground">
+              <p className="mt-5 max-w-xl text-base text-muted-foreground md:text-lg">
                 Foto ampasmu, AI klasifikasikan grade-nya, lalu cocokkan otomatis
                 dengan UMKM hilirisasi terdekat. Tanpa repot, tanpa terbuang.
               </p>
             </div>
-            <div className="flex items-center gap-3 rounded-xl border border-border bg-card px-4 py-3 shadow-sm">
+
+            <div className="flex shrink-0 items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 shadow-sm">
               <img
                 src="https://placehold.co/80x80/6B3A2A/FBF5EC?text=Rina"
                 alt="Mbak Rina"
-                className="size-10 rounded-full object-cover ring-1 ring-border"
+                className="size-11 rounded-full object-cover ring-1 ring-border"
               />
-              <div className="text-sm">
-                <p className="font-medium text-foreground">Mbak Rina</p>
-                <p className="text-muted-foreground">Owner · Kopi Sudut, Sleman</p>
+              <div className="leading-tight">
+                <p className="eyebrow text-[0.625rem] text-muted-foreground">
+                  Demo persona
+                </p>
+                <p className="mt-0.5 font-display text-base font-semibold text-foreground">
+                  Mbak Rina
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  Owner · Kopi Sudut, Sleman
+                </p>
               </div>
             </div>
           </div>
@@ -400,27 +423,30 @@ export default function WasteScanPage() {
       </section>
 
       {/* ===== KONTEN UTAMA: FORM + HASIL ===== */}
-      <section className="mx-auto w-full max-w-6xl px-4 py-12 md:py-16">
-        <div className="grid gap-6 lg:grid-cols-2">
+      <section className="mx-auto w-full max-w-6xl px-5 py-16 md:px-8 md:py-24">
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-8">
           {/* ---------- PANEL INPUT ---------- */}
-          <Card className="self-start">
-            <CardHeader>
-              <CardTitle className="font-display text-lg">
+          <Card className="self-start rounded-2xl">
+            <CardHeader className="border-b border-border pb-4">
+              <p className="eyebrow text-primary">02 — Detail batch</p>
+              <CardTitle className="mt-3 font-display text-2xl font-semibold tracking-tight">
                 Detail Ampas
               </CardTitle>
               <CardDescription>
                 Isi data batch ampas kopimu — AI akan menilai kualitasnya.
               </CardDescription>
             </CardHeader>
-            <CardContent className="flex flex-col gap-6">
+            <CardContent className="flex flex-col gap-7 pt-2">
               {/* Upload foto (dropzone palsu) */}
-              <div className="flex flex-col gap-2">
-                <Label>Foto Ampas (opsional)</Label>
+              <div className="flex flex-col gap-2.5">
+                <Label className="eyebrow text-muted-foreground">
+                  Foto Ampas · opsional
+                </Label>
                 <button
                   type="button"
                   onClick={() => setPhotoShown(true)}
                   disabled={phase === "analyzing"}
-                  className="group relative flex aspect-[16/9] w-full items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-border bg-surface/60 text-center transition-colors hover:border-accent hover:bg-surface focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none disabled:opacity-60"
+                  className="group relative flex aspect-[16/9] w-full items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-border bg-surface/60 text-center transition-colors hover:border-accent hover:bg-surface focus-visible:ring-3 focus-visible:ring-ring/50 focus-visible:outline-none disabled:opacity-60"
                 >
                   {photoShown ? (
                     <>
@@ -454,14 +480,16 @@ export default function WasteScanPage() {
               </div>
 
               {/* Jenis kopi */}
-              <div className="flex flex-col gap-2">
-                <Label htmlFor="jenis-trigger">Jenis Kopi</Label>
+              <div className="flex flex-col gap-2.5">
+                <Label htmlFor="jenis-trigger" className="eyebrow text-muted-foreground">
+                  Jenis Kopi
+                </Label>
                 <Select
                   value={jenis}
                   onValueChange={(v) => setJenis(v as JenisKopi)}
                   disabled={phase === "analyzing"}
                 >
-                  <SelectTrigger id="jenis-trigger" className="w-full">
+                  <SelectTrigger id="jenis-trigger" className="h-11 w-full">
                     <SelectValue placeholder="Pilih jenis kopi" />
                   </SelectTrigger>
                   <SelectContent>
@@ -475,11 +503,16 @@ export default function WasteScanPage() {
               </div>
 
               {/* Volume */}
-              <div className="flex flex-col gap-3">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="volume-slider">Volume Ampas</Label>
-                  <span className="font-mono text-sm font-medium text-accent">
-                    {volume.toFixed(1)} kg
+              <div className="flex flex-col gap-3.5">
+                <div className="flex items-end justify-between">
+                  <Label htmlFor="volume-slider" className="eyebrow text-muted-foreground">
+                    Volume Ampas
+                  </Label>
+                  <span className="font-mono text-2xl font-bold leading-none tracking-tight text-accent">
+                    {volume.toFixed(1)}
+                    <span className="ml-1 align-baseline text-xs font-medium text-muted-foreground">
+                      kg
+                    </span>
                   </span>
                 </div>
                 <Slider
@@ -493,18 +526,23 @@ export default function WasteScanPage() {
                   }
                   disabled={phase === "analyzing"}
                 />
-                <div className="flex justify-between text-xs text-muted-foreground">
-                  <span className="font-mono">0.1 kg</span>
-                  <span className="font-mono">50 kg</span>
+                <div className="flex justify-between font-mono text-[0.6875rem] text-muted-foreground">
+                  <span>0.1 kg</span>
+                  <span>50 kg</span>
                 </div>
               </div>
 
               {/* Freshness */}
-              <div className="flex flex-col gap-3">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="fresh-slider">Freshness (jam sejak seduh)</Label>
-                  <span className="font-mono text-sm font-medium text-accent">
-                    {freshness} jam
+              <div className="flex flex-col gap-3.5">
+                <div className="flex items-end justify-between">
+                  <Label htmlFor="fresh-slider" className="eyebrow text-muted-foreground">
+                    Freshness · jam sejak seduh
+                  </Label>
+                  <span className="font-mono text-2xl font-bold leading-none tracking-tight text-accent">
+                    {freshness}
+                    <span className="ml-1 align-baseline text-xs font-medium text-muted-foreground">
+                      jam
+                    </span>
                   </span>
                 </div>
                 <Slider
@@ -518,9 +556,9 @@ export default function WasteScanPage() {
                   }
                   disabled={phase === "analyzing"}
                 />
-                <div className="flex justify-between text-xs text-muted-foreground">
-                  <span className="font-mono">0 jam (baru)</span>
-                  <span className="font-mono">24 jam</span>
+                <div className="flex justify-between font-mono text-[0.6875rem] text-muted-foreground">
+                  <span>0 jam (baru)</span>
+                  <span>24 jam</span>
                 </div>
               </div>
 
@@ -532,7 +570,7 @@ export default function WasteScanPage() {
                   variant="outline"
                   size="lg"
                   onClick={handleReset}
-                  className="h-12 w-full text-base"
+                  className="h-12 w-full rounded-xl text-base"
                 >
                   <RotateCcwIcon className="size-4" />
                   Scan lagi
@@ -542,7 +580,7 @@ export default function WasteScanPage() {
                   size="lg"
                   onClick={handleAnalyze}
                   disabled={phase === "analyzing"}
-                  className="h-12 w-full bg-highlight text-base font-semibold text-highlight-foreground hover:bg-highlight/90"
+                  className="h-13 w-full rounded-xl bg-primary py-3.5 text-base font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md"
                 >
                   {phase === "analyzing" ? (
                     <>
@@ -553,12 +591,14 @@ export default function WasteScanPage() {
                     <>
                       <SparklesIcon className="size-5" />
                       Analisa dengan AI
+                      <ArrowRightIcon className="size-4" />
                     </>
                   )}
                 </Button>
               )}
 
-              <p className="text-center text-xs text-muted-foreground">
+              <p className="flex items-center justify-center gap-1.5 text-center text-xs text-muted-foreground">
+                <ZapIcon className="size-3 text-highlight" />
                 Demo: hasil disimulasikan dari input. Real AI Vision ada di
                 roadmap.
               </p>
@@ -569,16 +609,18 @@ export default function WasteScanPage() {
           <div className="flex flex-col gap-6">
             {/* IDLE: empty state */}
             {phase === "idle" ? (
-              <Card className="flex min-h-[28rem] items-center justify-center self-stretch border-dashed">
-                <div className="flex max-w-xs flex-col items-center gap-4 px-6 py-12 text-center">
+              <Card className="relative flex min-h-[28rem] items-center justify-center self-stretch overflow-hidden rounded-2xl border-dashed">
+                <div className="pointer-events-none absolute -bottom-20 -right-16 size-56 rounded-full bg-accent/10 blur-3xl" />
+                <div className="relative flex max-w-xs flex-col items-center gap-5 px-6 py-12 text-center">
                   <span className="flex size-16 items-center justify-center rounded-2xl bg-accent/10 text-accent">
                     <ZapIcon className="size-8" />
                   </span>
                   <div>
-                    <p className="font-display text-lg font-medium text-foreground">
+                    <p className="eyebrow text-muted-foreground">Standby</p>
+                    <p className="mt-2 font-display text-xl font-semibold text-foreground">
                       Menunggu analisa
                     </p>
-                    <p className="mt-1 text-sm text-muted-foreground">
+                    <p className="mt-2 text-sm text-muted-foreground">
                       Isi detail ampas di kiri lalu tekan{" "}
                       <span className="font-medium text-foreground">
                         Analisa dengan AI
@@ -592,28 +634,38 @@ export default function WasteScanPage() {
 
             {/* ANALYZING: loading meyakinkan */}
             {phase === "analyzing" ? (
-              <Card className="self-stretch">
-                <CardContent className="flex min-h-[28rem] flex-col items-center justify-center gap-6 py-12">
+              <Card className="relative self-stretch overflow-hidden rounded-2xl bg-ink text-background">
+                <div className="pointer-events-none absolute -top-20 -left-16 size-56 rounded-full bg-accent/20 blur-3xl" />
+                <div className="pointer-events-none absolute -bottom-24 -right-16 size-56 rounded-full bg-highlight/15 blur-3xl" />
+                <CardContent className="relative flex min-h-[28rem] flex-col items-center justify-center gap-7 py-12">
                   <div className="relative flex size-20 items-center justify-center">
-                    <span className="absolute inset-0 animate-ping rounded-full bg-accent/20" />
-                    <span className="relative flex size-16 items-center justify-center rounded-full bg-accent/10 text-accent">
+                    <span className="absolute inset-0 animate-ping rounded-full bg-accent/30" />
+                    <span className="relative flex size-16 items-center justify-center rounded-full bg-accent/15 text-accent">
                       <ActiveStepIcon className="size-8 animate-pulse" />
                     </span>
                   </div>
 
-                  <div className="w-full max-w-sm space-y-4">
-                    <p
-                      key={stepIndex}
-                      className="animate-in fade-in slide-in-from-bottom-1 text-center font-display text-lg font-medium text-foreground"
-                    >
-                      {ANALYZING_STEPS[stepIndex].label}
-                    </p>
-                    <Progress value={progress} />
-                    <p className="text-center font-mono text-xs text-muted-foreground">
-                      {progress}% · memproses
-                    </p>
+                  <div className="w-full max-w-sm space-y-5">
+                    <div className="text-center">
+                      <p className="eyebrow text-accent">Memproses</p>
+                      <p
+                        key={stepIndex}
+                        className="animate-in fade-in slide-in-from-bottom-1 mt-2 font-display text-xl font-semibold text-background"
+                      >
+                        {ANALYZING_STEPS[stepIndex].label}
+                      </p>
+                    </div>
 
-                    <ul className="space-y-2 pt-2">
+                    <div className="flex items-end justify-between">
+                      <span className="font-mono text-4xl font-bold tracking-tight text-background">
+                        {progress}
+                        <span className="text-base font-medium text-background/50">%</span>
+                      </span>
+                      <span className="eyebrow text-background/50">analyzing</span>
+                    </div>
+                    <Progress value={progress} className="[&_[data-slot=progress-track]]:bg-background/15 [&_[data-slot=progress-indicator]]:bg-accent" />
+
+                    <ul className="space-y-2.5 border-t border-background/10 pt-4">
                       {ANALYZING_STEPS.map((step, i) => {
                         const done = i < stepIndex;
                         const active = i === stepIndex;
@@ -621,20 +673,20 @@ export default function WasteScanPage() {
                           <li
                             key={step.label}
                             className={
-                              "flex items-center gap-2 text-sm transition-colors " +
+                              "flex items-center gap-2.5 text-sm transition-colors " +
                               (done
                                 ? "text-success"
                                 : active
-                                  ? "text-foreground"
-                                  : "text-muted-foreground/50")
+                                  ? "text-background"
+                                  : "text-background/35")
                             }
                           >
                             {done ? (
-                              <CheckCircle2Icon className="size-4" />
+                              <CheckCircle2Icon className="size-4 shrink-0" />
                             ) : active ? (
-                              <Loader2Icon className="size-4 animate-spin" />
+                              <Loader2Icon className="size-4 shrink-0 animate-spin text-accent" />
                             ) : (
-                              <span className="size-4 rounded-full border border-current" />
+                              <span className="size-4 shrink-0 rounded-full border border-current" />
                             )}
                             {step.label}
                           </li>
@@ -650,30 +702,41 @@ export default function WasteScanPage() {
             {phase === "result" && classification ? (
               <>
                 {/* Kartu klasifikasi */}
-                <Card className="animate-in fade-in slide-in-from-bottom-3 self-stretch border-accent/30">
-                  <CardHeader>
-                    <div className="flex items-center justify-between gap-2">
-                      <CardTitle className="flex items-center gap-2 font-display text-lg">
-                        <CheckCircle2Icon className="size-5 text-success" />
-                        Klasifikasi AI
-                      </CardTitle>
-                      <Badge className="bg-highlight text-highlight-foreground">
+                <Card className="animate-in fade-in slide-in-from-bottom-3 self-stretch rounded-2xl border-l-4 border-l-accent ring-accent/20">
+                  <CardHeader className="border-b border-border pb-4">
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <p className="eyebrow text-accent">03 — Hasil klasifikasi</p>
+                        <CardTitle className="mt-2 flex items-center gap-2 font-display text-2xl font-semibold tracking-tight">
+                          <CheckCircle2Icon className="size-5 text-success" />
+                          Klasifikasi AI
+                        </CardTitle>
+                      </div>
+                      <Badge
+                        className={
+                          "shrink-0 " +
+                          (classification.grade === "A"
+                            ? "bg-success text-success-foreground"
+                            : classification.grade === "B"
+                              ? "bg-highlight text-highlight-foreground"
+                              : "bg-primary text-primary-foreground")
+                        }
+                      >
                         {classification.gradeLabel}
                       </Badge>
                     </div>
-                    <CardDescription>
+                    <CardDescription className="mt-1">
                       Hasil estimasi otomatis dari foto & data batch.
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <div className="grid gap-x-6 sm:grid-cols-2">
-                      <div className="sm:border-r sm:border-border sm:pr-6">
+                      <div className="divide-y divide-border sm:border-r sm:border-border sm:pr-6">
                         <MetricRow
                           icon={CoffeeIcon}
                           label="Jenis kopi"
                           value={classification.jenisLabel}
                         />
-                        <Separator />
                         <MetricRow
                           icon={ScaleIcon}
                           label="Volume estimasi"
@@ -681,13 +744,12 @@ export default function WasteScanPage() {
                           accent
                         />
                       </div>
-                      <div>
+                      <div className="divide-y divide-border">
                         <MetricRow
                           icon={ClockIcon}
                           label="Freshness"
                           value={`${classification.freshnessJam} jam`}
                         />
-                        <Separator />
                         <MetricRow
                           icon={ShieldCheckIcon}
                           label="Kondisi"
@@ -697,22 +759,21 @@ export default function WasteScanPage() {
                       </div>
                     </div>
 
-                    <p className="mt-2 text-xs text-muted-foreground">
+                    <p className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
+                      <LeafIcon className="size-3.5 text-success" />
                       {classification.freshnessLabel}
                     </p>
 
                     {/* Rekomendasi penggunaan */}
-                    <div className="mt-4 rounded-xl bg-accent/10 p-4">
-                      <div className="flex items-center gap-2">
-                        <TargetIcon className="size-4 text-accent" />
-                        <span className="text-sm font-medium text-foreground">
-                          Rekomendasi penggunaan
-                        </span>
-                      </div>
-                      <p className="mt-2 font-display text-xl font-semibold text-accent">
+                    <div className="mt-5 rounded-xl border border-accent/20 bg-accent/8 p-5">
+                      <p className="eyebrow flex items-center gap-1.5 text-accent">
+                        <TargetIcon className="size-3.5" />
+                        Rekomendasi penggunaan
+                      </p>
+                      <p className="mt-2.5 font-display text-2xl font-bold tracking-tight text-accent">
                         {classification.rekomendasi}
                       </p>
-                      <p className="mt-1 text-sm text-muted-foreground">
+                      <p className="mt-1.5 text-sm text-muted-foreground">
                         {classification.rekomendasiAlasan}
                       </p>
                     </div>
@@ -720,16 +781,19 @@ export default function WasteScanPage() {
                 </Card>
 
                 {/* SMART MATCH */}
-                <div className="animate-in fade-in slide-in-from-bottom-3 space-y-3">
-                  <div className="flex items-center justify-between">
-                    <h2 className="font-display text-lg font-medium text-foreground">
-                      Smart Match
-                    </h2>
-                    <span className="text-sm text-muted-foreground">
-                      3 UMKM · rata-rata{" "}
-                      <span className="font-mono text-foreground">
+                <div className="animate-in fade-in slide-in-from-bottom-3 space-y-4">
+                  <div className="flex items-end justify-between border-t border-border pt-5">
+                    <div>
+                      <p className="eyebrow text-primary">04 — Smart Match</p>
+                      <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight text-foreground">
+                        UMKM yang cocok
+                      </h2>
+                    </div>
+                    <span className="text-right text-xs text-muted-foreground">
+                      <span className="block font-mono text-lg font-bold text-foreground">
                         {avgDistance.toFixed(1)} km
                       </span>
+                      rata-rata · 3 UMKM
                     </span>
                   </div>
 
@@ -740,7 +804,7 @@ export default function WasteScanPage() {
                   </div>
 
                   {/* Insight card */}
-                  <div className="animate-in fade-in flex items-start gap-3 rounded-xl border border-border bg-surface p-4">
+                  <div className="animate-in fade-in flex items-start gap-3 rounded-2xl border border-border border-l-4 border-l-highlight bg-surface p-5">
                     <SparklesIcon className="mt-0.5 size-4 shrink-0 text-highlight" />
                     <p className="text-sm text-muted-foreground">
                       <span className="font-medium text-foreground">Insight:</span>{" "}
@@ -756,11 +820,16 @@ export default function WasteScanPage() {
         </div>
 
         {/* Footer jujur (mock disclaimer) */}
-        <p className="mt-10 text-center text-xs text-muted-foreground">
-          Catatan demo: WasteScan ini adalah prototipe UI — hasil klasifikasi &
-          matching disimulasikan dari input. Integrasi AI Vision dan algoritma
-          matching real ada di roadmap produk.
-        </p>
+        <div className="mt-16 border-t border-border pt-8">
+          <p className="font-script text-center text-xl text-primary/70">
+            dibangun dengan jujur — ini prototipe, bukan sulap.
+          </p>
+          <p className="mx-auto mt-3 max-w-2xl text-center text-xs text-muted-foreground">
+            Catatan demo: WasteScan ini adalah prototipe UI — hasil klasifikasi &
+            matching disimulasikan dari input. Integrasi AI Vision dan algoritma
+            matching real ada di roadmap produk.
+          </p>
+        </div>
       </section>
     </>
   );

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  Sparkles,
+  ArrowUpRight,
   Recycle,
   Cpu,
   PackageCheck,
@@ -10,14 +10,11 @@ import {
   Leaf,
   Building2,
   Sprout,
-  Coins,
   Truck,
+  Coffee,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { EntityConstellation } from "@/components/entity-constellation";
 import { getGlobalEsg, getFeaturedProducts, entities } from "@/data";
 
@@ -96,177 +93,213 @@ export default function LandingPage() {
       unit: "kg / tahun",
       label: "Ampas kopi terbuang di Indonesia",
       sub: "Mayoritas berakhir di TPA sebagai limbah organik.",
+      accent: "text-highlight",
     },
     {
       value: formatNumber(kgDiverted),
       unit: "kg",
       label: "Ampas dialihkan dari TPA",
       sub: "Total tervalidasi lintas ekosistem GroundsToGrow.",
+      accent: "text-accent",
     },
     {
       value: formatNumber(co2Saved),
       unit: "kg CO2-eq",
       label: "Emisi karbon dihindari",
-      sub: "Setara menanam ratusan pohon — terukur & audit-ready.",
+      sub: "Setara ratusan pohon — terukur & audit-ready.",
+      accent: "text-accent",
     },
     {
       value: `${entities.length}`,
       unit: "entitas",
       label: "Pelaku dalam value constellation",
       sub: "4 core + 4 supporting, saling beri & terima nilai.",
+      accent: "text-highlight",
     },
   ];
 
   return (
     <>
       {/* ============================================================
-          1. HERO
+          HERO — editorial berani
           ============================================================ */}
-      <section className="relative overflow-hidden border-b border-border bg-surface">
-        <div className="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-accent/15 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-32 -left-20 size-72 rounded-full bg-primary/10 blur-3xl" />
+      <section className="relative overflow-hidden border-b border-border bg-background">
+        {/* Aksen organik halus (C) */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-32 -right-24 size-96 rounded-full bg-primary/8 blur-3xl"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -bottom-40 -left-32 size-96 rounded-full bg-accent/8 blur-3xl"
+        />
 
-        <div className="mx-auto grid w-full max-w-6xl items-center gap-10 px-4 py-16 md:py-24 lg:grid-cols-2">
-          <div className="flex flex-col items-start gap-6">
-            <Badge
-              variant="outline"
-              className="border-accent/40 bg-card text-xs text-muted-foreground"
-            >
-              <Sparkles className="text-accent" />
-              Digital Disruption · Level 4–6–8 · 8-Entity Value Constellation
-            </Badge>
+        <div className="mx-auto w-full max-w-6xl px-5 pt-16 pb-20 md:px-8 md:pt-24 md:pb-28">
+          <p className="eyebrow text-primary">
+            Digital Disruption · Level 4–6–8
+          </p>
 
-            <p className="text-sm font-medium tracking-wide text-accent-foreground">
-              <span className="rounded-md bg-accent/20 px-2 py-1 text-accent-foreground">
+          <div className="mt-6 grid gap-12 lg:grid-cols-[1.6fr_1fr] lg:items-end">
+            {/* Headline raksasa */}
+            <div>
+              <h1 className="font-display text-5xl leading-[0.98] font-semibold tracking-tight text-foreground sm:text-6xl md:text-7xl">
+                Ubah ampas kopi
+                <br />
+                jadi{" "}
+                <span className="italic text-primary">
+                  ekosistem bernilai.
+                </span>
+              </h1>
+
+              <p className="mt-6 max-w-xl font-mono text-sm tracking-wide text-accent">
                 From Waste to Wealth — From Coffee to Carbon
-              </span>
-            </p>
+              </p>
 
-            <h1 className="font-display text-4xl leading-tight font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
-              Ubah ampas kopi jadi{" "}
-              <span className="text-primary">ekosistem bernilai.</span>
-            </h1>
+              <p className="mt-5 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
+                GroundsToGrow menghubungkan kedai kopi, UMKM hilirisasi,
+                konsumen, dan korporasi ESG dalam satu platform sirkular. Limbah
+                harian jadi skincare, briket, kompos, hingga carbon credit —
+                semua terukur.
+              </p>
 
-            <p className="max-w-xl text-base text-muted-foreground md:text-lg">
-              GroundsToGrow menghubungkan kedai kopi, UMKM hilirisasi, konsumen,
-              dan korporasi ESG dalam satu platform sirkular. Limbah harian jadi
-              skincare, briket, kompos, hingga carbon credit — semua terukur.
-            </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Button
+                  size="lg"
+                  className="px-5"
+                  render={<Link href="/wastescan" />}
+                  nativeButton={false}
+                >
+                  Coba WasteScan Demo
+                  <ArrowRight />
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="px-5"
+                  render={<Link href="/marketplace" />}
+                  nativeButton={false}
+                >
+                  Lihat Marketplace
+                </Button>
+              </div>
+            </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Button
-                size="lg"
-                className="px-5"
-                render={<Link href="/wastescan" />}
-                nativeButton={false}
-              >
-                Coba WasteScan Demo
-                <ArrowRight />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="px-5"
-                render={<Link href="/marketplace" />}
-                nativeButton={false}
-              >
-                Lihat Marketplace
-              </Button>
+            {/* Loop diagram editorial Coffee → Carbon */}
+            <div className="relative">
+              <div className="rounded-2xl border border-border bg-card p-6 ring-1 ring-foreground/5">
+                <p className="eyebrow text-muted-foreground">The Loop</p>
+                <div className="mt-5 space-y-4">
+                  <div className="flex items-center gap-3">
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/12 text-primary ring-1 ring-primary/20">
+                      <Coffee className="size-5" strokeWidth={1.75} />
+                    </span>
+                    <div>
+                      <p className="font-display text-base font-semibold text-foreground">
+                        Ampas kopi
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        Limbah harian kedai
+                      </p>
+                    </div>
+                  </div>
+                  <div className="ml-5 h-5 border-l-2 border-dashed border-border" />
+                  <div className="flex items-center gap-3">
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-success/15 text-success ring-1 ring-success/25">
+                      <Leaf className="size-5" strokeWidth={1.75} />
+                    </span>
+                    <div>
+                      <p className="font-display text-base font-semibold text-foreground">
+                        Produk + Carbon
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        Skincare, briket, CO2-eq
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Mini metric ledger */}
+                <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-xl bg-border ring-1 ring-border">
+                  <div className="bg-card p-3">
+                    <p className="eyebrow text-[0.58rem] text-success">
+                      CO2-eq saved
+                    </p>
+                    <p className="mt-1 font-mono text-lg font-bold text-foreground">
+                      {formatNumber(co2Saved)}
+                      <span className="ml-1 text-xs font-normal text-muted-foreground">
+                        kg
+                      </span>
+                    </p>
+                  </div>
+                  <div className="bg-card p-3">
+                    <p className="eyebrow text-[0.58rem] text-accent">
+                      Grounds Coin
+                    </p>
+                    <p className="mt-1 font-mono text-lg font-bold text-foreground">
+                      {formatNumber(coinEarned)}
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Hero visual: bean → network nodes */}
-          <div className="relative">
-            <Card className="gap-0 p-0 ring-foreground/10">
-              <img
-                src="https://placehold.co/600x420/F5ECD7/6B3A2A?text=Coffee+%E2%86%92+Carbon"
-                alt="Ilustrasi ampas kopi berubah menjadi jaringan ekosistem"
-                className="h-full w-full object-cover"
-                loading="eager"
-              />
-            </Card>
-            <Card className="absolute -bottom-5 left-1/2 w-[88%] -translate-x-1/2 flex-row items-center justify-between gap-3 px-4 py-3 shadow-sm">
-              <div className="flex items-center gap-2">
-                <span className="flex size-9 items-center justify-center rounded-lg bg-success text-success-foreground">
-                  <Leaf className="size-4" />
-                </span>
-                <div className="leading-tight">
-                  <p className="text-xs text-muted-foreground">CO2-eq saved</p>
-                  <p className="font-mono text-sm font-semibold text-foreground">
-                    {formatNumber(co2Saved)} kg
-                  </p>
-                </div>
+      {/* ============================================================
+          STAT STRIP — dark dramatic (B)
+          ============================================================ */}
+      <section className="bg-ink text-background">
+        <div className="mx-auto w-full max-w-6xl px-5 py-16 md:px-8 md:py-24">
+          <div className="max-w-2xl">
+            <p className="eyebrow text-highlight">Masalah yang kami lihat</p>
+            <h2 className="mt-4 font-display text-3xl leading-tight font-semibold tracking-tight text-background sm:text-4xl">
+              Ampas kopi adalah limbah bervolume besar yang{" "}
+              <span className="italic text-highlight">kaya nilai.</span>
+            </h2>
+            <p className="mt-3 text-sm text-background/60">
+              Angka di bawah ini brutal — dan jadi alasan platform ini ada.
+            </p>
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl bg-background/10 sm:grid-cols-2 lg:grid-cols-4">
+            {stats.map((stat) => (
+              <div key={stat.label} className="bg-ink p-6">
+                <p
+                  className={`font-mono text-4xl font-bold tracking-tight sm:text-5xl ${stat.accent}`}
+                >
+                  {stat.value}
+                </p>
+                <p className="mt-1 font-mono text-xs tracking-wide text-background/50">
+                  {stat.unit}
+                </p>
+                <p className="mt-4 text-sm font-semibold text-background">
+                  {stat.label}
+                </p>
+                <p className="mt-1 text-xs leading-relaxed text-background/55">
+                  {stat.sub}
+                </p>
               </div>
-              <Separator orientation="vertical" className="h-8" />
-              <div className="flex items-center gap-2">
-                <span className="flex size-9 items-center justify-center rounded-lg bg-accent text-accent-foreground">
-                  <Coins className="size-4" />
-                </span>
-                <div className="leading-tight">
-                  <p className="text-xs text-muted-foreground">Grounds Coin</p>
-                  <p className="font-mono text-sm font-semibold text-foreground">
-                    {formatNumber(coinEarned)}
-                  </p>
-                </div>
-              </div>
-            </Card>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ============================================================
-          2. STAT STRIP
+          01 — VALUE CONSTELLATION
           ============================================================ */}
-      <section className="mx-auto w-full max-w-6xl px-4 py-12 md:py-16">
-        <div className="mb-6 max-w-2xl">
-          <h2 className="font-display text-2xl font-semibold text-foreground sm:text-3xl">
-            Masalah yang kami lihat
-          </h2>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Ampas kopi adalah limbah bervolume besar yang sebenarnya kaya nilai.
-            Angka di bawah ini brutal — dan jadi alasan platform ini ada.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((stat) => (
-            <Card
-              key={stat.label}
-              className="gap-3 p-5 shadow-sm transition-shadow hover:shadow-md"
-            >
-              <p className="font-mono text-3xl font-bold tracking-tight text-primary sm:text-4xl">
-                {stat.value}
-                <span className="ml-1 align-baseline text-sm font-medium text-muted-foreground">
-                  {stat.unit}
-                </span>
-              </p>
-              <div>
-                <p className="text-sm font-semibold text-foreground">
-                  {stat.label}
-                </p>
-                <p className="mt-1 text-xs text-muted-foreground">{stat.sub}</p>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* ============================================================
-          3. VALUE CONSTELLATION
-          ============================================================ */}
-      <section className="border-y border-border bg-surface">
-        <div className="mx-auto w-full max-w-6xl px-4 py-12 md:py-16">
-          <div className="mb-8 max-w-2xl">
-            <Badge className="mb-3 bg-primary text-primary-foreground">
-              Multi-sided Platform
-            </Badge>
-            <h2 className="font-display text-2xl font-semibold text-foreground sm:text-3xl">
-              8-Entity Value Constellation
+      <section className="bg-background">
+        <div className="mx-auto w-full max-w-6xl px-5 py-16 md:px-8 md:py-24">
+          <div className="mb-12 max-w-2xl">
+            <p className="eyebrow text-primary">01 — Value Constellation</p>
+            <h2 className="mt-4 font-display text-3xl leading-tight font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+              Bukan rantai linear, tapi{" "}
+              <span className="italic text-accent">konstelasi nilai.</span>
             </h2>
-            <p className="mt-2 text-sm text-muted-foreground">
-              Bukan rantai linear, tapi konstelasi nilai: setiap entitas memberi
-              sesuatu ke ekosistem dan mendapat nilai balik. Inilah jantung
-              disrupsi GroundsToGrow.
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+              Setiap entitas memberi sesuatu ke ekosistem dan mendapat nilai
+              balik. Inilah jantung disrupsi GroundsToGrow — delapan pihak,
+              satu loop.
             </p>
           </div>
 
@@ -275,65 +308,67 @@ export default function LandingPage() {
       </section>
 
       {/* ============================================================
-          4. CARA KERJA
+          02 — CARA KERJA (Submit → Match → Pickup)
           ============================================================ */}
-      <section className="mx-auto w-full max-w-6xl px-4 py-12 md:py-16">
-        <div className="mb-8 max-w-2xl">
-          <h2 className="font-display text-2xl font-semibold text-foreground sm:text-3xl">
-            Cara kerja, 3 langkah
-          </h2>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Dari ampas di akhir shift sampai produk bernilai — alurnya
-            disengaja sesederhana mungkin.
-          </p>
-        </div>
+      <section className="border-y border-border bg-surface">
+        <div className="mx-auto w-full max-w-6xl px-5 py-16 md:px-8 md:py-24">
+          <div className="mb-12 grid gap-6 md:grid-cols-[1fr_auto] md:items-end">
+            <div className="max-w-2xl">
+              <p className="eyebrow text-primary">02 — Cara Kerja</p>
+              <h2 className="mt-4 font-display text-3xl leading-tight font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+                Tiga langkah, dari ampas{" "}
+                <span className="italic text-primary">jadi nilai.</span>
+              </h2>
+            </div>
+            <p className="max-w-xs text-sm text-muted-foreground">
+              Dari ampas di akhir shift sampai produk bernilai — alurnya
+              disengaja sesederhana mungkin.
+            </p>
+          </div>
 
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {STEPS.map((step, i) => {
-            const Icon = step.icon;
-            return (
-              <Card
-                key={step.step}
-                className="relative gap-4 p-6 shadow-sm transition-shadow hover:shadow-md"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="flex size-11 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                    <Icon className="size-5" />
-                  </span>
-                  <span className="font-mono text-3xl font-bold text-accent/60">
-                    {step.step}
-                  </span>
-                </div>
-                <div>
-                  <h3 className="font-display text-lg font-semibold text-foreground">
-                    {step.title}
-                  </h3>
-                  <p className="mt-1.5 text-sm text-muted-foreground">
-                    {step.desc}
-                  </p>
-                </div>
-                {i < STEPS.length - 1 && (
-                  <ArrowRight className="absolute -right-2.5 top-1/2 hidden size-5 -translate-y-1/2 text-border md:block" />
-                )}
-              </Card>
-            );
-          })}
+          <div className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl bg-border ring-1 ring-border md:grid-cols-3">
+            {STEPS.map((step) => {
+              const Icon = step.icon;
+              return (
+                <article
+                  key={step.step}
+                  className="group relative flex flex-col gap-5 bg-card p-7 transition-colors"
+                >
+                  <div className="flex items-start justify-between">
+                    <span className="flex size-12 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-transform group-hover:-translate-y-0.5">
+                      <Icon className="size-5" strokeWidth={1.75} />
+                    </span>
+                    <span className="font-mono text-5xl font-bold leading-none text-foreground/8">
+                      {step.step}
+                    </span>
+                  </div>
+                  <div>
+                    <h3 className="font-display text-xl font-semibold text-foreground">
+                      {step.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                      {step.desc}
+                    </p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </section>
 
       {/* ============================================================
-          5. REVENUE / VALUE TEASER
+          03 — REVENUE / VALUE
           ============================================================ */}
-      <section className="border-y border-border bg-surface">
-        <div className="mx-auto w-full max-w-6xl px-4 py-12 md:py-16">
-          <div className="mb-8 max-w-2xl">
-            <Badge variant="outline" className="mb-3">
-              Value Creation
-            </Badge>
-            <h2 className="font-display text-2xl font-semibold text-foreground sm:text-3xl">
-              Enam aliran nilai, satu loop
+      <section className="bg-background">
+        <div className="mx-auto w-full max-w-6xl px-5 py-16 md:px-8 md:py-24">
+          <div className="mb-12 max-w-2xl">
+            <p className="eyebrow text-primary">03 — Revenue &amp; Value</p>
+            <h2 className="mt-4 font-display text-3xl leading-tight font-semibold tracking-tight text-foreground sm:text-4xl md:text-5xl">
+              Enam aliran nilai,{" "}
+              <span className="italic text-accent">satu loop.</span>
             </h2>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
               <span className="font-medium text-foreground">
                 Limbah → resource → wealth.
               </span>{" "}
@@ -342,69 +377,83 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {REVENUE_STREAMS.map((stream) => {
+          <div className="grid grid-cols-1 gap-px overflow-hidden rounded-2xl bg-border ring-1 ring-border sm:grid-cols-2 lg:grid-cols-3">
+            {REVENUE_STREAMS.map((stream, i) => {
               const Icon = stream.icon;
               return (
-                <Card
+                <article
                   key={stream.title}
-                  className="flex-row items-start gap-3 p-4 shadow-sm transition-shadow hover:shadow-md"
+                  className="group flex items-start gap-4 bg-card p-6 transition-colors"
                 >
-                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-accent text-accent-foreground">
-                    <Icon className="size-4" />
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-accent/12 text-accent ring-1 ring-accent/25 transition-transform group-hover:-translate-y-0.5">
+                    <Icon className="size-5" strokeWidth={1.75} />
                   </span>
                   <div className="min-w-0">
-                    <h3 className="text-sm font-semibold text-foreground">
-                      {stream.title}
-                    </h3>
-                    <p className="mt-0.5 text-xs text-muted-foreground">
+                    <div className="flex items-baseline gap-2">
+                      <span className="font-mono text-[0.62rem] tracking-widest text-muted-foreground/50">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <h3 className="font-display text-base font-semibold text-foreground">
+                        {stream.title}
+                      </h3>
+                    </div>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
                       {stream.desc}
                     </p>
                   </div>
-                </Card>
+                </article>
               );
             })}
           </div>
 
-          {/* Featured products preview — bukti produk nyata dari loop */}
+          {/* Featured products — bukti produk nyata dari loop */}
           {featured.length > 0 && (
-            <div className="mt-10">
-              <div className="mb-4 flex items-end justify-between gap-4">
-                <h3 className="font-display text-lg font-semibold text-foreground">
-                  Produk dari loop
-                </h3>
+            <div className="mt-16">
+              <div className="mb-6 flex items-end justify-between gap-4 border-t border-border pt-6">
+                <div>
+                  <p className="eyebrow text-success">Bukti Loop</p>
+                  <h3 className="mt-2 font-display text-2xl font-semibold text-foreground">
+                    Produk dari ampas
+                  </h3>
+                </div>
                 <Button
                   variant="link"
                   size="sm"
-                  className="px-0"
+                  className="px-0 text-primary"
                   render={<Link href="/marketplace" />}
                   nativeButton={false}
                 >
                   Lihat semua
-                  <ArrowRight />
+                  <ArrowUpRight />
                 </Button>
               </div>
-              <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+              <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
                 {featured.map((product) => (
-                  <Card key={product.productId} className="gap-0 p-0">
-                    <img
-                      src={product.imageUrl}
-                      alt={product.namaProduk}
-                      className="aspect-square w-full object-cover"
-                      loading="lazy"
-                    />
-                    <div className="flex flex-col gap-1 p-3">
-                      <p className="truncate text-sm font-semibold text-foreground">
+                  <Link
+                    key={product.productId}
+                    href="/marketplace"
+                    className="group overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-primary/40"
+                  >
+                    <div className="overflow-hidden">
+                      <img
+                        src={product.imageUrl}
+                        alt={product.namaProduk}
+                        className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="flex flex-col gap-1 p-4">
+                      <p className="truncate font-display text-sm font-semibold text-foreground">
                         {product.namaProduk}
                       </p>
                       <p className="truncate text-xs text-muted-foreground">
                         {product.umkmName}
                       </p>
-                      <p className="font-mono text-sm font-semibold text-primary">
+                      <p className="mt-1 font-mono text-sm font-bold text-primary">
                         Rp {formatNumber(product.harga)}
                       </p>
                     </div>
-                  </Card>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -413,32 +462,47 @@ export default function LandingPage() {
       </section>
 
       {/* ============================================================
-          6. CTA PENUTUP
+          CTA PENUTUP
           ============================================================ */}
-      <section className="mx-auto w-full max-w-6xl px-4 py-12 md:py-16">
-        <Card className="relative overflow-hidden bg-primary text-primary-foreground">
-          <div className="pointer-events-none absolute -top-16 -right-10 size-56 rounded-full bg-accent/30 blur-3xl" />
-          <div className="relative flex flex-col items-start gap-5 p-8 md:p-12">
-            <h2 className="font-display max-w-2xl text-2xl font-semibold sm:text-3xl md:text-4xl">
-              Siap ubah ampas kopimu jadi kekayaan ekosistem?
-            </h2>
-            <p className="max-w-xl text-sm text-primary-foreground/80 md:text-base">
-              Coba demo WasteScan — submit ampas, lihat Smart Match jalan, dan
-              rasakan bagaimana satu kilogram limbah memicu seluruh konstelasi
-              nilai.
-            </p>
-            <Button
-              size="lg"
-              variant="secondary"
-              className="px-5"
-              render={<Link href="/wastescan" />}
-              nativeButton={false}
-            >
-              Coba WasteScan Demo Sekarang
-              <ArrowRight />
-            </Button>
+      <section className="border-t border-border bg-surface">
+        <div className="mx-auto w-full max-w-6xl px-5 py-16 md:px-8 md:py-24">
+          <div className="relative overflow-hidden rounded-3xl bg-primary p-8 text-primary-foreground md:p-14">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -top-20 -right-16 size-72 rounded-full bg-highlight/25 blur-3xl"
+            />
+            <div
+              aria-hidden
+              className="pointer-events-none absolute -bottom-24 -left-10 size-72 rounded-full bg-accent/30 blur-3xl"
+            />
+            <div className="relative max-w-2xl">
+              <p className="eyebrow text-primary-foreground/70">
+                Mulai sekarang
+              </p>
+              <h2 className="mt-4 font-display text-3xl leading-tight font-semibold tracking-tight sm:text-4xl md:text-5xl">
+                Siap ubah ampas kopimu jadi{" "}
+                <span className="italic">kekayaan ekosistem?</span>
+              </h2>
+              <p className="mt-4 max-w-xl text-sm leading-relaxed text-primary-foreground/80 md:text-base">
+                Coba demo WasteScan — submit ampas, lihat Smart Match jalan, dan
+                rasakan bagaimana satu kilogram limbah memicu seluruh konstelasi
+                nilai.
+              </p>
+              <div className="mt-8">
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="px-5"
+                  render={<Link href="/wastescan" />}
+                  nativeButton={false}
+                >
+                  Coba WasteScan Demo Sekarang
+                  <ArrowRight />
+                </Button>
+              </div>
+            </div>
           </div>
-        </Card>
+        </div>
       </section>
     </>
   );

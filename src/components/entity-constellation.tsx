@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Coffee,
   FlaskConical,
@@ -8,12 +10,12 @@ import {
   Sprout,
   Truck,
   Leaf,
+  ArrowUpRight,
+  ArrowDownLeft,
   type LucideIcon,
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Card } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { getCoreEntities, getSupportingEntities } from "@/data";
 import type { Entity } from "@/types";
 
@@ -29,49 +31,71 @@ const ICON_MAP: Record<string, LucideIcon> = {
   Truck,
 };
 
-function EntityCard({ entity }: { entity: Entity }) {
+function EntityRow({
+  entity,
+  ordinal,
+}: {
+  entity: Entity;
+  ordinal: string;
+}) {
   const Icon = ICON_MAP[entity.icon] ?? Leaf;
   const isCore = entity.tier === "core";
 
   return (
-    <Card
+    <article
       className={cn(
-        "flex flex-col gap-2 p-4 transition-shadow hover:shadow-md",
-        isCore ? "border-accent/40" : "border-border"
+        "group relative grid grid-cols-[auto_1fr] gap-x-4 gap-y-3 bg-card p-5 transition-colors",
+        "border-l-2",
+        isCore ? "border-l-accent" : "border-l-highlight"
       )}
     >
-      <div className="flex items-center gap-3">
+      {/* Ordinal mono + ikon */}
+      <div className="flex flex-col items-center gap-2">
         <span
           className={cn(
-            "flex size-10 shrink-0 items-center justify-center rounded-lg",
+            "flex size-11 items-center justify-center rounded-xl transition-transform group-hover:-translate-y-0.5",
             isCore
-              ? "bg-accent text-accent-foreground"
-              : "bg-surface text-primary"
+              ? "bg-accent/12 text-accent ring-1 ring-accent/25"
+              : "bg-highlight/15 text-highlight ring-1 ring-highlight/30"
           )}
         >
-          <Icon className="size-5" />
+          <Icon className="size-5" strokeWidth={1.75} />
         </span>
-        <div className="min-w-0">
-          <h3 className="truncate text-sm font-semibold text-foreground">
-            {entity.name}
-          </h3>
-          <p className="truncate text-xs text-muted-foreground">
-            {entity.role}
-          </p>
-        </div>
+        <span className="font-mono text-[0.62rem] tracking-widest text-muted-foreground/60">
+          {ordinal}
+        </span>
       </div>
 
-      <div className="space-y-1 text-xs">
-        <p className="text-muted-foreground">
-          <span className="font-semibold text-primary">Kasih:</span>{" "}
-          {entity.gives}
-        </p>
-        <p className="text-muted-foreground">
-          <span className="font-semibold text-success">Dapat:</span>{" "}
-          {entity.gets}
-        </p>
+      {/* Nama + role */}
+      <div className="min-w-0">
+        <h4 className="font-display text-lg leading-tight font-semibold text-foreground">
+          {entity.name}
+        </h4>
+        <p className="mt-0.5 text-xs text-muted-foreground">{entity.role}</p>
       </div>
-    </Card>
+
+      {/* Gives / Gets — span penuh, ala ledger */}
+      <dl className="col-span-2 space-y-2 border-t border-border pt-3 text-xs">
+        <div className="flex items-start gap-2">
+          <ArrowUpRight className="mt-px size-3.5 shrink-0 text-primary" />
+          <div>
+            <dt className="eyebrow mb-0.5 text-[0.58rem] text-primary">
+              Kasih
+            </dt>
+            <dd className="text-muted-foreground">{entity.gives}</dd>
+          </div>
+        </div>
+        <div className="flex items-start gap-2">
+          <ArrowDownLeft className="mt-px size-3.5 shrink-0 text-success" />
+          <div>
+            <dt className="eyebrow mb-0.5 text-[0.58rem] text-success">
+              Dapat
+            </dt>
+            <dd className="text-muted-foreground">{entity.gets}</dd>
+          </div>
+        </div>
+      </dl>
+    </article>
   );
 }
 
@@ -80,53 +104,70 @@ export function EntityConstellation() {
   const supportingEntities = getSupportingEntities();
 
   return (
-    <section className="w-full space-y-8">
-      {/* Platform di tengah */}
-      <div className="flex flex-col items-center gap-2 text-center">
-        <span className="flex size-14 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-sm">
-          <Leaf className="size-7" />
+    <div className="relative">
+      {/* Blob organik halus latar (C) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/8 blur-3xl"
+      />
+
+      {/* Orchestrator di tengah */}
+      <div className="mx-auto mb-12 flex max-w-xl flex-col items-center text-center">
+        <span className="relative flex size-16 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md ring-4 ring-primary/15">
+          <Leaf className="size-8" strokeWidth={1.75} />
+          <span className="absolute -right-1 -bottom-1 flex size-5 items-center justify-center rounded-full bg-accent text-[0.55rem] font-bold text-accent-foreground ring-2 ring-card">
+            8
+          </span>
         </span>
-        <h2 className="text-xl font-semibold text-foreground">
-          Grounds<span className="text-accent">To</span>Grow
-        </h2>
-        <p className="max-w-md text-sm text-muted-foreground">
-          Satu platform, 8 entitas saling memberi & menerima nilai —{" "}
-          <span className="font-medium text-foreground">
-            value constellation
-          </span>{" "}
-          circular economy.
+        <p className="eyebrow mt-4 text-accent">Platform Orchestrator</p>
+        <h3 className="mt-1 font-display text-2xl font-semibold tracking-tight text-foreground">
+          Grounds<span className="italic text-accent">To</span>Grow
+        </h3>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Satu platform menengahi <span className="font-mono">8</span> entitas —
+          tiap pihak{" "}
+          <span className="font-medium text-foreground">memberi & menerima</span>{" "}
+          nilai dalam loop sirkular, bukan rantai linear.
         </p>
       </div>
 
       {/* CORE 4 */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-2">
-          <Badge className="bg-accent text-accent-foreground">Core 4</Badge>
-          <span className="text-sm text-muted-foreground">
-            Pelaku langsung rantai nilai ampas
+      <div className="space-y-4">
+        <div className="flex flex-wrap items-baseline justify-between gap-2 border-t border-border pt-4">
+          <p className="eyebrow text-accent">Core — 4 Pelaku Langsung</p>
+          <span className="text-xs text-muted-foreground">
+            Inti rantai nilai ampas
           </span>
         </div>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {coreEntities.map((entity) => (
-            <EntityCard key={entity.id} entity={entity} />
+        <div className="grid gap-px overflow-hidden rounded-2xl bg-border ring-1 ring-border sm:grid-cols-2 lg:grid-cols-4">
+          {coreEntities.map((entity, i) => (
+            <EntityRow
+              key={entity.id}
+              entity={entity}
+              ordinal={`C${i + 1}`}
+            />
           ))}
         </div>
       </div>
 
       {/* SUPPORTING 4 */}
-      <div className="space-y-3">
-        <div className="flex items-center gap-2">
-          <Badge variant="outline">Supporting 4</Badge>
-          <span className="text-sm text-muted-foreground">
-            Enabler ekosistem & jaringan
+      <div className="mt-10 space-y-4">
+        <div className="flex flex-wrap items-baseline justify-between gap-2 border-t border-border pt-4">
+          <p className="eyebrow text-highlight">Supporting — 4 Enabler</p>
+          <span className="text-xs text-muted-foreground">
+            Jaringan & legitimasi ekosistem
           </span>
         </div>
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {supportingEntities.map((entity) => (
-            <EntityCard key={entity.id} entity={entity} />
+        <div className="grid gap-px overflow-hidden rounded-2xl bg-border ring-1 ring-border sm:grid-cols-2 lg:grid-cols-4">
+          {supportingEntities.map((entity, i) => (
+            <EntityRow
+              key={entity.id}
+              entity={entity}
+              ordinal={`S${i + 1}`}
+            />
           ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 }

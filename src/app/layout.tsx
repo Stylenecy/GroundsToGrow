@@ -1,24 +1,37 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
+import { Fraunces, Hanken_Grotesk, JetBrains_Mono, Caveat } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 
-const display = Space_Grotesk({
+// Display — Fraunces (serif ekspresif, editorial). Variable, normal + italic.
+const display = Fraunces({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
 });
 
-const sans = Inter({
+// Body / UI — Hanken Grotesk (grotesk humanis berkarakter).
+const sans = Hanken_Grotesk({
   variable: "--font-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
+// Mono — JetBrains Mono (angka, eyebrow label, tag).
 const mono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
+  display: "swap",
+});
+
+// Script — Caveat (anotasi handwritten, hemat).
+const script = Caveat({
+  variable: "--font-script",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -33,7 +46,7 @@ export default function RootLayout({
   return (
     <html
       lang="id"
-      className={`${display.variable} ${sans.variable} ${mono.variable} h-full antialiased`}
+      className={`${display.variable} ${sans.variable} ${mono.variable} ${script.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <SiteHeader />
