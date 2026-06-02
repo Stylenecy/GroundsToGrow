@@ -63,38 +63,32 @@ const statusMeta: Record<
   open: {
     label: "Open",
     variant: "outline",
-    className:
-      "border-accent/40 text-accent font-mono text-xs uppercase tracking-wider",
+    className: "border-accent/40 text-accent font-mono text-xs uppercase tracking-wider",
   },
   matched: {
     label: "Matched",
     variant: "default",
-    className:
-      "bg-accent text-background font-mono text-xs uppercase tracking-wider",
+    className: "bg-accent text-background font-mono text-xs uppercase tracking-wider",
   },
   in_pickup: {
     label: "Pickup",
     variant: "default",
-    className:
-      "bg-highlight text-foreground font-mono text-xs uppercase tracking-wider",
+    className: "bg-highlight text-foreground font-mono text-xs uppercase tracking-wider",
   },
   completed: {
     label: "Selesai",
     variant: "default",
-    className:
-      "bg-success text-background font-mono text-xs uppercase tracking-wider",
+    className: "bg-success text-background font-mono text-xs uppercase tracking-wider",
   },
   expired: {
     label: "Kedaluwarsa",
     variant: "outline",
-    className:
-      "border-border text-muted-foreground font-mono text-xs uppercase tracking-wider",
+    className: "border-border text-muted-foreground font-mono text-xs uppercase tracking-wider",
   },
   cancelled: {
     label: "Dibatalkan",
     variant: "outline",
-    className:
-      "border-border text-muted-foreground font-mono text-xs uppercase tracking-wider",
+    className: "border-border text-muted-foreground font-mono text-xs uppercase tracking-wider",
   },
 };
 
@@ -126,10 +120,10 @@ export default function DashboardPage() {
 
   // Sortir listing & transaksi terbaru di atas.
   const listingsSorted = [...listings].sort(
-    (a, b) => +new Date(b.createdAt) - +new Date(a.createdAt),
+    (a, b) => +new Date(b.createdAt) - +new Date(a.createdAt)
   );
   const coinTxsSorted = [...coinTxs].sort(
-    (a, b) => +new Date(b.createdAt) - +new Date(a.createdAt),
+    (a, b) => +new Date(b.createdAt) - +new Date(a.createdAt)
   );
 
   const initials = shop.kedaiName
@@ -142,7 +136,7 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-background text-foreground antialiased selection:bg-primary/20">
       {/* ============================================================ */}
-      {/* 1. HEADER — editorial masthead kedai (Kembali ke Bawaan)      */}
+      {/* 1. HEADER — editorial masthead kedai                          */}
       {/* ============================================================ */}
       <header className="relative overflow-hidden border-b border-border">
         {/* organic blob accent (C) — sangat halus */}
@@ -213,8 +207,8 @@ export default function DashboardPage() {
       {/* 2. METRIC SHOWCASE — Seksi Gelap Dramatis Asimetris (Hero)    */}
       {/* ============================================================ */}
       <section className="bg-ink text-background relative overflow-hidden border-b border-border">
-        {/* Carbon Tech subtle grid lines accent */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        {/* IDE 1: Carbon Tech subtle grid lines accent background texture */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:3rem_3rem] pointer-events-none" />
 
         <div className="relative mx-auto w-full max-w-6xl px-6 py-16 md:px-8 md:py-20">
           <div className="flex flex-col gap-4 border-b border-background/10 pb-10 mb-12 lg:flex-row lg:items-end lg:justify-between">
@@ -228,15 +222,16 @@ export default function DashboardPage() {
               </h2>
             </div>
             <p className="max-w-md text-sm text-background/60 font-sans leading-relaxed">
-              Data real-time penyerapan emisi karbon dan pemanfaatan kembali
-              limbah padat roastery Anda ke dalam 8 entitas ekosistem.
+              Data real-time penyerapan emisi karbon dan pemanfaatan kembali limbah padat roastery Anda ke dalam 8 entitas ekosistem.
             </p>
           </div>
 
-          {/* ASYMMETRIC GRID START */}
+          {/* ASYMMETRIC GRID */}
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-5 items-stretch">
+            
             {/* LEFT SIDE: HERO METRIC (ESG & CARBON COVERAGE - 60% Width) */}
             <div className="grid grid-cols-1 gap-6 lg:col-span-3 bg-background/[0.02] border border-background/10 p-6 md:p-8 rounded-2xl flex-col justify-between relative group">
+              
               {/* Organic script positioning for organic warmth accent */}
               <div className="absolute top-4 right-6 pointer-events-none rotate-3 hidden sm:block">
                 <p className="font-script text-xl text-highlight leading-none">
@@ -256,11 +251,9 @@ export default function DashboardPage() {
                     <span className="font-mono text-7xl font-bold tracking-tighter text-background md:text-8xl">
                       {esgScore}
                     </span>
-                    <span className="font-mono text-lg text-background/30">
-                      /100
-                    </span>
+                    <span className="font-mono text-lg text-background/30">/100</span>
                   </div>
-
+                  
                   <div className="mt-4 max-w-md space-y-2">
                     <Progress
                       value={esgScore}
@@ -270,9 +263,7 @@ export default function DashboardPage() {
                       <span className="text-highlight uppercase tracking-wider font-semibold">
                         {esgPredikat(esgScore)}
                       </span>
-                      <span className="text-background/40">
-                        Target Ekosistem: 90+
-                      </span>
+                      <span className="text-background/40">Target Ekosistem: 90+</span>
                     </div>
                   </div>
                 </div>
@@ -282,28 +273,18 @@ export default function DashboardPage() {
                   <div className="space-y-1">
                     <div className="flex items-center gap-2 text-accent">
                       <Leaf className="size-4 shrink-0" />
-                      <span className="eyebrow text-[11px] tracking-wider uppercase font-mono">
-                        Carbon Saved Contribution
-                      </span>
+                      <span className="eyebrow text-[11px] tracking-wider uppercase font-mono">Carbon Saved Contribution</span>
                     </div>
                     <p className="font-mono text-3xl font-semibold tracking-tight text-background">
-                      {numberFmt.format(co2Saved)}{" "}
-                      <span className="text-sm font-sans text-accent font-normal">
-                        kg CO₂-eq
-                      </span>
+                      {numberFmt.format(co2Saved)} <span className="text-sm font-sans text-accent font-normal">kg CO₂-eq</span>
                     </p>
-                    <p className="text-xs text-background/40">
-                      Emisi gas rumah kaca terhindarkan
-                    </p>
+                    <p className="text-xs text-background/40">Emisi gas rumah kaca terhindarkan</p>
                   </div>
-
+                  
                   <div className="space-y-1 bg-accent/5 rounded-xl p-4 border border-accent/10">
-                    <span className="eyebrow text-[11px] tracking-wider text-accent uppercase font-mono block">
-                      Ecosystem Status
-                    </span>
+                    <span className="eyebrow text-[11px] tracking-wider text-accent uppercase font-mono block">Ecosystem Status</span>
                     <p className="text-sm text-background/90 font-medium leading-snug mt-1">
-                      Kedai Anda berkontribusi aktif mereduksi dampak karbon
-                      regional TPA Yogyakarta.
+                      Kedai Anda berkontribusi aktif mereduksi dampak karbon regional TPA Yogyakarta.
                     </p>
                   </div>
                 </div>
@@ -312,6 +293,7 @@ export default function DashboardPage() {
 
             {/* RIGHT SIDE: SUPPORTING ECONOMIC & VOLUME METRICS (40% Width) */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-6 lg:col-span-2">
+              
               {/* Grounds Coin Asset Card */}
               <article className="bg-background/[0.03] border border-background/10 p-6 rounded-2xl flex flex-col justify-between hover:border-background/20 transition-all">
                 <div className="flex items-start justify-between">
@@ -323,9 +305,7 @@ export default function DashboardPage() {
                       <span className="font-mono text-4xl font-semibold tracking-tight text-highlight">
                         {numberFmt.format(coinBalance)}
                       </span>
-                      <span className="font-mono text-xs text-highlight/70">
-                        GRC
-                      </span>
+                      <span className="font-mono text-xs text-highlight/70">GRC</span>
                     </div>
                   </div>
                   <div className="p-2 bg-highlight/10 rounded-xl">
@@ -334,9 +314,7 @@ export default function DashboardPage() {
                 </div>
                 <div className="border-t border-background/5 pt-4 mt-4 flex justify-between items-center text-xs text-background/50 font-mono">
                   <span>Total Keuntungan Sampingan</span>
-                  <span className="text-background/80">
-                    {numberFmt.format(coinEarned)} Earned
-                  </span>
+                  <span className="text-background/80">{numberFmt.format(coinEarned)} Earned</span>
                 </div>
               </article>
 
@@ -351,9 +329,7 @@ export default function DashboardPage() {
                       <span className="font-mono text-4xl font-semibold tracking-tight text-success">
                         {numberFmt.format(kgDiverted)}
                       </span>
-                      <span className="font-mono text-xs text-success/70">
-                        KG
-                      </span>
+                      <span className="font-mono text-xs text-success/70">KG</span>
                     </div>
                   </div>
                   <div className="p-2 bg-success/10 rounded-xl">
@@ -362,25 +338,19 @@ export default function DashboardPage() {
                 </div>
                 <div className="border-t border-background/5 pt-4 mt-4 flex justify-between items-center text-xs text-background/50 font-mono">
                   <span>Frekuensi Sirkulasi</span>
-                  <span className="text-background/80">
-                    {shop.totalListings} Listings
-                  </span>
+                  <span className="text-background/80">{shop.totalListings} Listings</span>
                 </div>
               </article>
+
             </div>
           </div>
-          {/* ASYMMETRIC GRID END */}
 
           {globalEsg ? (
             <div className="mt-10 flex items-center gap-3 rounded-xl bg-background/[0.02] border border-background/5 px-4 py-3 max-w-3xl">
               <span className="flex size-2 rounded-full bg-accent animate-pulse" />
               <p className="text-xs font-mono text-background/60">
-                Dampak Kolektif: Seluruh mitra platform telah berhasil
-                mengalihkan{" "}
-                <span className="text-highlight font-semibold">
-                  {numberFmt.format(globalEsg.kgDivertedTotal)} kg
-                </span>{" "}
-                ampas kopi dari kerusakan ekologis TPA lokal.
+                Dampak Kolektif: Seluruh mitra platform telah berhasil mengalihkan{" "}
+                <span className="text-highlight font-semibold">{numberFmt.format(globalEsg.kgDivertedTotal)} kg</span> ampas kopi dari kerusakan ekologis TPA lokal.
               </p>
             </div>
           ) : null}
@@ -392,6 +362,7 @@ export default function DashboardPage() {
       {/* ============================================================ */}
       <section className="mx-auto w-full max-w-6xl px-6 py-16 md:px-8 md:py-24">
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-12 lg:gap-12">
+          
           {/* --- LEFT COLUMN: Riwayat Setoran Ampas (7/12 Width) --- */}
           <div className="lg:col-span-7 space-y-6">
             <div className="flex items-center justify-between border-b border-border pb-4">
@@ -420,9 +391,10 @@ export default function DashboardPage() {
               {listingsSorted.map((listing) => {
                 const meta = statusMeta[listing.status];
                 return (
+                  /* IDE 2: Hover state micro-interaction (shifts slightly, changes border highlight color) */
                   <li
                     key={listing.listingId}
-                    className="grid grid-cols-2 md:grid-cols-12 items-center gap-y-2 py-4 px-2 transition-all hover:bg-surface/40 group rounded-lg"
+                    className="grid grid-cols-2 md:grid-cols-12 items-center gap-y-2 py-4 px-2 transition-all duration-300 hover:bg-surface/50 hover:translate-x-1 hover:border-primary/30 group rounded-lg"
                   >
                     <span className="col-span-1 md:col-span-3 font-mono text-sm text-foreground/80">
                       {formatTanggal(listing.createdAt)}
@@ -431,10 +403,7 @@ export default function DashboardPage() {
                       {jenisKopiLabel[listing.jenisKopi] ?? listing.jenisKopi}
                     </span>
                     <span className="col-span-1 md:col-span-2 md:text-right font-mono text-sm font-bold text-foreground">
-                      {listing.volumeKg}{" "}
-                      <span className="text-xs text-muted-foreground font-sans font-normal">
-                        kg
-                      </span>
+                      {listing.volumeKg} <span className="text-xs text-muted-foreground font-sans font-normal">kg</span>
                     </span>
                     <span className="col-span-1 md:col-span-3 flex justify-end">
                       <Badge variant={meta.variant} className={meta.className}>
@@ -447,8 +416,7 @@ export default function DashboardPage() {
 
               {listingsSorted.length === 0 ? (
                 <li className="py-12 text-center text-sm text-muted-foreground font-sans">
-                  Belum ada aliran ampas kopi tercatat. Mulai kirim setoran
-                  pertama Anda.
+                  Belum ada aliran ampas kopi tercatat. Mulai kirim setoran pertama Anda.
                 </li>
               ) : null}
             </ul>
@@ -470,19 +438,20 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            {/* Mini Summary Card Editorial style */}
-            <div className="rounded-2xl border border-border bg-card p-6 shadow-sm relative overflow-hidden group">
+            {/* IDE 3: Editorial Roastery ticket-style active balance card with dashed borders & watermarked coin background */}
+            <div className="rounded-2xl border-2 border-dashed border-border bg-card p-6 shadow-sm relative overflow-hidden group">
+              <div className="absolute -right-6 -bottom-6 text-highlight/[0.06] pointer-events-none transition-transform duration-500 group-hover:scale-110">
+                <Coins className="size-32" />
+              </div>
               <div className="absolute top-0 left-0 w-1.5 h-full bg-highlight" />
               <span className="eyebrow text-[11px] tracking-wider text-muted-foreground uppercase font-mono block">
                 Total Kompensasi Aktif (Liquidity)
               </span>
-              <div className="mt-2 flex items-baseline gap-2">
+              <div className="mt-2 flex items-baseline gap-2 relative z-10">
                 <span className="font-mono text-4xl font-bold tracking-tight text-foreground">
                   {numberFmt.format(coinBalance)}
                 </span>
-                <span className="font-mono text-sm text-muted-foreground">
-                  GRC
-                </span>
+                <span className="font-mono text-sm text-muted-foreground">GRC</span>
               </div>
             </div>
 
@@ -491,7 +460,7 @@ export default function DashboardPage() {
               <span className="eyebrow text-[10px] tracking-wider text-muted-foreground uppercase font-mono block px-1">
                 Mutasi Terakhir
               </span>
-
+              
               <div className="divide-y divide-border/50 border-t border-border/50">
                 {coinTxsSorted.map((tx) => {
                   const isEarn = tx.type === "earn";
@@ -520,8 +489,7 @@ export default function DashboardPage() {
                             {tx.description}
                           </p>
                           <span className="font-mono text-[11px] text-muted-foreground block">
-                            {isEarn ? "Earn Node" : "Redeem Vault"} ·{" "}
-                            {formatTanggalSingkat(tx.createdAt)}
+                            {isEarn ? "Earn Node" : "Redeem Vault"} · {formatTanggalSingkat(tx.createdAt)}
                           </span>
                         </div>
                       </div>
@@ -546,6 +514,7 @@ export default function DashboardPage() {
               </div>
             </div>
           </aside>
+
         </div>
       </section>
     </div>
