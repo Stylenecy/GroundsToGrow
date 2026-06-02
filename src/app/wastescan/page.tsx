@@ -24,6 +24,7 @@ import { smartMatches, umkms } from "@/data";
 import type { JenisKopi, MatchStatus, SmartMatch, Umkm } from "@/types";
 
 import { Button } from "@/components/ui/button";
+import { HeroHeadline } from "@/components/hero-headline";
 import {
   Card,
   CardContent,
@@ -404,20 +405,21 @@ export default function WasteScanPage() {
           <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
               <p className="eyebrow text-accent">01 — WasteScan AI Demo</p>
-              <h1 className="animate-in fade-in slide-in-from-bottom-2 mt-5 font-display text-4xl leading-[1.05] font-bold tracking-tight text-foreground duration-700 sm:text-5xl md:text-6xl">
+              <HeroHeadline className="mt-5 font-display text-[2.75rem] leading-[1.02] font-bold tracking-[-0.03em] text-foreground sm:text-5xl md:text-6xl">
                 Submit ampas kopi dalam{" "}
                 <span className="relative inline-block text-primary italic">
                   30 detik
                   <span
                     aria-hidden
-                    className="absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-primary/25"
+                    className="absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-primary/30"
                   />
                 </span>
                 .
-              </h1>
+              </HeroHeadline>
               <p className="mt-5 max-w-xl text-base text-muted-foreground md:text-lg">
-                Foto ampasmu, AI klasifikasikan grade-nya, lalu cocokkan otomatis
-                dengan UMKM hilirisasi terdekat. Tanpa repot, tanpa terbuang.
+                Foto ampas di akhir shift. AI menilai grade A, B, atau C dari
+                freshness, lalu mencocokkannya dengan UMKM hilirisasi terdekat.
+                Tidak ada yang berakhir di TPA.
               </p>
 
               {/* Trust chips */}

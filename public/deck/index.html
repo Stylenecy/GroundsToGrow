@@ -381,6 +381,57 @@ body.on-dark .hint{color:#b8a787;}
 
 .reveal-line{font-family:var(--font-display);font-weight:600;font-style:italic;}
 
+/* ---------- DIAGRAM CARDS (real foundation renders) ---------- */
+.diagram{
+  background:#ffffff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 8px 26px rgba(42,24,16,.10);
+}
+.dark .diagram{border-color:rgba(255,255,255,.16);}
+.diagram .dhead{
+  display:flex;align-items:center;justify-content:space-between;gap:.6rem;
+  padding:.5rem .85rem;border-bottom:1px solid var(--border);
+  background:var(--surface);
+}
+.diagram .dhead .dlabel{
+  font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted-foreground);font-weight:500;
+}
+.diagram .dhead .dtag{
+  font-family:var(--font-mono);font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:.16rem .5rem;border-radius:999px;
+  background:rgba(0,139,124,.1);color:var(--accent);border:1px solid rgba(0,139,124,.28);
+}
+.diagram .dframe{
+  background:#ffffff;
+  display:flex;align-items:center;justify-content:center;
+  padding:.8rem;
+  overflow:auto;
+}
+.diagram .dframe img{
+  display:block;
+  width:100%;height:auto;
+  object-fit:contain;
+}
+/* wide/landscape diagrams (DFD) */
+.diagram.wide .dframe{max-height:32vh;}
+.diagram.wide .dframe img{max-height:30vh;width:auto;max-width:100%;}
+/* tall/portrait diagrams (WasteScan flowchart) */
+.diagram.tall .dframe{max-height:46vh;}
+.diagram.tall .dframe img{max-height:44vh;width:auto;}
+/* square diagrams (Activity / ERD) */
+.diagram.square .dframe{max-height:42vh;}
+.diagram.square .dframe img{max-height:40vh;width:auto;max-width:100%;}
+.diagram .dcap{
+  font-family:var(--font-mono);font-size:.6rem;letter-spacing:.03em;
+  color:var(--muted-foreground);line-height:1.4;
+  padding:.5rem .85rem;border-top:1px solid var(--border);background:var(--card);
+}
+.diagram-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;}
+@media(max-width:900px){.diagram-grid{grid-template-columns:1fr;}}
+
 @media(max-width:760px){
   .slide{padding:8vh 24px 12vh;}
   .stat-cell{border-left:0;padding-left:0;border-top:1px solid rgba(255,255,255,.14);}
@@ -433,7 +484,7 @@ body.on-dark .hint{color:#b8a787;}
 
         <h1 class="anim h-hero mt-l">From Waste<br>to <span class="italic c-primary">Wealth.</span><br><span class="c-muted" style="font-size:.5em;font-weight:400;font-style:italic;display:inline-block;margin-top:.4rem;">From Coffee to Carbon.</span></h1>
 
-        <p class="anim lead mt-m">Platform sharing economy yang mengubah ampas kopi dari beban biaya jadi <span class="c-accent" style="font-weight:600;">multi-sided ecosystem 8 entitas</span> — orchestrator nilai circular economy.</p>
+        <p class="anim lead mt-m">Ampas kopi hari ini adalah biaya buang. Kami menjadikannya <span class="c-accent" style="font-weight:600;">ekosistem multi-sisi 8 entitas</span>: satu platform yang mengkoordinasikan supply, hilirisasi, dan pembeli dalam loop circular economy.</p>
 
         <div class="anim flex gap-s wrap mt-m">
           <span class="tag t-primary">Digital Disruption</span>
@@ -476,7 +527,7 @@ body.on-dark .hint{color:#b8a787;}
           </div>
           <div class="stat-cell">
             <div class="num">0,4–0,85<span style="font-size:.42em;">T CO₂e</span></div>
-            <div class="lab">potensi emisi dihindari per ton ampas yang dialihkan dari TPA — estimasi faktor EPA/IPCC (avoided emissions, belum tervalidasi MRV).</div>
+            <div class="lab">potensi emisi dihindari per ton ampas yang dialihkan dari TPA. Estimasi faktor EPA/IPCC (avoided emissions, belum tervalidasi MRV).</div>
           </div>
           <div class="stat-cell">
             <div class="num">Rp 0</div>
@@ -486,7 +537,7 @@ body.on-dark .hint{color:#b8a787;}
         <div class="anim" style="font-family:var(--font-mono);font-size:.66rem;letter-spacing:.04em;color:#a8977a;margin-top:1.4rem;">Sumber: BPS Statistik Kopi 2023 · EPA/IPCC (proxy sampah organik) · estimasi, bukan sensus.</div>
       </div>
 
-      <p class="anim lead mt-xl">Sejak <span class="c-gold" style="font-weight:600;">TPA Piyungan ditutup permanen (Mar 2024)</span>, Jogja kehabisan tempat membuang. Masalahnya bukan ampasnya tak berguna — tapi <span class="c-gold" style="font-weight:600;">tidak ada yang mengkoordinasikan</span> pihak-pihak yang sebenarnya saling membutuhkan.</p>
+      <p class="anim lead mt-xl">Sejak <span class="c-gold" style="font-weight:600;">TPA Piyungan ditutup permanen (Maret 2024)</span>, Jogja kehabisan ruang buang. Ampasnya berguna: kandungan nitrogen ~2%, bahan baku kompos dan skincare. Yang hilang adalah <span class="c-gold" style="font-weight:600;">koordinator</span> yang mempertemukan kedai, UMKM pengolah, dan petani yang sebenarnya saling membutuhkan.</p>
     </div>
   </section>
 
@@ -498,20 +549,20 @@ body.on-dark .hint{color:#b8a787;}
       <h2 class="anim h-xl mt-m" style="max-width:18ch;">Ini <span style="text-decoration:line-through;text-decoration-color:var(--primary);text-decoration-thickness:3px;" class="c-muted">sampah.</span></h2>
       <h2 class="anim h-xl" style="max-width:20ch;">Ini <span class="italic c-accent">idle resource</span> dengan 8 sisi ekosistem.</h2>
 
-      <p class="anim lead mt-l">Cara berpikir lama melihat ampas sebagai akhir dari sebuah rantai linier. Kami melihatnya sebagai <span class="c-primary" style="font-weight:600;">titik awal sebuah loop</span> — di mana 8 pihak berbeda masing-masing punya kepentingan untuk menambah nilai.</p>
+      <p class="anim lead mt-l">Rantai lama menaruh ampas di ujung, sebagai limbah yang dibuang. Kami menaruhnya di <span class="c-primary" style="font-weight:600;">titik awal sebuah loop</span>, tempat 8 pihak masing-masing menambah satu lapis nilai sebelum mengoper ke pihak berikutnya.</p>
 
       <div class="anim fgrid f3 mt-l">
         <div class="fcard bl-p">
-          <h4>Bukan biaya — supply</h4>
-          <p>Kedai kopi: dari bayar disposal jadi dapat ESG badge + dashboard. Limbah jadi aset.</p>
+          <h4>Limbah jadi aset</h4>
+          <p>Kedai berhenti bayar disposal. Mereka dapat ESG Eco-Badge plus dashboard volume ampas yang dialihkan dari TPA.</p>
         </div>
         <div class="fcard bl-a">
-          <h4>Bukan acak — terkoordinasi</h4>
-          <p>Smart Matching menggantikan grup WhatsApp & kontak personal dengan trust layer + reputation.</p>
+          <h4>Grup WA jadi trust layer</h4>
+          <p>Smart Matching menggantikan kontak personal dan grup WhatsApp dengan reputation score dan riwayat transaksi yang bisa diverifikasi.</p>
         </div>
         <div class="fcard bl-g">
-          <h4>Bukan linear — sirkular</h4>
-          <p>Kopi pagi → skincare malam → kompos → tanaman. Nilai berputar, tidak berakhir di TPA.</p>
+          <h4>Loop, bukan TPA</h4>
+          <p>Kopi pagi jadi skincare malam, lalu kompos, lalu tanaman. Empat hop. Nilai berputar, tidak berhenti di tempat sampah.</p>
         </div>
       </div>
       <p class="anim script mt-m">resource, not rubbish ✿</p>
@@ -525,7 +576,7 @@ body.on-dark .hint{color:#b8a787;}
     <div class="inner">
       <div class="anim eyebrow teal">03 — Klasifikasi Teori · Materi P15</div>
       <h2 class="anim h-lg mt-m" style="max-width:26ch;">Ini bukan digitalisasi proses lama.<br>Ini <span class="italic c-primary">Digital Disruption.</span></h2>
-      <p class="anim lead mt-s">Di-map ke <span style="font-weight:600;color:var(--foreground);">9-Level Model of Digital Disruption</span> (Bu Dhika) — tiga level kunci yang jadi backbone pitch:</p>
+      <p class="anim lead mt-s">Di-map ke <span style="font-weight:600;color:var(--foreground);">9-Level Model of Digital Disruption</span> (Bu Dhika). Tiga level jadi tulang punggung pitch ini:</p>
 
       <div class="anim stagger mt-l" style="display:block;">
         <div class="lvl">
@@ -539,14 +590,14 @@ body.on-dark .hint{color:#b8a787;}
           <div class="badge l6">L6</div>
           <div>
             <div class="ttl">Core Value Digital Interface <span class="c-muted" style="font-size:.8rem;font-weight:400;">— Strategy Type</span></div>
-            <div class="desc">Orchestrator antar pihak — pola Airbnb / Uber. Asset-light matchmaker, bukan waste collector / processor.</div>
+            <div class="desc">Orchestrator antar pihak, pola Airbnb dan Uber. Platform jadi matchmaker asset-light: tidak mengangkut, tidak mengolah, tidak menyimpan ampas sendiri.</div>
           </div>
         </div>
         <div class="lvl">
           <div class="badge l8">L8</div>
           <div>
             <div class="ttl">8-Entity Value Constellation <span class="c-muted" style="font-size:.8rem;font-weight:400;">— Value Network</span></div>
-            <div class="desc">Jaringan 8 entitas dengan platform sebagai pusat. Setiap node memberi & menerima nilai — bukan rantai linier.</div>
+            <div class="desc">Jaringan 8 entitas dengan platform sebagai pusat. Setiap node memberi dan menerima nilai sekaligus, bukan rantai satu arah.</div>
           </div>
         </div>
       </div>
@@ -635,23 +686,99 @@ body.on-dark .hint{color:#b8a787;}
   <section class="slide" id="s6" data-dark="false">
     <div class="inner">
       <div class="anim eyebrow teal">05 — Business Process</div>
-      <h2 class="anim h-lg mt-m" style="max-width:24ch;">Alur sirkular: dari submit ampas<br>sampai <span class="italic c-primary">marketplace.</span></h2>
+      <h2 class="anim h-lg mt-m" style="max-width:24ch;">Lima langkah dari ampas pagi<br>ke produk di <span class="italic c-primary">marketplace.</span></h2>
 
-      <div class="anim flow mt-xl cardish" style="padding:.4rem;">
-        <div class="step"><div class="sn">01</div><h4>Submit</h4><p>Coffee Shop foto ampas + isi jenis & volume di WasteScan.</p></div>
-        <div class="step"><div class="sn">02</div><h4>Smart Match</h4><p>Engine cocokkan ke UMKM by preferensi, jarak, freshness.</p></div>
-        <div class="step"><div class="sn">03</div><h4>Pickup</h4><p>Logistik partner antar dari kedai ke Hub kampus.</p></div>
+      <div class="anim flow mt-l cardish" style="padding:.4rem;">
+        <div class="step"><div class="sn">01</div><h4>Submit</h4><p>Kedai foto ampas, isi jenis (Arabika/Robusta) dan volume di WasteScan.</p></div>
+        <div class="step"><div class="sn">02</div><h4>Smart Match</h4><p>Engine cocokkan supply ke UMKM by jarak pickup, freshness, preferensi olahan.</p></div>
+        <div class="step"><div class="sn">03</div><h4>Pickup</h4><p>Partner logistik angkut dari kedai ke Hub kampus saat jam off-peak.</p></div>
         <div class="step"><div class="sn">04</div><h4>Hilirisasi</h4><p>UMKM olah jadi skincare, briket, kompos, eco-print.</p></div>
-        <div class="step"><div class="sn">05</div><h4>Marketplace</h4><p>End user beli produk jadi → komisi + Grounds Coin reward.</p></div>
+        <div class="step"><div class="sn">05</div><h4>Marketplace</h4><p>End user beli produk jadi. Komisi 10–15% masuk, Grounds Coin keluar.</p></div>
       </div>
 
-      <div class="anim flex between items-center wrap gap-m mt-l">
+      <!-- REAL FOUNDATION DIAGRAMS -->
+      <div class="anim diagram-grid mt-l">
+        <div class="diagram wide">
+          <div class="dhead">
+            <span class="dlabel">DFD Level 0 · Context Diagram</span>
+            <span class="dtag">foundation/04-DFD</span>
+          </div>
+          <div class="dframe">
+            <img src="assets/diagrams/dfd-level0-context.svg" alt="DFD Level 0 — platform GroundsToGrow sebagai pusat, 8 entitas plus Bank sebagai external entity, dengan aliran data masuk dan keluar." loading="lazy" />
+          </div>
+          <div class="dcap">// platform di pusat · 8 entitas + Bank sebagai external entity · aliran data dua arah (submit, match, payout, ESG)</div>
+        </div>
+        <div class="diagram square">
+          <div class="dhead">
+            <span class="dlabel">AD-CX-01 · End-to-End Circular Flow</span>
+            <span class="dtag">foundation/03-Activity</span>
+          </div>
+          <div class="dframe">
+            <img src="assets/diagrams/activity-adcx01-end-to-end-circular.svg" alt="Activity diagram lintas-entitas: alur dari Coffee Shop submit, Smart Match, pickup, hilirisasi UMKM, sampai pembelian end user dan loop kompos." loading="lazy" />
+          </div>
+          <div class="dcap">// swimlane lintas-entitas: Coffee Shop → Platform → UMKM → End User · loop balik ke kompos & urban farming</div>
+        </div>
+      </div>
+
+      <div class="anim flex between items-center wrap gap-m mt-m">
         <div class="flow-loop">↻ &nbsp;Loop: produk → kompos → urban farming → kembali ke siklus</div>
         <div class="flex gap-s wrap">
-          <span class="tag t-success">ESG Auto-Calc di tiap langkah</span>
+          <span class="tag t-success">ESG ter-hitung tiap langkah</span>
           <span class="tag t-accent">Verified Circular Source</span>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- 6b. DATA ARCHITECTURE — DFD L1 + ERD (real renders) -->
+  <section class="slide surface" id="s6b" data-dark="false">
+    <div class="inner">
+      <div class="anim flex between items-end wrap gap-m">
+        <div>
+          <div class="eyebrow teal">05.1 — Data Architecture</div>
+          <h2 class="h-lg mt-s" style="max-width:24ch;">Bukan slide, ini <span class="italic c-primary">cetak biru</span> yang sudah dirender.</h2>
+        </div>
+        <div class="cardish anim" style="padding:.6rem .9rem;text-align:right;">
+          <div class="eyebrow no-rule" style="justify-content:flex-end;">Foundation</div>
+          <div class="mono-num" style="font-weight:700;font-size:1.05rem;color:var(--accent);">7 proses · 9 data store · 23 entitas</div>
+        </div>
+      </div>
+
+      <div class="anim diagram wide mt-l">
+        <div class="dhead">
+          <span class="dlabel">DFD Level 1 · Main Processes</span>
+          <span class="dtag">foundation/04-DFD</span>
+        </div>
+        <div class="dframe">
+          <img src="assets/diagrams/dfd-level1-main-processes.svg" alt="DFD Level 1 — tujuh sub-proses platform GroundsToGrow dan sembilan data store, dengan aliran data antar proses." loading="lazy" />
+        </div>
+        <div class="dcap">// 7 sub-proses: Listing, Smart Match, Pickup, Hilirisasi, Marketplace, ESG, Carbon · 9 data store</div>
+      </div>
+
+      <div class="anim diagram-grid mt-m">
+        <div class="diagram square">
+          <div class="dhead">
+            <span class="dlabel">ERD · Core MVP Schema</span>
+            <span class="dtag">foundation/05-ERD</span>
+          </div>
+          <div class="dframe">
+            <img src="assets/diagrams/erd-core-mvp.svg" alt="Entity Relationship Diagram core MVP — 23 entitas dengan relasi antar tabel: User, CoffeeShop, WasteListing, Match, Order, CarbonCredit, dan lainnya." loading="lazy" />
+          </div>
+          <div class="dcap">// 23 entitas berelasi · User · CoffeeShop · WasteListing · Match · Order · CarbonCredit</div>
+        </div>
+        <div class="diagram tall">
+          <div class="dhead">
+            <span class="dlabel">FC-02 · WasteScan Demo Flow (HERO)</span>
+            <span class="dtag">foundation/06-Flowchart</span>
+          </div>
+          <div class="dframe">
+            <img src="assets/diagrams/flowchart-fc02-wastescan-demo.svg" alt="Flowchart FC-02 — alur user WasteScan: upload foto ampas, pilih jenis dan volume, smart analysis, lihat estimasi ESG, lalu Smart Match ke UMKM." loading="lazy" />
+          </div>
+          <div class="dcap">// alur WasteScan: foto → jenis & volume → smart analysis → estimasi ESG → Smart Match</div>
+        </div>
+      </div>
+
+      <p class="anim lead mt-m" style="max-width:78ch;">Schema, proses, dan aliran data sudah dipetakan sebelum satu baris produksi ditulis. Backend Supabase tinggal mengikuti ERD ini saat pilot. Pemetaan, bukan tebakan.</p>
     </div>
   </section>
 
@@ -661,7 +788,7 @@ body.on-dark .hint{color:#b8a787;}
       <div class="anim flex between items-end wrap gap-m">
         <div>
           <div class="eyebrow">06 — Revenue Model</div>
-          <h2 class="h-lg mt-s" style="max-width:22ch;"><span class="italic c-primary">6 stream</span> — 2 primary terbukti, 4 upside.</h2>
+          <h2 class="h-lg mt-s" style="max-width:22ch;"><span class="italic c-primary">6 stream:</span> 2 primary terbukti, 4 upside.</h2>
         </div>
         <div class="cardish anim" style="padding:.7rem 1rem;text-align:right;">
           <div class="eyebrow no-rule" style="justify-content:flex-end;">Proyeksi Year 1</div>
@@ -673,12 +800,12 @@ body.on-dark .hint{color:#b8a787;}
         <div class="rev"><span class="pill prim">Primary</span><div class="rno">01</div><h4>UMKM Subscription</h4><div class="who">UMKM Hilirisasi · SaaS MRR</div><div class="amt">Rp 30–100jt/bln</div></div>
         <div class="rev"><span class="pill prim">Primary</span><div class="rno">02</div><h4>B2C Commission</h4><div class="who">End User → UMKM · 10–15%</div><div class="amt">Rp 5–20jt/bln</div></div>
         <div class="rev"><span class="pill sec">Secondary</span><div class="rno">03</div><h4>ESG SaaS Chain</h4><div class="who">Coffee chain besar · Premium</div><div class="amt">Rp 10–50jt/bln</div></div>
-        <div class="rev"><span class="pill side">Upside</span><div class="rno">04</div><h4>Carbon Credit</h4><div class="who">Brand Sponsor · narrative magnet</div><div class="amt">Rp 5–50jt/bln</div></div>
+        <div class="rev"><span class="pill side">Upside</span><div class="rno">04</div><h4>Carbon Credit</h4><div class="who">Brand Sponsor · pasca-IDXCarbon 2023</div><div class="amt">Rp 5–50jt/bln</div></div>
         <div class="rev"><span class="pill side">Upside</span><div class="rno">05</div><h4>Data Licensing</h4><div class="who">DLH / NGO / Riset</div><div class="amt">Rp 5–20jt/thn</div></div>
         <div class="rev"><span class="pill sec">Transactional</span><div class="rno">06</div><h4>Petani Commission</h4><div class="who">Coffee Shop → Petani · 5%</div><div class="amt">Rp 2–10jt/bln</div></div>
       </div>
 
-      <p class="anim lead mt-m" style="max-width:74ch;">Revenue utama dari <span class="c-primary" style="font-weight:600;">UMKM Subscription</span> & <span class="c-primary" style="font-weight:600;">Marketplace Commission</span> — model yang sudah terbukti di Indonesia. Carbon Credit & ESG SaaS adalah <span class="c-accent" style="font-weight:600;">upside layer</span>, bukan tumpuan.</p>
+      <p class="anim lead mt-m" style="max-width:74ch;">Pendapatan bertumpu pada <span class="c-primary" style="font-weight:600;">UMKM Subscription</span> dan <span class="c-primary" style="font-weight:600;">komisi marketplace 10–15%</span>: dua model SaaS yang sudah terbukti di pasar Indonesia. Carbon Credit dan ESG SaaS kami perlakukan sebagai <span class="c-accent" style="font-weight:600;">lapisan upside</span>. Bonus, bukan fondasi.</p>
     </div>
   </section>
 
@@ -693,8 +820,8 @@ body.on-dark .hint{color:#b8a787;}
           <iframe src="https://groundstogrow-mvp.vercel.app" title="GroundsToGrow MVP" loading="lazy"></iframe>
         </div>
         <div class="anim">
-          <h2 class="h-lg" style="max-width:14ch;">Bukan mockup —<br><span class="italic c-gold">app beneran</span>, live.</h2>
-          <p class="lead mt-s">Next.js 14 di Vercel. Sorot dua hero: <span class="c-gold" style="font-weight:600;">WasteScan</span> (submit + Smart Match) dan <span class="c-gold" style="font-weight:600;">Marketplace 3-tab</span> (ampas · produk olahan · biji petani).</p>
+          <h2 class="h-lg" style="max-width:14ch;"><span class="italic c-gold">App beneran,</span><br>live di Vercel.</h2>
+          <p class="lead mt-s">Next.js 14, empat layar jadi. Dua hero yang akan kami sorot: <span class="c-gold" style="font-weight:600;">WasteScan</span> (submit ampas plus Smart Match) dan <span class="c-gold" style="font-weight:600;">Marketplace 3-tab</span> (ampas mentah, produk olahan, biji petani).</p>
 
           <div class="flex items-center gap-l mt-l wrap">
             <div class="qr" aria-label="QR ke aplikasi">
@@ -764,7 +891,7 @@ body.on-dark .hint{color:#b8a787;}
         <div class="auto-row"><div class="nm">AI Vision (WasteScan v2)</div><div class="ds">Foto → real classification & auto-grading. R&D phase, dataset terbatas.</div><span class="badge-status bs-future">Roadmap</span></div>
         <div class="auto-row"><div class="nm">Backend + Payment + Logistik API</div><div class="ds">Supabase/Postgres, Midtrans, integrasi Gojek/Lalamove. Post-pilot.</div><span class="badge-status bs-future">Roadmap</span></div>
       </div>
-      <p class="anim lead mt-l">“MVP fokus pada flow & demonstrasi multi-sided. Kami tidak menjanjikan yang belum ditepati — <span class="c-gold" style="font-weight:600;">honest by design.</span>”</p>
+      <p class="anim lead mt-l">“MVP fokus pada flow dan demonstrasi multi-sided. Kami tidak menjanjikan yang belum ditepati. <span class="c-gold" style="font-weight:600;">Honest by design.</span>”</p>
     </div>
   </section>
 
@@ -778,7 +905,7 @@ body.on-dark .hint{color:#b8a787;}
       <h2 class="anim h-xl mt-m" style="max-width:20ch;">We're not a <span style="text-decoration:line-through;text-decoration-color:var(--primary);" class="c-muted">coffee app.</span></h2>
       <h2 class="anim h-xl reveal-line" style="max-width:22ch;">We're the <span class="c-gold">OS for circular economy.</span></h2>
 
-      <p class="anim lead mt-l" style="max-width:64ch;"><span style="color:var(--background);font-weight:600;">GroundsToGrow</span> adalah <em>face</em> yang familiar. Di belakangnya, <span class="c-gold" style="font-weight:600;">WasteLoop</span> — arsitektur yang sama bisa orchestrate limbah organik apa pun.</p>
+      <p class="anim lead mt-l" style="max-width:64ch;"><span style="color:var(--background);font-weight:600;">GroundsToGrow</span> adalah <em>face</em> yang familiar buat juri dan investor. Di belakangnya berdiri <span class="c-gold" style="font-weight:600;">WasteLoop</span>: arsitektur orchestrator yang sama bisa menangani limbah organik apa pun, dari roti sisa sampai cangkang telur.</p>
 
       <div class="anim fgrid f4 mt-l">
         <div class="fcard bl-p"><h4 class="c-gold">☕ Coffee</h4><p style="color:#c2b094;">Ampas → skincare, briket, kompos. (live)</p></div>
@@ -786,7 +913,7 @@ body.on-dark .hint{color:#b8a787;}
         <div class="fcard bl-g"><h4 class="c-gold">🥬 Sayur</h4><p style="color:#c2b094;">Trim sayur → kompos, eco-enzyme.</p></div>
         <div class="fcard bl-s"><h4 class="c-gold">🥚 Telur</h4><p style="color:#c2b094;">Cangkang → kalsium, media tanam.</p></div>
       </div>
-      <p class="anim lead mt-m">Satu engine, banyak vertikal. <span class="c-gold" style="font-weight:600;">Coffee dulu — karena story-nya paling memorable.</span></p>
+      <p class="anim lead mt-m">Satu engine, banyak vertikal. <span class="c-gold" style="font-weight:600;">Kopi duluan, karena ceritanya paling nempel di kepala juri.</span></p>
     </div>
   </section>
 
@@ -872,7 +999,7 @@ body.on-dark .hint{color:#b8a787;}
 <nav id="nav">
   <button class="navbtn" id="prev" aria-label="Slide sebelumnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
   <div id="dots"></div>
-  <span id="counter">01 / 13</span>
+  <span id="counter">01 / 14</span>
   <button class="navbtn" id="next" aria-label="Slide berikutnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
 </nav>
 

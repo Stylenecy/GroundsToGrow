@@ -34,17 +34,20 @@ const ICON_MAP: Record<string, LucideIcon> = {
 function EntityRow({
   entity,
   ordinal,
+  index,
 }: {
   entity: Entity;
   ordinal: string;
+  index: number;
 }) {
   const Icon = ICON_MAP[entity.icon] ?? Leaf;
   const isCore = entity.tier === "core";
 
   return (
     <article
+      style={{ animationDelay: `${index * 80}ms`, animationDuration: "560ms" }}
       className={cn(
-        "group relative grid grid-cols-[auto_1fr] gap-x-4 gap-y-3 bg-card p-5 transition-colors duration-300 hover:bg-card/50",
+        "animate-in fade-in slide-in-from-bottom-3 fill-mode-both group relative grid grid-cols-[auto_1fr] gap-x-4 gap-y-3 bg-card p-5 transition-colors duration-300 hover:bg-card/50",
         "border-l-2",
         isCore ? "border-l-accent" : "border-l-highlight"
       )}
@@ -145,10 +148,10 @@ export function EntityConstellation() {
           Grounds<span className="italic text-accent">To</span>Grow
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-          Satu platform menengahi <span className="font-mono">8</span> entitas —
-          tiap pihak{" "}
+          Satu platform menengahi <span className="font-mono">8</span> entitas.
+          Tiap pihak{" "}
           <span className="font-medium text-foreground">memberi & menerima</span>{" "}
-          nilai dalam loop sirkular, bukan rantai linear.
+          nilai di loop yang sama, jadi setiap transaksi memperkuat yang lain.
         </p>
         {/* Konektor turun ke grid */}
         <span
@@ -177,6 +180,7 @@ export function EntityConstellation() {
               key={entity.id}
               entity={entity}
               ordinal={`C${i + 1}`}
+              index={i}
             />
           ))}
         </div>
@@ -202,6 +206,7 @@ export function EntityConstellation() {
               key={entity.id}
               entity={entity}
               ordinal={`S${i + 1}`}
+              index={i}
             />
           ))}
         </div>
