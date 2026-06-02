@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GroundsToGrow — Pitch Deck · From Waste to Wealth, From Coffee to Carbon</title>
+<meta name="description" content="Pitch deck GroundsToGrow × WasteLoop — platform sharing economy yang mengubah ampas kopi jadi multi-sided ecosystem 8 entitas. UAS Digital Platform & Sharing Economy." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Hanken+Grotesk:wght@300..800&family=JetBrains+Mono:wght@400..700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   GroundsToGrow — PITCH DECK (standalone)
+   Design Language v1: Editorial Roastery (A) · Carbon Tech (B) · Organic Craft (C)
+   Palette + fonts mirror the live app for one-family cohesion.
+   ============================================================ */
+
+:root{
+  --background:#F7F0E3;   /* cream hangat */
+  --surface:#EFE6D6;      /* kraft */
+  --card:#FBF6EC;         /* warm putih */
+  --foreground:#2A1810;   /* espresso ink */
+  --ink:#211309;          /* dark drama */
+  --muted-foreground:#7A6A54;
+  --primary:#C0552B;      /* terracotta */
+  --accent:#008B7C;       /* teal carbon */
+  --highlight:#E8A93D;    /* eco-gold */
+  --success:#3D5C3F;      /* matcha */
+  --border:#DDCDB2;
+
+  --font-display:"Fraunces", Georgia, serif;
+  --font-sans:"Hanken Grotesk", system-ui, sans-serif;
+  --font-mono:"JetBrains Mono", ui-monospace, monospace;
+  --font-script:"Caveat", cursive;
+
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+html,body{height:100%;}
+
+body{
+  font-family:var(--font-sans);
+  background:var(--background);
+  color:var(--foreground);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow:hidden; /* deck mode: one slide at a time */
+}
+
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:600;letter-spacing:-.02em;line-height:1.03;}
+.italic{font-style:italic;}
+
+/* ---------- DECK SHELL ---------- */
+#deck{
+  height:100vh;
+  width:100vw;
+  overflow-y:scroll;
+  scroll-snap-type:y mandatory;
+  scroll-behavior:smooth;
+  scrollbar-width:none;
+}
+#deck::-webkit-scrollbar{display:none;}
+
+.slide{
+  position:relative;
+  height:100vh;
+  width:100vw;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:5.5vh clamp(28px,6vw,100px) 8vh;
+  overflow:hidden;
+  background-image:var(--grain);
+}
+.slide.dark{background:var(--ink);color:var(--background);}
+.slide.dark h1,.slide.dark h2,.slide.dark h3,.slide.dark h4{color:var(--background);}
+.slide.surface{background-color:var(--surface);background-image:var(--grain);}
+
+.inner{width:100%;max-width:1180px;margin:0 auto;position:relative;z-index:2;}
+
+/* reveal animation on active slide */
+.slide .anim{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
+.slide.active .anim{opacity:1;transform:none;}
+.slide.active .anim:nth-child(1){transition-delay:.05s;}
+.slide.active .anim:nth-child(2){transition-delay:.13s;}
+.slide.active .anim:nth-child(3){transition-delay:.21s;}
+.slide.active .anim:nth-child(4){transition-delay:.29s;}
+.slide.active .anim:nth-child(5){transition-delay:.37s;}
+.slide.active .anim:nth-child(6){transition-delay:.45s;}
+.stagger>*{opacity:0;transform:translateY(18px);transition:opacity .6s var(--ease),transform .6s var(--ease);}
+.slide.active .stagger>*{opacity:1;transform:none;}
+.slide.active .stagger>*:nth-child(1){transition-delay:.18s;}
+.slide.active .stagger>*:nth-child(2){transition-delay:.27s;}
+.slide.active .stagger>*:nth-child(3){transition-delay:.36s;}
+.slide.active .stagger>*:nth-child(4){transition-delay:.45s;}
+.slide.active .stagger>*:nth-child(5){transition-delay:.54s;}
+.slide.active .stagger>*:nth-child(6){transition-delay:.63s;}
+.slide.active .stagger>*:nth-child(7){transition-delay:.72s;}
+.slide.active .stagger>*:nth-child(8){transition-delay:.81s;}
+
+/* ---------- EDITORIAL PRIMITIVES ---------- */
+.eyebrow{
+  font-family:var(--font-mono);
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  font-size:clamp(.62rem,.8vw,.74rem);
+  font-weight:500;
+  color:var(--muted-foreground);
+  display:inline-flex;align-items:center;gap:.6rem;
+}
+.eyebrow::before{content:"";width:1.9rem;height:1px;background:var(--primary);display:inline-block;}
+.dark .eyebrow{color:#c9b79a;}
+.eyebrow.teal::before{background:var(--accent);}
+.eyebrow.gold::before{background:var(--highlight);}
+.eyebrow.no-rule::before{display:none;}
+
+.rule{height:1px;background:var(--border);border:0;width:100%;}
+.dark .rule{background:rgba(255,255,255,.14);}
+
+.section-no{
+  font-family:var(--font-mono);font-size:.8rem;letter-spacing:.1em;
+  color:var(--muted-foreground);
+}
+.dark .section-no{color:#a8977a;}
+
+.kicker{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);font-weight:600;}
+
+.lead{font-size:clamp(1rem,1.45vw,1.22rem);line-height:1.55;color:var(--muted-foreground);max-width:62ch;}
+.dark .lead{color:#cdbb9f;}
+
+.tag{
+  display:inline-flex;align-items:center;gap:.45rem;
+  font-family:var(--font-mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:.34rem .7rem;border-radius:999px;border:1px solid var(--border);
+  color:var(--muted-foreground);background:rgba(255,255,255,.35);
+}
+.dark .tag{border-color:rgba(255,255,255,.2);background:rgba(255,255,255,.05);color:#d8c8ab;}
+.tag.t-primary{color:var(--primary);border-color:rgba(192,85,43,.35);background:rgba(192,85,43,.08);}
+.tag.t-accent{color:var(--accent);border-color:rgba(0,139,124,.35);background:rgba(0,139,124,.08);}
+.tag.t-gold{color:#a9781f;border-color:rgba(232,169,61,.45);background:rgba(232,169,61,.12);}
+.tag.t-success{color:var(--success);border-color:rgba(61,92,63,.35);background:rgba(61,92,63,.09);}
+.dark .tag.t-accent{color:#3fd6c4;background:rgba(0,139,124,.16);border-color:rgba(63,214,196,.3);}
+.dark .tag.t-gold{color:var(--highlight);background:rgba(232,169,61,.16);border-color:rgba(232,169,61,.4);}
+
+.brand-mark{display:inline-flex;align-items:center;gap:.55rem;font-family:var(--font-display);font-weight:600;font-size:1.05rem;letter-spacing:-.01em;}
+.leaf{width:1.6rem;height:1.6rem;border-radius:.55rem;background:var(--primary);display:inline-flex;align-items:center;justify-content:center;color:var(--background);}
+.leaf svg{width:1rem;height:1rem;}
+
+/* ---------- NAV CHROME ---------- */
+#progress{position:fixed;top:0;left:0;height:3px;background:var(--primary);width:0;z-index:60;transition:width .4s var(--ease);}
+.slide.dark ~ #progress{}
+
+#topbar{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:18px clamp(24px,5vw,56px);
+  pointer-events:none;mix-blend-mode:normal;
+}
+#topbar .brand-mark{pointer-events:auto;}
+#topbar .doc-label{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-foreground);}
+body.on-dark #topbar .doc-label{color:#c9b79a;}
+body.on-dark #topbar .brand-mark{color:var(--background);}
+
+#nav{
+  position:fixed;bottom:20px;left:50%;transform:translateX(-50%);
+  z-index:55;display:flex;align-items:center;gap:14px;
+  background:rgba(251,246,236,.82);backdrop-filter:blur(10px);
+  border:1px solid var(--border);border-radius:999px;
+  padding:7px 9px;box-shadow:0 8px 30px rgba(42,24,16,.12);
+}
+body.on-dark #nav{background:rgba(33,19,9,.72);border-color:rgba(255,255,255,.14);}
+.navbtn{
+  width:30px;height:30px;border-radius:50%;border:1px solid var(--border);
+  background:transparent;color:var(--foreground);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;transition:.2s var(--ease);
+}
+.navbtn:hover{background:var(--primary);color:var(--background);border-color:var(--primary);}
+body.on-dark .navbtn{color:var(--background);border-color:rgba(255,255,255,.25);}
+.navbtn svg{width:14px;height:14px;}
+#dots{display:flex;align-items:center;gap:6px;}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--border);cursor:pointer;transition:.25s var(--ease);border:0;padding:0;}
+.dot.on{background:var(--primary);width:20px;border-radius:5px;}
+body.on-dark .dot{background:rgba(255,255,255,.25);}
+body.on-dark .dot.on{background:var(--highlight);}
+#counter{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.06em;color:var(--muted-foreground);padding:0 6px;min-width:52px;text-align:center;}
+body.on-dark #counter{color:#d8c8ab;}
+
+.hint{position:fixed;bottom:62px;left:50%;transform:translateX(-50%);z-index:54;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-foreground);opacity:.7;transition:opacity .5s;}
+.hint.hide{opacity:0;}
+body.on-dark .hint{color:#b8a787;}
+
+/* organic blobs */
+.blob{position:absolute;border-radius:50%;filter:blur(70px);z-index:0;pointer-events:none;}
+
+/* ---------- TYPE SCALE ---------- */
+.h-hero{font-size:clamp(2.6rem,6.6vw,5.4rem);line-height:.98;}
+.h-xl{font-size:clamp(2.1rem,4.6vw,3.7rem);line-height:1.02;}
+.h-lg{font-size:clamp(1.6rem,3.2vw,2.6rem);}
+.giant{font-family:var(--font-display);font-weight:600;font-size:clamp(3.4rem,12vw,9.5rem);line-height:.86;letter-spacing:-.03em;}
+.mono-num{font-family:var(--font-mono);font-variant-numeric:tabular-nums;}
+
+/* ---------- GRIDS / CARDS ---------- */
+.cardish{background:var(--card);border:1px solid var(--border);border-radius:16px;}
+.dark .cardish{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.12);}
+
+/* utility */
+.flex{display:flex;}
+.between{justify-content:space-between;}
+.items-center{align-items:center;}
+.items-end{align-items:flex-end;}
+.gap-s{gap:.6rem;}.gap-m{gap:1rem;}.gap-l{gap:1.6rem;}
+.wrap{flex-wrap:wrap;}
+.mt-s{margin-top:.6rem;}.mt-m{margin-top:1.1rem;}.mt-l{margin-top:1.8rem;}.mt-xl{margin-top:2.6rem;}
+.mb-s{margin-top:0;margin-bottom:.6rem;}
+.tcenter{text-align:center;}
+.fmono{font-family:var(--font-mono);}
+.c-primary{color:var(--primary);}.c-accent{color:var(--accent);}.c-gold{color:var(--highlight);}.c-success{color:var(--success);}
+.c-muted{color:var(--muted-foreground);}
+.dark .c-muted{color:#c9b79a;}
+.script{font-family:var(--font-script);font-size:1.5rem;color:var(--primary);transform:rotate(-4deg);display:inline-block;}
+.dark .script{color:var(--highlight);}
+
+/* ===== SLIDE-SPECIFIC ===== */
+
+/* Cover */
+#s1 .cover-grid{display:grid;grid-template-columns:1.4fr .9fr;gap:clamp(2rem,5vw,5rem);align-items:center;}
+@media(max-width:880px){#s1 .cover-grid{grid-template-columns:1fr;}}
+.cover-leaf{width:84px;height:84px;border-radius:22px;background:var(--primary);display:flex;align-items:center;justify-content:center;color:var(--background);position:relative;box-shadow:0 14px 40px rgba(192,85,43,.28);}
+.cover-leaf svg{width:46px;height:46px;}
+.cover-leaf .badge8{position:absolute;right:-8px;bottom:-8px;width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--background);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.8rem;font-weight:700;border:3px solid var(--background);}
+.cover-side{border-left:1px solid var(--border);padding-left:clamp(1.4rem,3vw,2.6rem);}
+@media(max-width:880px){.cover-side{border-left:0;padding-left:0;border-top:1px solid var(--border);padding-top:1.6rem;}}
+
+/* stat slide */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+@media(max-width:820px){.stat-row{grid-template-columns:1fr;}}
+.stat-cell{padding:1.4rem 1.6rem;border-left:1px solid rgba(255,255,255,.14);}
+.stat-cell:first-child{border-left:0;padding-left:0;}
+.stat-cell .num{font-family:var(--font-mono);font-weight:700;font-size:clamp(1.7rem,3.4vw,2.7rem);color:var(--highlight);font-variant-numeric:tabular-nums;line-height:1;}
+.stat-cell .lab{margin-top:.5rem;font-size:.82rem;color:#cdbb9f;max-width:24ch;}
+
+/* generic feature grid */
+.fgrid{display:grid;gap:14px;}
+.f3{grid-template-columns:repeat(3,1fr);}
+.f2{grid-template-columns:repeat(2,1fr);}
+.f4{grid-template-columns:repeat(4,1fr);}
+@media(max-width:900px){.f3,.f4{grid-template-columns:repeat(2,1fr);}.f2{grid-template-columns:1fr;}}
+.fcard{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.1rem 1.15rem;border-left-width:3px;}
+.dark .fcard{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.1);}
+.fcard.bl-p{border-left-color:var(--primary);}
+.fcard.bl-a{border-left-color:var(--accent);}
+.fcard.bl-g{border-left-color:var(--highlight);}
+.fcard.bl-s{border-left-color:var(--success);}
+.fcard h4{font-size:1.04rem;}
+.fcard p{font-size:.82rem;color:var(--muted-foreground);margin-top:.35rem;line-height:1.45;}
+.dark .fcard p{color:#c2b094;}
+
+/* theory mapping levels */
+.lvl{display:flex;align-items:center;gap:1rem;padding:.85rem 0;border-top:1px solid var(--border);}
+.lvl .badge{font-family:var(--font-mono);font-weight:700;font-size:.9rem;width:54px;height:38px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.lvl .badge.l4{background:rgba(192,85,43,.12);color:var(--primary);}
+.lvl .badge.l6{background:rgba(0,139,124,.12);color:var(--accent);}
+.lvl .badge.l8{background:rgba(232,169,61,.16);color:#a9781f;}
+.lvl .ttl{font-family:var(--font-display);font-weight:600;font-size:1.15rem;}
+.lvl .desc{font-size:.82rem;color:var(--muted-foreground);}
+
+/* constellation */
+.constel{position:relative;}
+.orb-center{display:flex;flex-direction:column;align-items:center;text-align:center;}
+.orb-leaf{width:62px;height:62px;border-radius:18px;background:var(--primary);color:var(--background);display:flex;align-items:center;justify-content:center;position:relative;box-shadow:0 10px 30px rgba(192,85,43,.25);}
+.orb-leaf svg{width:32px;height:32px;}
+.orb-leaf .b8{position:absolute;right:-6px;bottom:-6px;width:24px;height:24px;border-radius:50%;background:var(--accent);color:var(--background);font-family:var(--font-mono);font-weight:700;font-size:.72rem;display:flex;align-items:center;justify-content:center;border:2px solid var(--card);}
+.ent-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+@media(max-width:900px){.ent-grid{grid-template-columns:repeat(2,1fr);}}
+.ent{background:var(--card);padding:.85rem .9rem;border-left:2px solid var(--accent);}
+.ent.sup{border-left-color:var(--highlight);}
+.ent .ehead{display:flex;align-items:center;gap:.5rem;}
+.ent .eico{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:rgba(0,139,124,.1);color:var(--accent);flex-shrink:0;}
+.ent.sup .eico{background:rgba(232,169,61,.14);color:#a9781f;}
+.ent .eico svg{width:16px;height:16px;}
+.ent .enum{font-family:var(--font-mono);font-size:.6rem;color:var(--muted-foreground);margin-left:auto;}
+.ent h5{font-family:var(--font-display);font-size:.96rem;font-weight:600;margin-top:.45rem;line-height:1.1;}
+.ent .erole{font-size:.66rem;color:var(--muted-foreground);margin-top:.1rem;line-height:1.2;}
+.ent dl{margin-top:.5rem;border-top:1px solid var(--border);padding-top:.4rem;font-size:.66rem;line-height:1.3;}
+.ent dl .give{color:var(--primary);font-family:var(--font-mono);font-size:.54rem;letter-spacing:.08em;text-transform:uppercase;}
+.ent dl .get{color:var(--success);font-family:var(--font-mono);font-size:.54rem;letter-spacing:.08em;text-transform:uppercase;}
+.ent dl dd{color:var(--muted-foreground);margin:.05rem 0 .35rem;}
+
+/* process flow */
+.flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;}
+.step{flex:1;min-width:150px;position:relative;padding:1.1rem 1rem;}
+.step .sn{font-family:var(--font-mono);font-size:.7rem;color:var(--primary);font-weight:700;}
+.step h4{font-size:1.05rem;margin-top:.3rem;}
+.step p{font-size:.76rem;color:var(--muted-foreground);margin-top:.35rem;line-height:1.4;}
+.step:not(:last-child)::after{content:"→";position:absolute;right:-6px;top:1.3rem;color:var(--accent);font-size:1.2rem;font-family:var(--font-mono);}
+@media(max-width:900px){.step:not(:last-child)::after{display:none;}}
+.flow-loop{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:.72rem;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;}
+
+/* revenue */
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+@media(max-width:900px){.rev-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.rev-grid{grid-template-columns:1fr;}}
+.rev{background:var(--card);border:1px solid var(--border);border-radius:13px;padding:1rem;position:relative;overflow:hidden;}
+.rev .rno{font-family:var(--font-mono);font-size:.66rem;color:var(--muted-foreground);}
+.rev h4{font-size:1.02rem;margin-top:.2rem;}
+.rev .who{font-size:.72rem;color:var(--muted-foreground);margin-top:.2rem;}
+.rev .amt{font-family:var(--font-mono);font-weight:700;font-size:1.02rem;color:var(--accent);margin-top:.6rem;}
+.rev .pill{position:absolute;top:.7rem;right:.7rem;font-family:var(--font-mono);font-size:.54rem;text-transform:uppercase;letter-spacing:.08em;padding:.18rem .45rem;border-radius:999px;}
+.rev .pill.prim{background:var(--primary);color:var(--background);}
+.rev .pill.sec{background:rgba(0,139,124,.14);color:var(--accent);}
+.rev .pill.side{background:rgba(232,169,61,.18);color:#a9781f;}
+
+/* demo */
+.demo-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:2rem;align-items:center;}
+@media(max-width:900px){.demo-grid{grid-template-columns:1fr;}}
+.browser{background:var(--card);border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 18px 50px rgba(42,24,16,.16);}
+.browser .bar{display:flex;align-items:center;gap:.4rem;padding:.6rem .8rem;border-bottom:1px solid var(--border);background:var(--surface);}
+.browser .bar .d{width:9px;height:9px;border-radius:50%;background:var(--border);}
+.browser .bar .url{margin-left:.6rem;font-family:var(--font-mono);font-size:.66rem;color:var(--muted-foreground);background:var(--card);padding:.2rem .6rem;border-radius:6px;border:1px solid var(--border);flex:1;}
+.browser iframe{width:100%;height:clamp(300px,46vh,460px);border:0;display:block;background:var(--background);}
+.qr{width:118px;height:118px;border-radius:12px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;padding:8px;}
+.qr svg{width:100%;height:100%;}
+.url-big{font-family:var(--font-mono);font-weight:700;font-size:clamp(1rem,2vw,1.45rem);color:var(--primary);word-break:break-all;line-height:1.1;}
+
+/* flywheel */
+.wheel-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:2.4rem;align-items:center;}
+@media(max-width:900px){.wheel-wrap{grid-template-columns:1fr;}}
+.wheel{position:relative;width:min(40vh,360px);aspect-ratio:1;margin:0 auto;}
+.wheel .hub{position:absolute;inset:34%;border-radius:50%;background:var(--primary);color:var(--background);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 0 0 8px rgba(192,85,43,.12);z-index:3;}
+.wheel .hub .l{font-family:var(--font-mono);font-size:.55rem;letter-spacing:.1em;text-transform:uppercase;opacity:.85;}
+.wheel .hub .v{font-family:var(--font-display);font-size:1.5rem;font-weight:600;line-height:1;}
+.wheel .node{position:absolute;width:64px;height:64px;border-radius:14px;background:var(--card);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;transform:translate(-50%,-50%);box-shadow:0 6px 18px rgba(42,24,16,.1);}
+.wheel .node svg{width:20px;height:20px;color:var(--accent);}
+.wheel .node span{font-size:.5rem;color:var(--muted-foreground);margin-top:2px;text-align:center;line-height:1;}
+.wheel .ring{position:absolute;inset:8%;border-radius:50%;border:1.5px dashed var(--border);z-index:1;}
+.wheel .arrow{position:absolute;inset:8%;z-index:2;}
+
+/* automation honesty */
+.auto-row{display:flex;align-items:center;gap:1rem;padding:.7rem 0;border-top:1px solid var(--border);}
+.dark .auto-row{border-color:rgba(255,255,255,.12);}
+.auto-row .nm{font-family:var(--font-display);font-weight:600;font-size:1.02rem;flex:0 0 30%;}
+.auto-row .ds{font-size:.78rem;color:var(--muted-foreground);flex:1;}
+.dark .auto-row .ds{color:#c2b094;}
+.badge-status{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;padding:.28rem .6rem;border-radius:999px;white-space:nowrap;}
+.bs-real{background:rgba(61,92,63,.16);color:var(--success);border:1px solid rgba(61,92,63,.4);}
+.bs-mock{background:rgba(232,169,61,.16);color:#a9781f;border:1px solid rgba(232,169,61,.45);}
+.bs-future{background:rgba(0,139,124,.12);color:var(--accent);border:1px solid rgba(0,139,124,.35);}
+.dark .bs-real{color:#8fb892;}.dark .bs-mock{color:var(--highlight);}.dark .bs-future{color:#3fd6c4;}
+
+/* roadmap */
+.road{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+@media(max-width:820px){.road{grid-template-columns:1fr;}}
+.road .col{padding:0 1.4rem;border-left:1px solid var(--border);}
+.road .col:first-child{padding-left:0;border-left:0;}
+.road .when{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);font-weight:600;}
+.road .col h4{font-size:1.15rem;margin-top:.4rem;}
+.road ul{list-style:none;margin-top:.8rem;}
+.road li{font-size:.82rem;color:var(--muted-foreground);padding:.3rem 0 .3rem 1rem;position:relative;line-height:1.4;}
+.road li::before{content:"";position:absolute;left:0;top:.62rem;width:5px;height:5px;border-radius:50%;background:var(--primary);}
+
+/* team */
+.team{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+@media(max-width:820px){.team{grid-template-columns:repeat(2,1fr);}}
+.member{text-align:center;}
+.member .av{width:54px;height:54px;border-radius:50%;margin:0 auto;background:rgba(0,139,124,.12);color:var(--accent);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:600;font-size:1.2rem;border:1px solid var(--border);}
+.dark .member .av{background:rgba(0,139,124,.2);color:#3fd6c4;border-color:rgba(255,255,255,.14);}
+.member .nm{font-family:var(--font-display);font-weight:600;font-size:.92rem;margin-top:.5rem;}
+.member .rl{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-foreground);margin-top:.15rem;}
+.dark .member .rl{color:#c2b094;}
+
+.ask{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:780px){.ask{grid-template-columns:1fr;}}
+
+.reveal-line{font-family:var(--font-display);font-weight:600;font-style:italic;}
+
+/* ---------- DIAGRAM CARDS (real foundation renders) ---------- */
+.diagram{
+  background:#ffffff;
+  border:1px solid var(--border);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 8px 26px rgba(42,24,16,.10);
+}
+.dark .diagram{border-color:rgba(255,255,255,.16);}
+.diagram .dhead{
+  display:flex;align-items:center;justify-content:space-between;gap:.6rem;
+  padding:.5rem .85rem;border-bottom:1px solid var(--border);
+  background:var(--surface);
+}
+.diagram .dhead .dlabel{
+  font-family:var(--font-mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted-foreground);font-weight:500;
+}
+.diagram .dhead .dtag{
+  font-family:var(--font-mono);font-size:.56rem;letter-spacing:.08em;text-transform:uppercase;
+  padding:.16rem .5rem;border-radius:999px;
+  background:rgba(0,139,124,.1);color:var(--accent);border:1px solid rgba(0,139,124,.28);
+}
+.diagram .dframe{
+  background:#ffffff;
+  display:flex;align-items:center;justify-content:center;
+  padding:.8rem;
+  overflow:auto;
+}
+.diagram .dframe img{
+  display:block;
+  width:100%;height:auto;
+  object-fit:contain;
+}
+/* wide/landscape diagrams (DFD) */
+.diagram.wide .dframe{max-height:32vh;}
+.diagram.wide .dframe img{max-height:30vh;width:auto;max-width:100%;}
+/* tall/portrait diagrams (WasteScan flowchart) */
+.diagram.tall .dframe{max-height:46vh;}
+.diagram.tall .dframe img{max-height:44vh;width:auto;}
+/* square diagrams (Activity / ERD) */
+.diagram.square .dframe{max-height:42vh;}
+.diagram.square .dframe img{max-height:40vh;width:auto;max-width:100%;}
+.diagram .dcap{
+  font-family:var(--font-mono);font-size:.6rem;letter-spacing:.03em;
+  color:var(--muted-foreground);line-height:1.4;
+  padding:.5rem .85rem;border-top:1px solid var(--border);background:var(--card);
+}
+.diagram-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;}
+@media(max-width:900px){.diagram-grid{grid-template-columns:1fr;}}
+
+@media(max-width:760px){
+  .slide{padding:8vh 24px 12vh;}
+  .stat-cell{border-left:0;padding-left:0;border-top:1px solid rgba(255,255,255,.14);}
+  .stat-cell:first-child{border-top:0;}
+}
+
+/* print fallback */
+@media print{
+  body{overflow:visible;}
+  #deck{height:auto;overflow:visible;}
+  .slide{height:100vh;page-break-after:always;}
+  #nav,#topbar,#progress,.hint{display:none;}
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<header id="topbar">
+  <span class="brand-mark">
+    <span class="leaf">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>
+    </span>
+    Grounds<span class="italic c-accent">To</span>Grow
+  </span>
+  <span class="doc-label">DPSE · UAS Pitch Deck · 2026</span>
+</header>
+
+<main id="deck">
+
+  <!-- ========== ACT 1 / HOOK ========== -->
+
+  <!-- 1. COVER -->
+  <section class="slide active" id="s1" data-dark="false">
+    <div class="blob" style="background:rgba(0,139,124,.18);width:42vw;height:42vw;top:-10vw;right:-8vw;"></div>
+    <div class="blob" style="background:rgba(232,169,61,.16);width:30vw;height:30vw;bottom:-8vw;left:-6vw;"></div>
+    <div class="inner cover-grid">
+      <div>
+        <div class="anim flex items-center gap-m">
+          <span class="cover-leaf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>
+            <span class="badge8">8</span>
+          </span>
+          <div>
+            <div class="eyebrow teal">Sharing Economy · Circular</div>
+            <div style="font-family:var(--font-display);font-weight:600;font-size:1.5rem;margin-top:.3rem;">Grounds<span class="italic c-accent">To</span>Grow <span class="c-muted" style="font-weight:400;">× WasteLoop</span></div>
+          </div>
+        </div>
+
+        <h1 class="anim h-hero mt-l">From Waste<br>to <span class="italic c-primary">Wealth.</span><br><span class="c-muted" style="font-size:.5em;font-weight:400;font-style:italic;display:inline-block;margin-top:.4rem;">From Coffee to Carbon.</span></h1>
+
+        <p class="anim lead mt-m">Ampas kopi hari ini adalah biaya buang. Kami menjadikannya <span class="c-accent" style="font-weight:600;">ekosistem multi-sisi 8 entitas</span>: satu platform yang mengkoordinasikan supply, hilirisasi, dan pembeli dalam loop circular economy.</p>
+
+        <div class="anim flex gap-s wrap mt-m">
+          <span class="tag t-primary">Digital Disruption</span>
+          <span class="tag t-accent">8-Entity Value Constellation</span>
+          <span class="tag t-gold">MVP Live</span>
+        </div>
+      </div>
+
+      <aside class="anim cover-side">
+        <div class="eyebrow">Tim · 5 Orang</div>
+        <div class="mt-m" style="font-family:var(--font-display);line-height:1.8;font-size:1.05rem;">
+          <div><strong>Dex Bennett</strong> <span class="c-muted" style="font-size:.78rem;">— Lead / MVP</span></div>
+          <div>Elseva <span class="c-muted" style="font-size:.78rem;">— Storyteller</span></div>
+          <div>Elsava <span class="c-muted" style="font-size:.78rem;">— Business Analyst</span></div>
+          <div>Gatot <span class="c-muted" style="font-size:.78rem;">— Research Lead</span></div>
+          <div>Samuel <span class="c-muted" style="font-size:.78rem;">— Presenter</span></div>
+        </div>
+        <hr class="rule mt-m">
+        <div class="mt-m" style="font-size:.78rem;color:var(--muted-foreground);line-height:1.55;">
+          <div class="fmono" style="font-size:.7rem;letter-spacing:.08em;">DOSEN</div>
+          Andhika Galuh Prabawati, S.Kom., M.Kom.<br>
+          <span class="fmono" style="font-size:.7rem;letter-spacing:.08em;">UAS · 5 Juni 2026 · D.1.3</span>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 2. STAT BRUTAL (DARK) -->
+  <section class="slide dark" id="s2" data-dark="true">
+    <div class="blob" style="background:rgba(232,169,61,.14);width:36vw;height:36vw;top:-6vw;left:30vw;"></div>
+    <div class="inner">
+      <div class="anim eyebrow gold">01 — The Problem at Scale</div>
+      <h2 class="anim h-xl mt-m">Setiap hari, sesuatu yang bernilai<br>kita buang ke <span class="italic c-gold">tempat sampah.</span></h2>
+
+      <div class="anim stagger mt-xl" style="display:block;">
+        <div class="stat-row">
+          <div class="stat-cell">
+            <div class="num">~290<span style="font-size:.5em;">RB TON</span></div>
+            <div class="lab">konsumsi kopi domestik Indonesia / tahun (BPS 2023) → estimasi <strong>~250–300 ribu ton ampas kering</strong> terbuang, nyaris tanpa daur ulang.</div>
+          </div>
+          <div class="stat-cell">
+            <div class="num">0,4–0,85<span style="font-size:.42em;">T CO₂e</span></div>
+            <div class="lab">potensi emisi dihindari per ton ampas yang dialihkan dari TPA. Estimasi faktor EPA/IPCC (avoided emissions, belum tervalidasi MRV).</div>
+          </div>
+          <div class="stat-cell">
+            <div class="num">Rp 0</div>
+            <div class="lab">nilai yang ter-capture hari ini. 100% jadi beban biaya disposal, bukan pendapatan.</div>
+          </div>
+        </div>
+        <div class="anim" style="font-family:var(--font-mono);font-size:.66rem;letter-spacing:.04em;color:#a8977a;margin-top:1.4rem;">Sumber: BPS Statistik Kopi 2023 · EPA/IPCC (proxy sampah organik) · estimasi, bukan sensus.</div>
+      </div>
+
+      <p class="anim lead mt-xl">Sejak <span class="c-gold" style="font-weight:600;">TPA Piyungan ditutup permanen (Maret 2024)</span>, Jogja kehabisan ruang buang. Ampasnya berguna: kandungan nitrogen ~2%, bahan baku kompos dan skincare. Yang hilang adalah <span class="c-gold" style="font-weight:600;">koordinator</span> yang mempertemukan kedai, UMKM pengolah, dan petani yang sebenarnya saling membutuhkan.</p>
+    </div>
+  </section>
+
+  <!-- 3. REFRAME -->
+  <section class="slide surface" id="s3" data-dark="false">
+    <div class="blob" style="background:rgba(0,139,124,.12);width:34vw;height:34vw;bottom:-10vw;right:-6vw;"></div>
+    <div class="inner">
+      <div class="anim eyebrow">02 — The Reframe</div>
+      <h2 class="anim h-xl mt-m" style="max-width:18ch;">Ini <span style="text-decoration:line-through;text-decoration-color:var(--primary);text-decoration-thickness:3px;" class="c-muted">sampah.</span></h2>
+      <h2 class="anim h-xl" style="max-width:20ch;">Ini <span class="italic c-accent">idle resource</span> dengan 8 sisi ekosistem.</h2>
+
+      <p class="anim lead mt-l">Rantai lama menaruh ampas di ujung, sebagai limbah yang dibuang. Kami menaruhnya di <span class="c-primary" style="font-weight:600;">titik awal sebuah loop</span>, tempat 8 pihak masing-masing menambah satu lapis nilai sebelum mengoper ke pihak berikutnya.</p>
+
+      <div class="anim fgrid f3 mt-l">
+        <div class="fcard bl-p">
+          <h4>Limbah jadi aset</h4>
+          <p>Kedai berhenti bayar disposal. Mereka dapat ESG Eco-Badge plus dashboard volume ampas yang dialihkan dari TPA.</p>
+        </div>
+        <div class="fcard bl-a">
+          <h4>Grup WA jadi trust layer</h4>
+          <p>Smart Matching menggantikan kontak personal dan grup WhatsApp dengan reputation score dan riwayat transaksi yang bisa diverifikasi.</p>
+        </div>
+        <div class="fcard bl-g">
+          <h4>Loop, bukan TPA</h4>
+          <p>Kopi pagi jadi skincare malam, lalu kompos, lalu tanaman. Empat hop. Nilai berputar, tidak berhenti di tempat sampah.</p>
+        </div>
+      </div>
+      <p class="anim script mt-m">resource, not rubbish ✿</p>
+    </div>
+  </section>
+
+  <!-- ========== ACT 2 / INSIGHT ========== -->
+
+  <!-- 4. KLASIFIKASI TEORI -->
+  <section class="slide" id="s4" data-dark="false">
+    <div class="inner">
+      <div class="anim eyebrow teal">03 — Klasifikasi Teori · Materi P15</div>
+      <h2 class="anim h-lg mt-m" style="max-width:26ch;">Ini bukan digitalisasi proses lama.<br>Ini <span class="italic c-primary">Digital Disruption.</span></h2>
+      <p class="anim lead mt-s">Di-map ke <span style="font-weight:600;color:var(--foreground);">9-Level Model of Digital Disruption</span> (Bu Dhika). Tiga level jadi tulang punggung pitch ini:</p>
+
+      <div class="anim stagger mt-l" style="display:block;">
+        <div class="lvl">
+          <div class="badge l4">L4</div>
+          <div>
+            <div class="ttl">Radical Disruption <span class="c-muted" style="font-size:.8rem;font-weight:400;">— Transition Intensity</span></div>
+            <div class="desc">Model bisnis baru, pasar baru (UMKM hilirisasi sebagai economic actor), arsitektur industri baru. Bukan migration, bukan conversion.</div>
+          </div>
+        </div>
+        <div class="lvl">
+          <div class="badge l6">L6</div>
+          <div>
+            <div class="ttl">Core Value Digital Interface <span class="c-muted" style="font-size:.8rem;font-weight:400;">— Strategy Type</span></div>
+            <div class="desc">Orchestrator antar pihak, pola Airbnb dan Uber. Platform jadi matchmaker asset-light: tidak mengangkut, tidak mengolah, tidak menyimpan ampas sendiri.</div>
+          </div>
+        </div>
+        <div class="lvl">
+          <div class="badge l8">L8</div>
+          <div>
+            <div class="ttl">8-Entity Value Constellation <span class="c-muted" style="font-size:.8rem;font-weight:400;">— Value Network</span></div>
+            <div class="desc">Jaringan 8 entitas dengan platform sebagai pusat. Setiap node memberi dan menerima nilai sekaligus, bukan rantai satu arah.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="anim cardish mt-l" style="padding:1rem 1.2rem;border-left:3px solid var(--accent);">
+        <span class="eyebrow teal no-rule" style="margin-bottom:.3rem;">Pitch line</span>
+        <p style="font-family:var(--font-display);font-style:italic;font-size:clamp(1rem,1.6vw,1.25rem);line-height:1.4;">“Business Model Disruption pada Level 4 (Radical), dengan strategi Core Value Digital Interface (Level 6), membentuk 8-Entity Value Constellation (Level 8) di sektor circular economy.”</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 8-ENTITY CONSTELLATION -->
+  <section class="slide surface" id="s5" data-dark="false">
+    <div class="inner constel">
+      <div class="anim flex between items-end wrap gap-m">
+        <div>
+          <div class="eyebrow">04 — Value Constellation</div>
+          <h2 class="h-lg mt-s">Satu orchestrator, <span class="italic c-accent">8 entitas</span> yang saling memberi.</h2>
+        </div>
+        <div class="orb-center anim">
+          <span class="orb-leaf">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>
+            <span class="b8">8</span>
+          </span>
+          <span class="eyebrow teal no-rule" style="margin-top:.5rem;">Platform Orchestrator</span>
+        </div>
+      </div>
+
+      <div class="anim flex between items-center mt-l" style="margin-bottom:.5rem;">
+        <span class="eyebrow teal">Core — 4 Pelaku Langsung</span>
+        <span class="c-muted" style="font-size:.74rem;">Inti rantai nilai ampas</span>
+      </div>
+      <div class="anim ent-grid">
+        <div class="ent">
+          <div class="ehead"><span class="eico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 2v2M14 2v2M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h12Z"/><path d="M16 8h2a2 2 0 0 1 0 4h-2"/></svg></span><span class="enum">C1</span></div>
+          <h5>Coffee Shop</h5><div class="erole">Supply utama</div>
+          <dl><div class="give">Kasih</div><dd>Ampas harian, foto, lokasi pickup</dd><div class="get">Dapat</div><dd>Disposal gratis, ESG Eco-Badge</dd></dl>
+        </div>
+        <div class="ent">
+          <div class="ehead"><span class="eico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M10 2v8.5a2.5 2.5 0 0 1-.5 1.5L4.5 19a2 2 0 0 0 1.6 3.2h11.8A2 2 0 0 0 19.5 19L14.5 12a2.5 2.5 0 0 1-.5-1.5V2"/><path d="M8.5 2h7M7 16h10"/></svg></span><span class="enum">C2</span></div>
+          <h5>UMKM Hilirisasi</h5><div class="erole">Transformer · bayar subscription</div>
+          <dl><div class="give">Kasih</div><dd>Komitmen volume, subscription</dd><div class="get">Dapat</div><dd>Supply tersortir + Verified Cert</dd></dl>
+        </div>
+        <div class="ent">
+          <div class="ehead"><span class="eico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18M16 10a4 4 0 0 1-8 0"/></svg></span><span class="enum">C3</span></div>
+          <h5>End User B2C</h5><div class="erole">Demand akhir + DIY audience</div>
+          <dl><div class="give">Kasih</div><dd>Aktivasi marketplace, review, UGC</dd><div class="get">Dapat</div><dd>Produk verified + Grounds Coin</dd></dl>
+        </div>
+        <div class="ent">
+          <div class="ehead"><span class="eico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4M9 9h.01M9 12h.01M9 15h.01"/></svg></span><span class="enum">C4</span></div>
+          <h5>Brand Sponsor / ESG</h5><div class="erole">Carbon buyer</div>
+          <dl><div class="give">Kasih</div><dd>Beli carbon credit, sponsorship</dd><div class="get">Dapat</div><dd>Carbon Cert + ESG report (LST OJK)</dd></dl>
+        </div>
+      </div>
+
+      <div class="anim flex between items-center mt-m" style="margin-bottom:.5rem;">
+        <span class="eyebrow gold">Supporting — 4 Enabler</span>
+        <span class="c-muted" style="font-size:.74rem;">Jaringan & legitimasi ekosistem</span>
+      </div>
+      <div class="anim ent-grid">
+        <div class="ent sup">
+          <div class="ehead"><span class="eico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c0 1 2.7 3 6 3s6-2 6-3v-5"/></svg></span><span class="enum">S1</span></div>
+          <h5>Kampus</h5><div class="erole">Hub host + talent pool</div>
+          <dl><div class="give">Kasih</div><dd>Lokasi Hub, volunteer, riset</dd><div class="get">Dapat</div><dd>Channel CSR & pengabdian</dd></dl>
+        </div>
+        <div class="ent sup">
+          <div class="ehead"><span class="eico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M6 21V8M10 21V8M14 21V8M18 21V8M4 8h16L12 3 4 8Z"/></svg></span><span class="enum">S2</span></div>
+          <h5>Dinas Lingkungan</h5><div class="erole">Data waste + policy</div>
+          <dl><div class="give">Kasih</div><dd>Validasi regulasi, dukungan</dd><div class="get">Dapat</div><dd>Data flow real-time (Adipura/SDG)</dd></dl>
+        </div>
+        <div class="ent sup">
+          <div class="ehead"><span class="eico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 20h10M12 20v-9M12 11C12 7 9 4 5 4c0 4 3 7 7 7ZM12 11c0-3 2.5-5.5 6-5.5C18 8.5 15.5 11 12 11Z"/></svg></span><span class="enum">S3</span></div>
+          <h5>Urban Farming</h5><div class="erole">Komunitas DIY + demand kompos</div>
+          <dl><div class="give">Kasih</div><dd>Demand kompos, edukasi, UGC</dd><div class="get">Dapat</div><dd>Bahan organik murah & konsisten</dd></dl>
+        </div>
+        <div class="ent sup">
+          <div class="ehead"><span class="eico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h13v13H1zM14 8h5l3 3v5h-8M5.5 19a2 2 0 1 0 0-.01M17.5 19a2 2 0 1 0 0-.01"/></svg></span><span class="enum">S4</span></div>
+          <h5>Logistik Partner</h5><div class="erole">Idle delivery capacity</div>
+          <dl><div class="give">Kasih</div><dd>Kapasitas pickup off-peak</dd><div class="get">Dapat</div><dd>Revenue stream + CSR eco</dd></dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. BUSINESS PROCESS -->
+  <section class="slide" id="s6" data-dark="false">
+    <div class="inner">
+      <div class="anim eyebrow teal">05 — Business Process</div>
+      <h2 class="anim h-lg mt-m" style="max-width:24ch;">Lima langkah dari ampas pagi<br>ke produk di <span class="italic c-primary">marketplace.</span></h2>
+
+      <div class="anim flow mt-l cardish" style="padding:.4rem;">
+        <div class="step"><div class="sn">01</div><h4>Submit</h4><p>Kedai foto ampas, isi jenis (Arabika/Robusta) dan volume di WasteScan.</p></div>
+        <div class="step"><div class="sn">02</div><h4>Smart Match</h4><p>Engine cocokkan supply ke UMKM by jarak pickup, freshness, preferensi olahan.</p></div>
+        <div class="step"><div class="sn">03</div><h4>Pickup</h4><p>Partner logistik angkut dari kedai ke Hub kampus saat jam off-peak.</p></div>
+        <div class="step"><div class="sn">04</div><h4>Hilirisasi</h4><p>UMKM olah jadi skincare, briket, kompos, eco-print.</p></div>
+        <div class="step"><div class="sn">05</div><h4>Marketplace</h4><p>End user beli produk jadi. Komisi 10–15% masuk, Grounds Coin keluar.</p></div>
+      </div>
+
+      <!-- REAL FOUNDATION DIAGRAMS -->
+      <div class="anim diagram-grid mt-l">
+        <div class="diagram wide">
+          <div class="dhead">
+            <span class="dlabel">DFD Level 0 · Context Diagram</span>
+            <span class="dtag">foundation/04-DFD</span>
+          </div>
+          <div class="dframe">
+            <img src="assets/diagrams/dfd-level0-context.svg" alt="DFD Level 0 — platform GroundsToGrow sebagai pusat, 8 entitas plus Bank sebagai external entity, dengan aliran data masuk dan keluar." loading="lazy" />
+          </div>
+          <div class="dcap">// platform di pusat · 8 entitas + Bank sebagai external entity · aliran data dua arah (submit, match, payout, ESG)</div>
+        </div>
+        <div class="diagram square">
+          <div class="dhead">
+            <span class="dlabel">AD-CX-01 · End-to-End Circular Flow</span>
+            <span class="dtag">foundation/03-Activity</span>
+          </div>
+          <div class="dframe">
+            <img src="assets/diagrams/activity-adcx01-end-to-end-circular.svg" alt="Activity diagram lintas-entitas: alur dari Coffee Shop submit, Smart Match, pickup, hilirisasi UMKM, sampai pembelian end user dan loop kompos." loading="lazy" />
+          </div>
+          <div class="dcap">// swimlane lintas-entitas: Coffee Shop → Platform → UMKM → End User · loop balik ke kompos & urban farming</div>
+        </div>
+      </div>
+
+      <div class="anim flex between items-center wrap gap-m mt-m">
+        <div class="flow-loop">↻ &nbsp;Loop: produk → kompos → urban farming → kembali ke siklus</div>
+        <div class="flex gap-s wrap">
+          <span class="tag t-success">ESG ter-hitung tiap langkah</span>
+          <span class="tag t-accent">Verified Circular Source</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6b. DATA ARCHITECTURE — DFD L1 + ERD (real renders) -->
+  <section class="slide surface" id="s6b" data-dark="false">
+    <div class="inner">
+      <div class="anim flex between items-end wrap gap-m">
+        <div>
+          <div class="eyebrow teal">05.1 — Data Architecture</div>
+          <h2 class="h-lg mt-s" style="max-width:24ch;">Bukan slide, ini <span class="italic c-primary">cetak biru</span> yang sudah dirender.</h2>
+        </div>
+        <div class="cardish anim" style="padding:.6rem .9rem;text-align:right;">
+          <div class="eyebrow no-rule" style="justify-content:flex-end;">Foundation</div>
+          <div class="mono-num" style="font-weight:700;font-size:1.05rem;color:var(--accent);">7 proses · 9 data store · 23 entitas</div>
+        </div>
+      </div>
+
+      <div class="anim diagram wide mt-l">
+        <div class="dhead">
+          <span class="dlabel">DFD Level 1 · Main Processes</span>
+          <span class="dtag">foundation/04-DFD</span>
+        </div>
+        <div class="dframe">
+          <img src="assets/diagrams/dfd-level1-main-processes.svg" alt="DFD Level 1 — tujuh sub-proses platform GroundsToGrow dan sembilan data store, dengan aliran data antar proses." loading="lazy" />
+        </div>
+        <div class="dcap">// 7 sub-proses: Listing, Smart Match, Pickup, Hilirisasi, Marketplace, ESG, Carbon · 9 data store</div>
+      </div>
+
+      <div class="anim diagram-grid mt-m">
+        <div class="diagram square">
+          <div class="dhead">
+            <span class="dlabel">ERD · Core MVP Schema</span>
+            <span class="dtag">foundation/05-ERD</span>
+          </div>
+          <div class="dframe">
+            <img src="assets/diagrams/erd-core-mvp.svg" alt="Entity Relationship Diagram core MVP — 23 entitas dengan relasi antar tabel: User, CoffeeShop, WasteListing, Match, Order, CarbonCredit, dan lainnya." loading="lazy" />
+          </div>
+          <div class="dcap">// 23 entitas berelasi · User · CoffeeShop · WasteListing · Match · Order · CarbonCredit</div>
+        </div>
+        <div class="diagram tall">
+          <div class="dhead">
+            <span class="dlabel">FC-02 · WasteScan Demo Flow (HERO)</span>
+            <span class="dtag">foundation/06-Flowchart</span>
+          </div>
+          <div class="dframe">
+            <img src="assets/diagrams/flowchart-fc02-wastescan-demo.svg" alt="Flowchart FC-02 — alur user WasteScan: upload foto ampas, pilih jenis dan volume, smart analysis, lihat estimasi ESG, lalu Smart Match ke UMKM." loading="lazy" />
+          </div>
+          <div class="dcap">// alur WasteScan: foto → jenis & volume → smart analysis → estimasi ESG → Smart Match</div>
+        </div>
+      </div>
+
+      <p class="anim lead mt-m" style="max-width:78ch;">Schema, proses, dan aliran data sudah dipetakan sebelum satu baris produksi ditulis. Backend Supabase tinggal mengikuti ERD ini saat pilot. Pemetaan, bukan tebakan.</p>
+    </div>
+  </section>
+
+  <!-- 7. REVENUE MODEL -->
+  <section class="slide surface" id="s7" data-dark="false">
+    <div class="inner">
+      <div class="anim flex between items-end wrap gap-m">
+        <div>
+          <div class="eyebrow">06 — Revenue Model</div>
+          <h2 class="h-lg mt-s" style="max-width:22ch;"><span class="italic c-primary">6 stream:</span> 2 primary terbukti, 4 upside.</h2>
+        </div>
+        <div class="cardish anim" style="padding:.7rem 1rem;text-align:right;">
+          <div class="eyebrow no-rule" style="justify-content:flex-end;">Proyeksi Year 1</div>
+          <div class="mono-num" style="font-weight:700;font-size:1.3rem;color:var(--accent);">~Rp 500jt–1.5M / bln</div>
+        </div>
+      </div>
+
+      <div class="anim rev-grid mt-l">
+        <div class="rev"><span class="pill prim">Primary</span><div class="rno">01</div><h4>UMKM Subscription</h4><div class="who">UMKM Hilirisasi · SaaS MRR</div><div class="amt">Rp 30–100jt/bln</div></div>
+        <div class="rev"><span class="pill prim">Primary</span><div class="rno">02</div><h4>B2C Commission</h4><div class="who">End User → UMKM · 10–15%</div><div class="amt">Rp 5–20jt/bln</div></div>
+        <div class="rev"><span class="pill sec">Secondary</span><div class="rno">03</div><h4>ESG SaaS Chain</h4><div class="who">Coffee chain besar · Premium</div><div class="amt">Rp 10–50jt/bln</div></div>
+        <div class="rev"><span class="pill side">Upside</span><div class="rno">04</div><h4>Carbon Credit</h4><div class="who">Brand Sponsor · pasca-IDXCarbon 2023</div><div class="amt">Rp 5–50jt/bln</div></div>
+        <div class="rev"><span class="pill side">Upside</span><div class="rno">05</div><h4>Data Licensing</h4><div class="who">DLH / NGO / Riset</div><div class="amt">Rp 5–20jt/thn</div></div>
+        <div class="rev"><span class="pill sec">Transactional</span><div class="rno">06</div><h4>Petani Commission</h4><div class="who">Coffee Shop → Petani · 5%</div><div class="amt">Rp 2–10jt/bln</div></div>
+      </div>
+
+      <p class="anim lead mt-m" style="max-width:74ch;">Pendapatan bertumpu pada <span class="c-primary" style="font-weight:600;">UMKM Subscription</span> dan <span class="c-primary" style="font-weight:600;">komisi marketplace 10–15%</span>: dua model SaaS yang sudah terbukti di pasar Indonesia. Carbon Credit dan ESG SaaS kami perlakukan sebagai <span class="c-accent" style="font-weight:600;">lapisan upside</span>. Bonus, bukan fondasi.</p>
+    </div>
+  </section>
+
+  <!-- 8. LIVE DEMO -->
+  <section class="slide dark" id="s8" data-dark="true">
+    <div class="blob" style="background:rgba(0,139,124,.2);width:34vw;height:34vw;top:-8vw;right:-6vw;"></div>
+    <div class="inner">
+      <div class="anim eyebrow gold">07 — Live Demo</div>
+      <div class="demo-grid mt-m">
+        <div class="anim browser">
+          <div class="bar"><span class="d"></span><span class="d"></span><span class="d"></span><span class="url">groundstogrow-mvp.vercel.app</span></div>
+          <iframe src="https://groundstogrow-mvp.vercel.app" title="GroundsToGrow MVP" loading="lazy"></iframe>
+        </div>
+        <div class="anim">
+          <h2 class="h-lg" style="max-width:14ch;"><span class="italic c-gold">App beneran,</span><br>live di Vercel.</h2>
+          <p class="lead mt-s">Next.js 14, empat layar jadi. Dua hero yang akan kami sorot: <span class="c-gold" style="font-weight:600;">WasteScan</span> (submit ampas plus Smart Match) dan <span class="c-gold" style="font-weight:600;">Marketplace 3-tab</span> (ampas mentah, produk olahan, biji petani).</p>
+
+          <div class="flex items-center gap-l mt-l wrap">
+            <div class="qr" aria-label="QR ke aplikasi">
+              <!-- decorative QR -->
+              <svg viewBox="0 0 29 29" shape-rendering="crispEdges">
+                <rect width="29" height="29" fill="#FBF6EC"/>
+                <g fill="#211309">
+                  <path d="M0 0h7v7h-7zM2 2h3v3h-3z" /><path d="M22 0h7v7h-7zM24 2h3v3h-3z"/><path d="M0 22h7v7h-7zM2 24h3v3h-3z"/>
+                  <rect x="9" y="0" width="1" height="1"/><rect x="11" y="0" width="2" height="1"/><rect x="14" y="0" width="1" height="2"/><rect x="17" y="0" width="2" height="1"/><rect x="19" y="0" width="1" height="2"/>
+                  <rect x="9" y="2" width="1" height="3"/><rect x="12" y="2" width="2" height="1"/><rect x="16" y="3" width="2" height="2"/><rect x="19" y="4" width="2" height="1"/>
+                  <rect x="0" y="9" width="1" height="1"/><rect x="2" y="9" width="3" height="1"/><rect x="6" y="9" width="2" height="2"/><rect x="9" y="9" width="2" height="2"/><rect x="12" y="9" width="1" height="3"/><rect x="14" y="9" width="3" height="1"/><rect x="18" y="9" width="2" height="2"/><rect x="22" y="9" width="1" height="2"/><rect x="24" y="9" width="2" height="1"/><rect x="27" y="9" width="2" height="2"/>
+                  <rect x="0" y="12" width="2" height="1"/><rect x="4" y="11" width="1" height="3"/><rect x="9" y="13" width="2" height="2"/><rect x="14" y="12" width="2" height="2"/><rect x="18" y="13" width="1" height="2"/><rect x="21" y="12" width="2" height="1"/><rect x="25" y="13" width="2" height="2"/>
+                  <rect x="9" y="16" width="2" height="1"/><rect x="13" y="16" width="3" height="2"/><rect x="17" y="17" width="2" height="1"/><rect x="20" y="16" width="1" height="3"/><rect x="23" y="17" width="2" height="2"/><rect x="26" y="16" width="2" height="1"/>
+                  <rect x="9" y="20" width="1" height="3"/><rect x="11" y="20" width="3" height="1"/><rect x="15" y="21" width="2" height="2"/><rect x="18" y="20" width="2" height="1"/><rect x="22" y="21" width="3" height="1"/><rect x="26" y="20" width="2" height="3"/>
+                  <rect x="9" y="24" width="3" height="1"/><rect x="13" y="25" width="1" height="3"/><rect x="16" y="24" width="2" height="2"/><rect x="19" y="26" width="3" height="1"/><rect x="23" y="24" width="1" height="3"/><rect x="26" y="25" width="2" height="2"/>
+                </g>
+              </svg>
+            </div>
+            <div>
+              <div class="eyebrow gold no-rule">Scan / kunjungi</div>
+              <div class="url-big mt-s" style="color:var(--highlight);">groundstogrow<wbr>-mvp.vercel.app</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. NETWORK EFFECT FLYWHEEL -->
+  <section class="slide" id="s9" data-dark="false">
+    <div class="inner wheel-wrap">
+      <div class="anim wheel" id="wheel">
+        <div class="ring"></div>
+        <svg class="arrow" viewBox="0 0 100 100" fill="none">
+          <path d="M50 6 A44 44 0 0 1 94 50" stroke="var(--accent)" stroke-width="1.4" stroke-dasharray="3 4" />
+          <path d="M94 50 A44 44 0 0 1 50 94" stroke="var(--highlight)" stroke-width="1.4" stroke-dasharray="3 4"/>
+          <path d="M50 94 A44 44 0 0 1 6 50" stroke="var(--primary)" stroke-width="1.4" stroke-dasharray="3 4"/>
+          <path d="M6 50 A44 44 0 0 1 50 6" stroke="var(--success)" stroke-width="1.4" stroke-dasharray="3 4"/>
+          <path d="M88 38 l4 8 -8 1 z" fill="var(--accent)"/>
+        </svg>
+        <div class="hub"><span class="l">8-Sided</span><span class="v">Flywheel</span></div>
+        <!-- 8 nodes placed via JS for circular layout -->
+      </div>
+      <div class="anim">
+        <div class="eyebrow">08 — Network Effects</div>
+        <h2 class="h-lg mt-s" style="max-width:18ch;">Tiap entitas baru <span class="italic c-accent">menaikkan nilai</span> 7 sisi lain.</h2>
+        <p class="lead mt-s">Coffee shop tambah → UMKM happy → produk lebih banyak → konsumen naik → brand sponsor tertarik → fund besar → Kampus & DLH lihat dampak → endorse → coffee shop baru tertarik. <span class="c-primary" style="font-weight:600;">Loop yang mempercepat dirinya sendiri.</span></p>
+        <div class="fgrid f2 mt-l">
+          <div class="fcard bl-a"><h4>Data Network Effect</h4><p>Makin banyak submit → matching makin akurat, prediksi waste flow makin presisi.</p></div>
+          <div class="fcard bl-p"><h4>Trust / Reputation</h4><p>Eco-Badge race antar kedai + Verified Cert jadi switching cost UMKM.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. AUTOMATION & HONESTY (DARK) -->
+  <section class="slide dark" id="s10" data-dark="true">
+    <div class="inner">
+      <div class="anim eyebrow gold">09 — Automation & Integration</div>
+      <h2 class="anim h-lg mt-m" style="max-width:24ch;">Jujur soal apa yang <span class="c-success" style="font-style:italic;">real</span>, <span class="c-gold" style="font-style:italic;">mock</span>, dan <span class="c-accent" style="font-style:italic;">roadmap.</span></h2>
+
+      <div class="anim stagger mt-l" style="display:block;">
+        <div class="auto-row"><div class="nm">ESG / Carbon Calc</div><div class="ds">kg ampas × 0.5 = kg CO₂-eq. Formula nyata jalan di MVP.</div><span class="badge-status bs-real">Real</span></div>
+        <div class="auto-row"><div class="nm">Grounds Coin Ledger</div><div class="ds">Counter reward end-user, state nyata di app.</div><span class="badge-status bs-real">Real</span></div>
+        <div class="auto-row"><div class="nm">WasteScan UI</div><div class="ds">Foto + dropdown → “smart analysis”. Rule-based mock, UI demo — bukan AI Vision.</div><span class="badge-status bs-mock">Mock UI</span></div>
+        <div class="auto-row"><div class="nm">Smart Matching</div><div class="ds">Match supply ↔ UMKM by preferensi/jarak/freshness. Rule-based hardcoded.</div><span class="badge-status bs-mock">Mock UI</span></div>
+        <div class="auto-row"><div class="nm">AI Vision (WasteScan v2)</div><div class="ds">Foto → real classification & auto-grading. R&D phase, dataset terbatas.</div><span class="badge-status bs-future">Roadmap</span></div>
+        <div class="auto-row"><div class="nm">Backend + Payment + Logistik API</div><div class="ds">Supabase/Postgres, Midtrans, integrasi Gojek/Lalamove. Post-pilot.</div><span class="badge-status bs-future">Roadmap</span></div>
+      </div>
+      <p class="anim lead mt-l">“MVP fokus pada flow dan demonstrasi multi-sided. Kami tidak menjanjikan yang belum ditepati. <span class="c-gold" style="font-weight:600;">Honest by design.</span>”</p>
+    </div>
+  </section>
+
+  <!-- ========== ACT 3 / VISION ========== -->
+
+  <!-- 11. REVEAL WASTELOOP -->
+  <section class="slide dark" id="s11" data-dark="true">
+    <div class="blob" style="background:rgba(192,85,43,.2);width:40vw;height:40vw;bottom:-12vw;left:-8vw;"></div>
+    <div class="inner">
+      <div class="anim eyebrow gold">10 — The Reveal</div>
+      <h2 class="anim h-xl mt-m" style="max-width:20ch;">We're not a <span style="text-decoration:line-through;text-decoration-color:var(--primary);" class="c-muted">coffee app.</span></h2>
+      <h2 class="anim h-xl reveal-line" style="max-width:22ch;">We're the <span class="c-gold">OS for circular economy.</span></h2>
+
+      <p class="anim lead mt-l" style="max-width:64ch;"><span style="color:var(--background);font-weight:600;">GroundsToGrow</span> adalah <em>face</em> yang familiar buat juri dan investor. Di belakangnya berdiri <span class="c-gold" style="font-weight:600;">WasteLoop</span>: arsitektur orchestrator yang sama bisa menangani limbah organik apa pun, dari roti sisa sampai cangkang telur.</p>
+
+      <div class="anim fgrid f4 mt-l">
+        <div class="fcard bl-p"><h4 class="c-gold">☕ Coffee</h4><p style="color:#c2b094;">Ampas → skincare, briket, kompos. (live)</p></div>
+        <div class="fcard bl-a"><h4 class="c-gold">🥖 Bakery</h4><p style="color:#c2b094;">Roti sisa → pakan ternak, tepung daur.</p></div>
+        <div class="fcard bl-g"><h4 class="c-gold">🥬 Sayur</h4><p style="color:#c2b094;">Trim sayur → kompos, eco-enzyme.</p></div>
+        <div class="fcard bl-s"><h4 class="c-gold">🥚 Telur</h4><p style="color:#c2b094;">Cangkang → kalsium, media tanam.</p></div>
+      </div>
+      <p class="anim lead mt-m">Satu engine, banyak vertikal. <span class="c-gold" style="font-weight:600;">Kopi duluan, karena ceritanya paling nempel di kepala juri.</span></p>
+    </div>
+  </section>
+
+  <!-- 12. ROADMAP -->
+  <section class="slide surface" id="s12" data-dark="false">
+    <div class="inner">
+      <div class="anim eyebrow teal">11 — Roadmap</div>
+      <h2 class="anim h-lg mt-m" style="max-width:22ch;">Dari clickable demo<br>ke <span class="italic c-primary">pilot Jogja yang hidup.</span></h2>
+
+      <div class="anim road mt-xl">
+        <div class="col">
+          <div class="when">Now · UAS</div>
+          <h4>Foundation + MVP</h4>
+          <ul>
+            <li>4 screen Next.js live di Vercel</li>
+            <li>11 dokumen foundation (PRD, DFD, ERD)</li>
+            <li>WasteScan + Marketplace 3-tab</li>
+            <li>Pitch teori Level 4-6-8</li>
+          </ul>
+        </div>
+        <div class="col">
+          <div class="when">0–6 Bulan</div>
+          <h4>Pilot Cold-Start</h4>
+          <ul>
+            <li>Hub di kampus UKDW</li>
+            <li>5 coffee shop + 3–5 UMKM trial</li>
+            <li>DLH Sleman zero-waste pilot</li>
+            <li>Backend Supabase + Midtrans</li>
+          </ul>
+        </div>
+        <div class="col">
+          <div class="when">6–12 Bulan</div>
+          <h4>Scale + AI</h4>
+          <ul>
+            <li>AI Vision auto-grading (WasteScan v2)</li>
+            <li>Logistik API (Gojek/Lalamove)</li>
+            <li>Carbon credit batch pertama</li>
+            <li>Ekspansi vertikal WasteLoop</li>
+          </ul>
+        </div>
+      </div>
+      <p class="anim lead mt-l">Eksekusi: dosen pembimbing UKDW + inkubator LPPM + pitch ke BPC / KSE Juara. <span class="c-accent" style="font-weight:600;">Concept-stage validated, jalur scale jelas.</span></p>
+    </div>
+  </section>
+
+  <!-- 13. TEAM + ASK + CLOSE -->
+  <section class="slide dark" id="s13" data-dark="true">
+    <div class="blob" style="background:rgba(0,139,124,.18);width:38vw;height:38vw;top:-10vw;right:-8vw;"></div>
+    <div class="blob" style="background:rgba(232,169,61,.14);width:28vw;height:28vw;bottom:-8vw;left:-4vw;"></div>
+    <div class="inner">
+      <div class="anim eyebrow gold">12 — Tim & Ask</div>
+      <h2 class="anim h-lg mt-m">Lima orang, satu loop yang mau kami <span class="italic c-gold">tutup.</span></h2>
+
+      <div class="anim team mt-l">
+        <div class="member"><div class="av">D</div><div class="nm">Dex Bennett</div><div class="rl">Lead · MVP</div></div>
+        <div class="member"><div class="av">E</div><div class="nm">Elseva</div><div class="rl">Storyteller</div></div>
+        <div class="member"><div class="av">E</div><div class="nm">Elsava</div><div class="rl">Business Analyst</div></div>
+        <div class="member"><div class="av">G</div><div class="nm">Gatot</div><div class="rl">Research Lead</div></div>
+        <div class="member"><div class="av">S</div><div class="nm">Samuel</div><div class="rl">Presenter</div></div>
+      </div>
+
+      <div class="anim ask mt-l">
+        <div class="fcard bl-g"><h4 class="c-gold">Validasi</h4><p style="color:#c2b094;">Feedback model & framework dari Bu Dhika untuk sharpen pilot.</p></div>
+        <div class="fcard bl-a"><h4 class="c-gold">Pilot Support</h4><p style="color:#c2b094;">Akses Hub kampus + koneksi DLH Sleman untuk cold-start.</p></div>
+        <div class="fcard bl-p"><h4 class="c-gold">Next Step</h4><p style="color:#c2b094;">Inkubasi LPPM + pitch kompetisi pendanaan early-stage.</p></div>
+      </div>
+
+      <hr class="anim rule mt-l">
+      <div class="anim flex between items-end wrap gap-m mt-m">
+        <h3 class="h-lg" style="max-width:16ch;">From Waste to <span class="c-gold italic">Wealth.</span><br>From Coffee to <span class="c-gold italic">Carbon.</span></h3>
+        <div style="text-align:right;">
+          <div class="url-big" style="color:var(--highlight);">groundstogrow-mvp.vercel.app</div>
+          <div class="eyebrow gold no-rule" style="justify-content:flex-end;margin-top:.4rem;">Terima kasih · Q&A</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- HUD -->
+<div class="hint" id="hint">← → untuk navigasi · scroll juga bisa</div>
+<nav id="nav">
+  <button class="navbtn" id="prev" aria-label="Slide sebelumnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+  <div id="dots"></div>
+  <span id="counter">01 / 14</span>
+  <button class="navbtn" id="next" aria-label="Slide berikutnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+</nav>
+
+<script>
+(function(){
+  var deck = document.getElementById('deck');
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var total = slides.length;
+  var current = 0;
+  var dotsWrap = document.getElementById('dots');
+  var counter = document.getElementById('counter');
+  var progress = document.getElementById('progress');
+  var hint = document.getElementById('hint');
+
+  // build dots
+  slides.forEach(function(s, i){
+    var b = document.createElement('button');
+    b.className = 'dot' + (i===0?' on':'');
+    b.setAttribute('aria-label','Slide '+(i+1));
+    b.addEventListener('click', function(){ goTo(i); });
+    dotsWrap.appendChild(b);
+  });
+  var dots = Array.prototype.slice.call(dotsWrap.children);
+
+  function pad(n){ return (n<10?'0':'')+n; }
+
+  function setActive(i){
+    current = i;
+    slides.forEach(function(s,idx){ s.classList.toggle('active', idx===i); });
+    dots.forEach(function(d,idx){ d.classList.toggle('on', idx===i); });
+    counter.textContent = pad(i+1)+' / '+pad(total);
+    progress.style.width = ((i)/(total-1)*100)+'%';
+    // toggle dark chrome
+    document.body.classList.toggle('on-dark', slides[i].getAttribute('data-dark')==='true');
+  }
+
+  function goTo(i){
+    i = Math.max(0, Math.min(total-1, i));
+    slides[i].scrollIntoView({behavior:'smooth'});
+    // setActive happens via observer, but set immediately for snappy chrome
+    setActive(i);
+  }
+  function next(){ goTo(current+1); }
+  function prev(){ goTo(current-1); }
+
+  document.getElementById('next').addEventListener('click', next);
+  document.getElementById('prev').addEventListener('click', prev);
+
+  // observer keeps active in sync with scroll/snap
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting && e.intersectionRatio >= 0.55){
+          var idx = slides.indexOf(e.target);
+          if(idx !== -1) setActive(idx);
+        }
+      });
+    }, {root:deck, threshold:[0.55]});
+    slides.forEach(function(s){ io.observe(s); });
+  }
+
+  // keyboard
+  window.addEventListener('keydown', function(e){
+    if(e.key==='ArrowRight' || e.key==='ArrowDown' || e.key===' ' || e.key==='PageDown'){ e.preventDefault(); next(); }
+    else if(e.key==='ArrowLeft' || e.key==='ArrowUp' || e.key==='PageUp'){ e.preventDefault(); prev(); }
+    else if(e.key==='Home'){ e.preventDefault(); goTo(0); }
+    else if(e.key==='End'){ e.preventDefault(); goTo(total-1); }
+    hideHint();
+  });
+
+  // click-to-advance on left/right thirds (ignore interactive elements)
+  deck.addEventListener('click', function(e){
+    if(e.target.closest('a,button,iframe,input,select,.qr,#nav')) return;
+    var x = e.clientX / window.innerWidth;
+    if(x > 0.66) next();
+    else if(x < 0.34) prev();
+    hideHint();
+  });
+
+  var hintTimer = setTimeout(hideHint, 4500);
+  function hideHint(){ hint.classList.add('hide'); clearTimeout(hintTimer); }
+  deck.addEventListener('scroll', hideHint, {passive:true, once:true});
+
+  // ---- flywheel node layout ----
+  var wheel = document.getElementById('wheel');
+  if(wheel){
+    var nodes = [
+      {ic:'M10 2v2M14 2v2M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1zM16 8h2a2 2 0 0 1 0 4h-2', t:'Coffee Shop'},
+      {ic:'M10 2v8.5a2.5 2.5 0 0 1-.5 1.5L4.5 19a2 2 0 0 0 1.6 3.2h11.8A2 2 0 0 0 19.5 19L14.5 12a2.5 2.5 0 0 1-.5-1.5V2', t:'UMKM'},
+      {ic:'M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4ZM3 6h18M16 10a4 4 0 0 1-8 0', t:'End User'},
+      {ic:'M3 21h18M5 21V7l8-4v18M19 21V11l-6-4', t:'Sponsor'},
+      {ic:'M22 10 12 5 2 10l10 5 10-5ZM6 12v5c0 1 2.7 3 6 3s6-2 6-3v-5', t:'Kampus'},
+      {ic:'M3 21h18M6 21V8M18 21V8M4 8h16L12 3 4 8Z', t:'DLH'},
+      {ic:'M7 20h10M12 20v-9M12 11C12 7 9 4 5 4c0 4 3 7 7 7Z', t:'Urban Farm'},
+      {ic:'M1 3h13v13H1zM14 8h5l3 3v5h-8', t:'Logistik'}
+    ];
+    var R = 50; // percent radius from center
+    nodes.forEach(function(n, i){
+      var ang = (-90 + i*45) * Math.PI/180;
+      var x = 50 + R*Math.cos(ang);
+      var y = 50 + R*Math.sin(ang);
+      var el = document.createElement('div');
+      el.className = 'node';
+      el.style.left = x+'%';
+      el.style.top = y+'%';
+      el.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="'+n.ic+'"/></svg><span>'+n.t+'</span>';
+      wheel.appendChild(el);
+    });
+  }
+
+  setActive(0);
+})();
+</script>
+</body>
+</html>
