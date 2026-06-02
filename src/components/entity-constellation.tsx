@@ -44,7 +44,7 @@ function EntityRow({
   return (
     <article
       className={cn(
-        "group relative grid grid-cols-[auto_1fr] gap-x-4 gap-y-3 bg-card p-5 transition-colors",
+        "group relative grid grid-cols-[auto_1fr] gap-x-4 gap-y-3 bg-card p-5 transition-colors duration-300 hover:bg-card/50",
         "border-l-2",
         isCore ? "border-l-accent" : "border-l-highlight"
       )}
@@ -53,15 +53,22 @@ function EntityRow({
       <div className="flex flex-col items-center gap-2">
         <span
           className={cn(
-            "flex size-11 items-center justify-center rounded-xl transition-transform group-hover:-translate-y-0.5",
+            "flex size-11 items-center justify-center rounded-xl transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:rotate-3",
             isCore
-              ? "bg-accent/12 text-accent ring-1 ring-accent/25"
-              : "bg-highlight/15 text-highlight ring-1 ring-highlight/30"
+              ? "bg-accent/12 text-accent ring-1 ring-accent/25 group-hover:ring-accent/45"
+              : "bg-highlight/15 text-highlight ring-1 ring-highlight/30 group-hover:ring-highlight/50"
           )}
         >
           <Icon className="size-5" strokeWidth={1.75} />
         </span>
-        <span className="font-mono text-[0.62rem] tracking-widest text-muted-foreground/60">
+        <span
+          className={cn(
+            "font-mono text-[0.62rem] font-medium tracking-widest transition-colors",
+            isCore
+              ? "text-accent/60 group-hover:text-accent"
+              : "text-highlight/70 group-hover:text-highlight"
+          )}
+        >
           {ordinal}
         </span>
       </div>
@@ -71,27 +78,37 @@ function EntityRow({
         <h4 className="font-display text-lg leading-tight font-semibold text-foreground">
           {entity.name}
         </h4>
-        <p className="mt-0.5 text-xs text-muted-foreground">{entity.role}</p>
+        <p className="mt-0.5 text-xs leading-snug text-muted-foreground">
+          {entity.role}
+        </p>
       </div>
 
       {/* Gives / Gets — span penuh, ala ledger */}
       <dl className="col-span-2 space-y-2 border-t border-border pt-3 text-xs">
         <div className="flex items-start gap-2">
-          <ArrowUpRight className="mt-px size-3.5 shrink-0 text-primary" />
-          <div>
-            <dt className="eyebrow mb-0.5 text-[0.58rem] text-primary">
+          <span className="mt-px flex size-4 shrink-0 items-center justify-center rounded bg-primary/10">
+            <ArrowUpRight className="size-3 text-primary" />
+          </span>
+          <div className="min-w-0">
+            <dt className="eyebrow mb-0.5 text-[0.55rem] text-primary">
               Kasih
             </dt>
-            <dd className="text-muted-foreground">{entity.gives}</dd>
+            <dd className="leading-snug text-muted-foreground">
+              {entity.gives}
+            </dd>
           </div>
         </div>
         <div className="flex items-start gap-2">
-          <ArrowDownLeft className="mt-px size-3.5 shrink-0 text-success" />
-          <div>
-            <dt className="eyebrow mb-0.5 text-[0.58rem] text-success">
+          <span className="mt-px flex size-4 shrink-0 items-center justify-center rounded bg-success/10">
+            <ArrowDownLeft className="size-3 text-success" />
+          </span>
+          <div className="min-w-0">
+            <dt className="eyebrow mb-0.5 text-[0.55rem] text-success">
               Dapat
             </dt>
-            <dd className="text-muted-foreground">{entity.gets}</dd>
+            <dd className="leading-snug text-muted-foreground">
+              {entity.gets}
+            </dd>
           </div>
         </div>
       </dl>
@@ -113,9 +130,13 @@ export function EntityConstellation() {
 
       {/* Orchestrator di tengah */}
       <div className="mx-auto mb-12 flex max-w-xl flex-col items-center text-center">
-        <span className="relative flex size-16 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md ring-4 ring-primary/15">
-          <Leaf className="size-8" strokeWidth={1.75} />
-          <span className="absolute -right-1 -bottom-1 flex size-5 items-center justify-center rounded-full bg-accent text-[0.55rem] font-bold text-accent-foreground ring-2 ring-card">
+        <span className="group relative flex size-16 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-md ring-4 ring-primary/15">
+          <span
+            aria-hidden
+            className="absolute inset-0 animate-pulse rounded-2xl bg-primary/20 blur-md"
+          />
+          <Leaf className="relative size-8" strokeWidth={1.75} />
+          <span className="absolute -right-1 -bottom-1 flex size-5 items-center justify-center rounded-full bg-accent font-mono text-[0.55rem] font-bold text-accent-foreground ring-2 ring-card">
             8
           </span>
         </span>
@@ -123,18 +144,29 @@ export function EntityConstellation() {
         <h3 className="mt-1 font-display text-2xl font-semibold tracking-tight text-foreground">
           Grounds<span className="italic text-accent">To</span>Grow
         </h3>
-        <p className="mt-2 text-sm text-muted-foreground">
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
           Satu platform menengahi <span className="font-mono">8</span> entitas —
           tiap pihak{" "}
           <span className="font-medium text-foreground">memberi & menerima</span>{" "}
           nilai dalam loop sirkular, bukan rantai linear.
         </p>
+        {/* Konektor turun ke grid */}
+        <span
+          aria-hidden
+          className="mt-6 h-8 w-px bg-gradient-to-b from-border to-transparent"
+        />
       </div>
 
       {/* CORE 4 */}
       <div className="space-y-4">
         <div className="flex flex-wrap items-baseline justify-between gap-2 border-t border-border pt-4">
-          <p className="eyebrow text-accent">Core — 4 Pelaku Langsung</p>
+          <p className="eyebrow text-accent">
+            <span
+              aria-hidden
+              className="size-2 shrink-0 rounded-full bg-accent"
+            />
+            Core — 4 Pelaku Langsung
+          </p>
           <span className="text-xs text-muted-foreground">
             Inti rantai nilai ampas
           </span>
@@ -153,7 +185,13 @@ export function EntityConstellation() {
       {/* SUPPORTING 4 */}
       <div className="mt-10 space-y-4">
         <div className="flex flex-wrap items-baseline justify-between gap-2 border-t border-border pt-4">
-          <p className="eyebrow text-highlight">Supporting — 4 Enabler</p>
+          <p className="eyebrow text-highlight">
+            <span
+              aria-hidden
+              className="size-2 shrink-0 rounded-full bg-highlight"
+            />
+            Supporting — 4 Enabler
+          </p>
           <span className="text-xs text-muted-foreground">
             Jaringan & legitimasi ekosistem
           </span>

@@ -237,11 +237,16 @@ function MatchCard({ item, index }: { item: DisplayMatch; index: number }) {
       </span>
 
       <div className="flex items-start gap-3">
-        <img
-          src={umkm?.imageUrl ?? "https://placehold.co/120x120/008b7c/fbf5ec?text=UMKM"}
-          alt={match.umkmName}
-          className="size-14 shrink-0 rounded-xl object-cover ring-1 ring-border"
-        />
+        <div className="relative shrink-0">
+          <img
+            src={umkm?.imageUrl ?? "https://placehold.co/120x120/008b7c/fbf5ec?text=UMKM"}
+            alt={match.umkmName}
+            className="size-14 rounded-xl object-cover ring-1 ring-border"
+          />
+          <span className="absolute -top-1.5 -left-1.5 flex size-5 items-center justify-center rounded-full bg-foreground font-mono text-[0.6rem] font-bold text-background ring-2 ring-card">
+            {index + 1}
+          </span>
+        </div>
         <div className="min-w-0 flex-1">
           <div className="flex items-center gap-1.5">
             <p className="truncate font-display text-lg leading-tight font-semibold text-foreground">
@@ -262,26 +267,35 @@ function MatchCard({ item, index }: { item: DisplayMatch; index: number }) {
         </div>
       </div>
 
-      <div className="mt-4 flex items-center justify-between gap-2 border-t border-border pt-4">
-        <div className="flex items-baseline gap-2">
-          <span className="font-display text-3xl font-bold tracking-tight text-accent">
-            <span className="font-mono">{match.score}</span>
-            <span className="ml-0.5 align-baseline text-sm font-medium text-muted-foreground">
-              % match
+      <div className="mt-4 border-t border-border pt-4">
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex items-baseline gap-2">
+            <span className="font-display text-3xl font-bold tracking-tight text-accent">
+              <span className="font-mono">{match.score}</span>
+              <span className="ml-0.5 align-baseline text-sm font-medium text-muted-foreground">
+                % match
+              </span>
             </span>
-          </span>
+          </div>
+          {isAccept ? (
+            <Badge className="bg-success text-success-foreground">
+              <CheckCircle2Icon className="size-3" />
+              Accept
+            </Badge>
+          ) : (
+            <Badge variant="outline" className="border-highlight/50 text-muted-foreground">
+              <Loader2Icon className="size-3 animate-spin" />
+              Menunggu
+            </Badge>
+          )}
         </div>
-        {isAccept ? (
-          <Badge className="bg-success text-success-foreground">
-            <CheckCircle2Icon className="size-3" />
-            Accept
-          </Badge>
-        ) : (
-          <Badge variant="outline" className="border-highlight/50 text-muted-foreground">
-            <Loader2Icon className="size-3 animate-spin" />
-            Menunggu
-          </Badge>
-        )}
+        {/* Bar skor — visual match strength */}
+        <div className="mt-2.5 h-1.5 w-full overflow-hidden rounded-full bg-muted">
+          <div
+            className="h-full rounded-full bg-accent transition-[width] duration-700 ease-out"
+            style={{ width: `${match.score}%` }}
+          />
+        </div>
       </div>
 
       <ul className="mt-3 space-y-1.5">
@@ -390,22 +404,54 @@ export default function WasteScanPage() {
           <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <div className="max-w-2xl">
               <p className="eyebrow text-accent">01 — WasteScan AI Demo</p>
-              <h1 className="mt-5 font-display text-4xl leading-[1.05] font-bold tracking-tight text-foreground sm:text-5xl md:text-6xl">
+              <h1 className="animate-in fade-in slide-in-from-bottom-2 mt-5 font-display text-4xl leading-[1.05] font-bold tracking-tight text-foreground duration-700 sm:text-5xl md:text-6xl">
                 Submit ampas kopi dalam{" "}
-                <span className="text-primary italic">30 detik</span>.
+                <span className="relative inline-block text-primary italic">
+                  30 detik
+                  <span
+                    aria-hidden
+                    className="absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-primary/25"
+                  />
+                </span>
+                .
               </h1>
               <p className="mt-5 max-w-xl text-base text-muted-foreground md:text-lg">
                 Foto ampasmu, AI klasifikasikan grade-nya, lalu cocokkan otomatis
                 dengan UMKM hilirisasi terdekat. Tanpa repot, tanpa terbuang.
               </p>
+
+              {/* Trust chips */}
+              <div className="mt-6 flex flex-wrap items-center gap-2">
+                {[
+                  { icon: ZapIcon, label: "Hasil < 2 detik" },
+                  { icon: TargetIcon, label: "3 UMKM cocok" },
+                  { icon: ShieldCheckIcon, label: "Audit-ready ESG" },
+                ].map((chip) => {
+                  const ChipIcon = chip.icon;
+                  return (
+                    <span
+                      key={chip.label}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card/80 px-3 py-1.5 text-xs font-medium text-muted-foreground"
+                    >
+                      <ChipIcon className="size-3.5 text-accent" />
+                      {chip.label}
+                    </span>
+                  );
+                })}
+              </div>
             </div>
 
-            <div className="flex shrink-0 items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 shadow-sm">
-              <img
-                src="https://placehold.co/80x80/6B3A2A/FBF5EC?text=Rina"
-                alt="Mbak Rina"
-                className="size-11 rounded-full object-cover ring-1 ring-border"
-              />
+            <div className="flex shrink-0 items-center gap-3 rounded-2xl border border-border bg-card px-4 py-3 shadow-[0_1px_0_var(--color-border),0_12px_28px_-20px_var(--color-foreground)] ring-1 ring-foreground/5">
+              <div className="relative">
+                <img
+                  src="https://placehold.co/80x80/6B3A2A/FBF5EC?text=Rina"
+                  alt="Mbak Rina"
+                  className="size-11 rounded-full object-cover ring-1 ring-border"
+                />
+                <span className="absolute -right-0.5 -bottom-0.5 flex size-3.5 items-center justify-center rounded-full bg-success ring-2 ring-card">
+                  <CheckCircle2Icon className="size-2.5 text-success-foreground" />
+                </span>
+              </div>
               <div className="leading-tight">
                 <p className="eyebrow text-[0.625rem] text-muted-foreground">
                   Demo persona
@@ -426,10 +472,16 @@ export default function WasteScanPage() {
       <section className="mx-auto w-full max-w-6xl px-5 py-16 md:px-8 md:py-24">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-8">
           {/* ---------- PANEL INPUT ---------- */}
-          <Card className="self-start rounded-2xl">
+          <Card className="self-start rounded-2xl shadow-[0_1px_0_var(--color-border),0_18px_44px_-28px_var(--color-foreground)]">
             <CardHeader className="border-b border-border pb-4">
-              <p className="eyebrow text-primary">02 — Detail batch</p>
-              <CardTitle className="mt-3 font-display text-2xl font-semibold tracking-tight">
+              <div className="flex items-center justify-between">
+                <p className="eyebrow text-primary">02 — Detail batch</p>
+                <span className="flex size-7 items-center justify-center rounded-lg bg-primary/10 font-mono text-xs font-bold text-primary">
+                  02
+                </span>
+              </div>
+              <CardTitle className="mt-3 flex items-center gap-2 font-display text-2xl font-semibold tracking-tight">
+                <CoffeeIcon className="size-5 text-primary" />
                 Detail Ampas
               </CardTitle>
               <CardDescription>
@@ -580,7 +632,7 @@ export default function WasteScanPage() {
                   size="lg"
                   onClick={handleAnalyze}
                   disabled={phase === "analyzing"}
-                  className="h-13 w-full rounded-xl bg-primary py-3.5 text-base font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md"
+                  className="group h-12 w-full rounded-xl bg-primary text-base font-semibold text-primary-foreground shadow-sm transition-all hover:bg-primary/90 hover:shadow-md"
                 >
                   {phase === "analyzing" ? (
                     <>
@@ -591,14 +643,14 @@ export default function WasteScanPage() {
                     <>
                       <SparklesIcon className="size-5" />
                       Analisa dengan AI
-                      <ArrowRightIcon className="size-4" />
+                      <ArrowRightIcon className="size-4 transition-transform group-hover:translate-x-0.5" />
                     </>
                   )}
                 </Button>
               )}
 
-              <p className="flex items-center justify-center gap-1.5 text-center text-xs text-muted-foreground">
-                <ZapIcon className="size-3 text-highlight" />
+              <p className="flex items-center justify-center gap-1.5 rounded-lg bg-highlight/8 px-3 py-2 text-center text-xs text-muted-foreground">
+                <ZapIcon className="size-3 shrink-0 text-highlight" />
                 Demo: hasil disimulasikan dari input. Real AI Vision ada di
                 roadmap.
               </p>
@@ -610,10 +662,14 @@ export default function WasteScanPage() {
             {/* IDLE: empty state */}
             {phase === "idle" ? (
               <Card className="relative flex min-h-[28rem] items-center justify-center self-stretch overflow-hidden rounded-2xl border-dashed">
-                <div className="pointer-events-none absolute -bottom-20 -right-16 size-56 rounded-full bg-accent/10 blur-3xl" />
+                <div className="pointer-events-none absolute -right-16 -bottom-20 size-56 rounded-full bg-accent/10 blur-3xl" />
                 <div className="relative flex max-w-xs flex-col items-center gap-5 px-6 py-12 text-center">
-                  <span className="flex size-16 items-center justify-center rounded-2xl bg-accent/10 text-accent">
-                    <ZapIcon className="size-8" />
+                  <span className="relative flex size-16 items-center justify-center rounded-2xl bg-accent/10 text-accent">
+                    <span
+                      aria-hidden
+                      className="absolute inset-0 animate-pulse rounded-2xl bg-accent/10"
+                    />
+                    <ZapIcon className="relative size-8" />
                   </span>
                   <div>
                     <p className="eyebrow text-muted-foreground">Standby</p>
@@ -627,6 +683,23 @@ export default function WasteScanPage() {
                       </span>{" "}
                       untuk melihat klasifikasi & UMKM yang cocok.
                     </p>
+                  </div>
+                  {/* Skeleton hint — bentuk hasil yang akan muncul */}
+                  <div className="mt-1 w-full space-y-2.5 opacity-60">
+                    <div className="flex items-center gap-2.5">
+                      <span className="size-9 shrink-0 rounded-lg bg-muted" />
+                      <div className="flex-1 space-y-1.5">
+                        <span className="block h-2.5 w-2/3 rounded bg-muted" />
+                        <span className="block h-2 w-1/3 rounded bg-muted/70" />
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2.5">
+                      <span className="size-9 shrink-0 rounded-lg bg-muted" />
+                      <div className="flex-1 space-y-1.5">
+                        <span className="block h-2.5 w-1/2 rounded bg-muted" />
+                        <span className="block h-2 w-2/5 rounded bg-muted/70" />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </Card>
@@ -765,17 +838,27 @@ export default function WasteScanPage() {
                     </p>
 
                     {/* Rekomendasi penggunaan */}
-                    <div className="mt-5 rounded-xl border border-accent/20 bg-accent/8 p-5">
-                      <p className="eyebrow flex items-center gap-1.5 text-accent">
-                        <TargetIcon className="size-3.5" />
-                        Rekomendasi penggunaan
-                      </p>
-                      <p className="mt-2.5 font-display text-2xl font-bold tracking-tight text-accent">
-                        {classification.rekomendasi}
-                      </p>
-                      <p className="mt-1.5 text-sm text-muted-foreground">
-                        {classification.rekomendasiAlasan}
-                      </p>
+                    <div className="relative mt-5 overflow-hidden rounded-xl border border-accent/20 bg-accent/8 p-5">
+                      <div
+                        aria-hidden
+                        className="pointer-events-none absolute -top-10 -right-8 size-32 rounded-full bg-accent/10 blur-2xl"
+                      />
+                      <div className="relative flex items-start gap-3">
+                        <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-accent text-accent-foreground">
+                          <TargetIcon className="size-4" />
+                        </span>
+                        <div className="min-w-0">
+                          <p className="eyebrow text-accent">
+                            Rekomendasi penggunaan
+                          </p>
+                          <p className="mt-1.5 font-display text-2xl font-bold tracking-tight text-accent">
+                            {classification.rekomendasi}
+                          </p>
+                          <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                            {classification.rekomendasiAlasan}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -789,12 +872,24 @@ export default function WasteScanPage() {
                         UMKM yang cocok
                       </h2>
                     </div>
-                    <span className="text-right text-xs text-muted-foreground">
-                      <span className="block font-mono text-lg font-bold text-foreground">
-                        {avgDistance.toFixed(1)} km
-                      </span>
-                      rata-rata · 3 UMKM
-                    </span>
+                    <div className="flex items-stretch gap-px overflow-hidden rounded-xl border border-border bg-border text-center">
+                      <div className="bg-card px-3.5 py-2">
+                        <p className="font-mono text-lg font-bold leading-none text-foreground">
+                          {matches.length}
+                        </p>
+                        <p className="mt-1 text-[0.625rem] tracking-wide text-muted-foreground">
+                          UMKM
+                        </p>
+                      </div>
+                      <div className="bg-card px-3.5 py-2">
+                        <p className="font-mono text-lg font-bold leading-none text-accent">
+                          {avgDistance.toFixed(1)}
+                        </p>
+                        <p className="mt-1 text-[0.625rem] tracking-wide text-muted-foreground">
+                          km rata2
+                        </p>
+                      </div>
+                    </div>
                   </div>
 
                   <div className="space-y-3">

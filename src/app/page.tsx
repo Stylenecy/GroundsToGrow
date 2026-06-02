@@ -2,6 +2,7 @@ import Link from "next/link";
 import {
   ArrowRight,
   ArrowUpRight,
+  ArrowDown,
   Recycle,
   Cpu,
   PackageCheck,
@@ -135,23 +136,37 @@ export default function LandingPage() {
         />
 
         <div className="mx-auto w-full max-w-6xl px-5 pt-16 pb-20 md:px-8 md:pt-24 md:pb-28">
-          <p className="eyebrow text-primary">
-            Digital Disruption · Level 4–6–8
-          </p>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <p className="eyebrow text-primary">
+              Digital Disruption · Level 4–6–8
+            </p>
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-success/30 bg-success/10 px-2.5 py-1 font-mono text-[0.6rem] font-medium tracking-widest text-success uppercase">
+              <span className="relative flex size-1.5">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-success/70" />
+                <span className="relative inline-flex size-1.5 rounded-full bg-success" />
+              </span>
+              Ekosistem hidup
+            </span>
+          </div>
 
-          <div className="mt-6 grid gap-12 lg:grid-cols-[1.6fr_1fr] lg:items-end">
+          <div className="mt-7 grid gap-12 lg:grid-cols-[1.6fr_1fr] lg:items-end">
             {/* Headline raksasa */}
-            <div>
-              <h1 className="font-display text-5xl leading-[0.98] font-semibold tracking-tight text-foreground sm:text-6xl md:text-7xl">
+            <div className="animate-in fade-in slide-in-from-bottom-3 duration-700">
+              <h1 className="font-display text-[3.25rem] leading-[0.95] font-semibold tracking-[-0.03em] text-foreground sm:text-6xl md:text-7xl">
                 Ubah ampas kopi
                 <br />
                 jadi{" "}
-                <span className="italic text-primary">
+                <span className="relative inline-block italic text-primary">
                   ekosistem bernilai.
+                  <span
+                    aria-hidden
+                    className="absolute -bottom-1 left-0 h-[3px] w-full rounded-full bg-primary/25"
+                  />
                 </span>
               </h1>
 
-              <p className="mt-6 max-w-xl font-mono text-sm tracking-wide text-accent">
+              <p className="mt-6 flex items-center gap-2.5 font-mono text-sm tracking-wide text-accent">
+                <span aria-hidden className="h-px w-7 bg-accent/40" />
                 From Waste to Wealth — From Coffee to Carbon
               </p>
 
@@ -165,12 +180,12 @@ export default function LandingPage() {
               <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                 <Button
                   size="lg"
-                  className="px-5"
+                  className="group px-5"
                   render={<Link href="/wastescan" />}
                   nativeButton={false}
                 >
                   Coba WasteScan Demo
-                  <ArrowRight />
+                  <ArrowRight className="transition-transform group-hover:translate-x-0.5" />
                 </Button>
                 <Button
                   size="lg"
@@ -185,10 +200,15 @@ export default function LandingPage() {
             </div>
 
             {/* Loop diagram editorial Coffee → Carbon */}
-            <div className="relative">
-              <div className="rounded-2xl border border-border bg-card p-6 ring-1 ring-foreground/5">
-                <p className="eyebrow text-muted-foreground">The Loop</p>
-                <div className="mt-5 space-y-4">
+            <div className="animate-in fade-in slide-in-from-bottom-4 relative duration-700">
+              <div className="rounded-2xl border border-border bg-card p-6 shadow-[0_1px_0_var(--color-border),0_12px_32px_-18px_var(--color-foreground)] ring-1 ring-foreground/5 transition-shadow hover:shadow-[0_1px_0_var(--color-border),0_18px_44px_-20px_var(--color-foreground)]">
+                <div className="flex items-center justify-between">
+                  <p className="eyebrow text-muted-foreground">The Loop</p>
+                  <span className="font-mono text-[0.58rem] tracking-widest text-accent uppercase">
+                    Sirkular
+                  </span>
+                </div>
+                <div className="mt-5 space-y-1">
                   <div className="flex items-center gap-3">
                     <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/12 text-primary ring-1 ring-primary/20">
                       <Coffee className="size-5" strokeWidth={1.75} />
@@ -202,7 +222,14 @@ export default function LandingPage() {
                       </p>
                     </div>
                   </div>
-                  <div className="ml-5 h-5 border-l-2 border-dashed border-border" />
+                  <div className="flex items-center gap-3 py-1">
+                    <span className="flex size-10 shrink-0 items-center justify-center">
+                      <ArrowDown className="size-4 text-muted-foreground/50" />
+                    </span>
+                    <span className="font-mono text-[0.6rem] tracking-widest text-muted-foreground/60 uppercase">
+                      diproses
+                    </span>
+                  </div>
                   <div className="flex items-center gap-3">
                     <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-success/15 text-success ring-1 ring-success/25">
                       <Leaf className="size-5" strokeWidth={1.75} />
@@ -263,10 +290,16 @@ export default function LandingPage() {
           </div>
 
           <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-2xl bg-background/10 sm:grid-cols-2 lg:grid-cols-4">
-            {stats.map((stat) => (
-              <div key={stat.label} className="bg-ink p-6">
+            {stats.map((stat, i) => (
+              <div
+                key={stat.label}
+                className="group/stat relative bg-ink p-6 transition-colors hover:bg-background/[0.04]"
+              >
+                <span className="font-mono text-[0.6rem] tracking-widest text-background/30">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
                 <p
-                  className={`font-mono text-4xl font-bold tracking-tight sm:text-5xl ${stat.accent}`}
+                  className={`mt-2 font-mono text-4xl font-bold tracking-tight sm:text-5xl ${stat.accent} transition-transform group-hover/stat:-translate-y-0.5`}
                 >
                   {stat.value}
                 </p>
@@ -332,13 +365,13 @@ export default function LandingPage() {
               return (
                 <article
                   key={step.step}
-                  className="group relative flex flex-col gap-5 bg-card p-7 transition-colors"
+                  className="group relative flex flex-col gap-5 bg-card p-7 transition-colors hover:bg-card/60"
                 >
                   <div className="flex items-start justify-between">
-                    <span className="flex size-12 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-transform group-hover:-translate-y-0.5">
+                    <span className="flex size-12 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-sm transition-transform group-hover:-translate-y-0.5 group-hover:rotate-3">
                       <Icon className="size-5" strokeWidth={1.75} />
                     </span>
-                    <span className="font-mono text-5xl font-bold leading-none text-foreground/8">
+                    <span className="font-display text-5xl font-bold leading-none text-foreground/[0.07] transition-colors group-hover:text-primary/15">
                       {step.step}
                     </span>
                   </div>
@@ -383,9 +416,9 @@ export default function LandingPage() {
               return (
                 <article
                   key={stream.title}
-                  className="group flex items-start gap-4 bg-card p-6 transition-colors"
+                  className="group flex items-start gap-4 bg-card p-6 transition-colors hover:bg-card/60"
                 >
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-accent/12 text-accent ring-1 ring-accent/25 transition-transform group-hover:-translate-y-0.5">
+                  <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-accent/12 text-accent ring-1 ring-accent/25 transition-transform group-hover:-translate-y-0.5 group-hover:ring-accent/40">
                     <Icon className="size-5" strokeWidth={1.75} />
                   </span>
                   <div className="min-w-0">
@@ -432,14 +465,18 @@ export default function LandingPage() {
                   <Link
                     key={product.productId}
                     href="/marketplace"
-                    className="group overflow-hidden rounded-2xl border border-border bg-card transition-colors hover:border-primary/40"
+                    className="group overflow-hidden rounded-2xl border border-border bg-card transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[0_14px_30px_-20px_var(--color-foreground)]"
                   >
-                    <div className="overflow-hidden">
+                    <div className="relative overflow-hidden">
                       <img
                         src={product.imageUrl}
                         alt={product.namaProduk}
                         className="aspect-square w-full object-cover transition-transform duration-500 group-hover:scale-105"
                         loading="lazy"
+                      />
+                      <span
+                        aria-hidden
+                        className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-foreground/15 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
                       />
                     </div>
                     <div className="flex flex-col gap-1 p-4">
