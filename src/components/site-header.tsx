@@ -16,6 +16,7 @@ const NAV_LINKS: NavLink[] = [
   { href: "/wastescan", label: "WasteScan", index: "02" },
   { href: "/dashboard", label: "Dashboard", index: "03" },
   { href: "/marketplace", label: "Marketplace", index: "04" },
+  { href: "/orders", label: "Histori", index: "05" },
 ];
 
 function isActiveRoute(pathname: string, href: string): boolean {

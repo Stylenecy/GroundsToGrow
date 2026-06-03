@@ -2,6 +2,8 @@
 
 import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useListings } from "@/context/ListingsContext";
 import {
   SparklesIcon,
   CameraIcon,
@@ -335,6 +337,9 @@ export default function WasteScanPage() {
     null,
   );
   const [matches, setMatches] = useState<DisplayMatch[]>([]);
+  
+  const { addListing } = useListings();
+  const router = useRouter();
 
   const samplePhoto =
     "https://placehold.co/600x400/6B3A2A/F5ECD7?text=Foto+Ampas+Kopi";
@@ -385,6 +390,27 @@ export default function WasteScanPage() {
     setVolume(2.5);
     setFreshness(2);
   }, []);
+
+  const handlePublish = () => {
+    const newListing = {
+      listingId: `lst-mock-${Math.floor(Math.random() * 1000)}`,
+      coffeeShopProfileId: "u01a-coffee-rina",
+      coffeeShopName: "Kopi Sudut",
+      jenisKopi: jenis,
+      volumeKg: volume,
+      freshnessJam: freshness,
+      hargaPerKg: freshness <= 4 ? 2000 : freshness <= 12 ? 1000 : 0,
+      imageUrl: samplePhoto,
+      status: "open" as const,
+      expiresAt: new Date(Date.now() + 86400000).toISOString(),
+      createdAt: new Date().toISOString(),
+    };
+    addListing(newListing);
+    toast.success("Ampas Berhasil Diterbitkan!", {
+      description: "Listing ampas kopi Anda sekarang tayang di Marketplace.",
+    });
+    router.push("/dashboard");
+  };
 
   const ActiveStepIcon = ANALYZING_STEPS[stepIndex].icon;
 
@@ -620,15 +646,25 @@ export default function WasteScanPage() {
 
               {/* CTA */}
               {phase === "result" ? (
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={handleReset}
-                  className="h-12 w-full rounded-xl text-base"
-                >
-                  <RotateCcwIcon className="size-4" />
-                  Scan lagi
-                </Button>
+                <div className="flex gap-3">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    onClick={handleReset}
+                    className="h-12 flex-1 rounded-xl text-base"
+                  >
+                    <RotateCcwIcon className="size-4" />
+                    Reset
+                  </Button>
+                  <Button
+                    size="lg"
+                    onClick={handlePublish}
+                    className="h-12 flex-[2] rounded-xl text-base bg-primary hover:bg-primary/90 text-primary-foreground shadow-md"
+                  >
+                    <SparklesIcon className="size-4 mr-2" />
+                    Terbitkan ke Marketplace
+                  </Button>
+                </div>
               ) : (
                 <Button
                   size="lg"
