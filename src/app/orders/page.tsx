@@ -45,14 +45,16 @@ export default function OrdersPage() {
 
       <main className="mx-auto mt-8 max-w-4xl px-4 md:px-8">
         {orders.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-border bg-card py-24 text-center">
-            <ReceiptText className="size-12 text-muted-foreground opacity-30 mb-4" />
-            <h3 className="font-display text-xl font-semibold">Belum Ada Transaksi</h3>
-            <p className="text-muted-foreground mt-2 max-w-sm mb-6">
-              Anda belum melakukan pembelian apa pun. Yuk belanja di Marketplace untuk memulai!
+          <div className="flex flex-col items-center justify-center rounded-[24px] border border-border bg-card py-24 text-center shadow-sm">
+            <div className="mb-6 rounded-full bg-surface p-6">
+              <ReceiptText className="size-12 text-muted-foreground opacity-50" />
+            </div>
+            <h3 className="font-display text-2xl font-semibold text-foreground">Belum Ada Transaksi</h3>
+            <p className="text-muted-foreground mt-3 max-w-sm mb-8 text-sm">
+              Anda belum melakukan pembelian apa pun. Yuk mulai langkah sirkularitasmu di Marketplace!
             </p>
             <Link href="/marketplace">
-              <Button className="rounded-full px-6">Mulai Belanja</Button>
+              <Button className="rounded-full px-8 h-12 text-base shadow-sm">Belanja Sekarang</Button>
             </Link>
           </div>
         ) : (

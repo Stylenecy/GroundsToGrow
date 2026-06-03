@@ -55,9 +55,15 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
         {/* Content */}
         <div className="flex-1 overflow-y-auto p-6">
           {items.length === 0 ? (
-            <div className="flex h-full flex-col items-center justify-center text-center text-muted-foreground">
-              <ShoppingBag className="size-12 mb-4 opacity-20" />
-              <p>Keranjang kamu masih kosong</p>
+            <div className="flex h-full flex-col items-center justify-center text-center">
+              <div className="rounded-full bg-surface p-6 mb-4">
+                <ShoppingBag className="size-12 text-muted-foreground opacity-50" />
+              </div>
+              <p className="font-display text-xl font-semibold text-foreground mb-2">Keranjang Kosong</p>
+              <p className="text-muted-foreground text-sm max-w-[250px] mb-6">Mulai langkah sirkularmu dengan mencari produk atau ampas kopi.</p>
+              <Link href="/marketplace" onClick={onClose}>
+                <Button className="rounded-full px-8">Mulai Belanja</Button>
+              </Link>
             </div>
           ) : (
             <div className="space-y-6">
@@ -88,14 +94,14 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
                       <div className="flex items-center rounded-full border border-border bg-surface">
                         <button 
                           onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                          className="p-1 hover:text-primary transition-colors"
+                          className="p-1.5 hover:text-primary hover:bg-primary/10 transition-all rounded-full active:scale-95"
                         >
                           <Minus className="size-3.5" />
                         </button>
-                        <span className="w-8 text-center text-sm font-medium">{item.quantity}</span>
+                        <span className="w-8 text-center text-sm font-medium font-mono">{item.quantity}</span>
                         <button 
                           onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                          className="p-1 hover:text-primary transition-colors"
+                          className="p-1.5 hover:text-primary hover:bg-primary/10 transition-all rounded-full active:scale-95"
                         >
                           <Plus className="size-3.5" />
                         </button>
@@ -119,7 +125,7 @@ export function CartDrawer({ isOpen, onClose }: CartDrawerProps) {
               <span className="font-mono text-xl font-bold tracking-tight">{formatRupiah(cartTotal)}</span>
             </div>
             <Link href="/checkout" onClick={onClose} className="block w-full">
-              <Button size="lg" className="w-full rounded-full h-14 font-semibold text-base shadow-lg">
+              <Button size="lg" className="w-full rounded-full h-14 font-semibold text-base shadow-lg bg-primary hover:bg-primary/90 text-primary-foreground transition-all active:scale-[0.98]">
                 Lanjut ke Checkout
               </Button>
             </Link>
