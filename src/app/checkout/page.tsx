@@ -44,16 +44,16 @@ export default function CheckoutPage() {
 
   if (items.length === 0) {
     return (
-      <div className="flex h-[70vh] flex-col items-center justify-center px-4 text-center">
-        <div className="mb-6 rounded-full bg-surface p-6">
-          <ShoppingBag className="size-12 text-muted-foreground" />
+      <div className="flex h-screen flex-col items-center justify-center px-4 text-center bg-surface/30">
+        <div className="mb-6 rounded-full bg-surface p-6 shadow-sm border border-border">
+          <ShoppingBag className="size-12 text-muted-foreground opacity-50" />
         </div>
-        <h2 className="font-display text-2xl font-semibold">Keranjang Kosong</h2>
-        <p className="mt-2 text-muted-foreground max-w-sm">
+        <h2 className="font-display text-3xl font-semibold text-foreground">Keranjang Kosong</h2>
+        <p className="mt-3 text-muted-foreground max-w-sm text-sm">
           Kamu belum menambahkan apa pun ke keranjang. Ayo mulai sirkularitasmu di Marketplace!
         </p>
         <Link href="/marketplace" className="mt-8">
-          <Button className="rounded-full px-8">Ke Marketplace</Button>
+          <Button className="rounded-full px-8 h-12 text-base shadow-sm">Belanja Sekarang</Button>
         </Link>
       </div>
     );
@@ -62,15 +62,23 @@ export default function CheckoutPage() {
   return (
     <div className="min-h-screen bg-surface/30 pb-24">
       {/* Header */}
-      <header className="sticky top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur-md">
-        <div className="mx-auto flex h-16 max-w-5xl items-center px-4 sm:px-6 lg:px-8">
-          <Link href="/marketplace" className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+      <header className="border-b border-border bg-background px-4 py-8 md:px-8 md:py-12">
+        <div className="mx-auto max-w-5xl relative">
+          <Link href="/marketplace" className="absolute -top-4 left-0 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
             <ArrowLeft className="size-4" />
             Kembali
           </Link>
-          <h1 className="absolute left-1/2 -translate-x-1/2 font-display text-lg font-semibold">
-            Checkout
-          </h1>
+          <div className="mt-6">
+            <p className="font-mono text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-3 flex items-center gap-2">
+              <span className="h-px w-6 bg-border" /> 03 — Checkout
+            </p>
+            <h1 className="font-display text-3xl font-semibold text-foreground md:text-4xl">
+              Selesaikan Pesanan
+            </h1>
+            <p className="mt-2 text-muted-foreground">
+              Pastikan alamat pengiriman dan rincian pesanan Anda sudah benar.
+            </p>
+          </div>
         </div>
       </header>
 
@@ -81,7 +89,7 @@ export default function CheckoutPage() {
           <div className="lg:col-span-7 space-y-6">
             
             {/* Address Form (Dummy) */}
-            <section className="rounded-[20px] border border-border bg-card p-6 shadow-sm">
+            <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
               <div className="flex items-center gap-3 border-b border-border pb-4 mb-4">
                 <div className="flex size-8 items-center justify-center rounded-full bg-primary/10 text-primary">
                   <MapPin className="size-4" />
@@ -117,7 +125,7 @@ export default function CheckoutPage() {
             </section>
 
             {/* Cart Items */}
-            <section className="rounded-[20px] border border-border bg-card p-6 shadow-sm">
+            <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
               <div className="flex items-center gap-3 border-b border-border pb-4 mb-4">
                 <div className="flex size-8 items-center justify-center rounded-full bg-accent/10 text-accent">
                   <ShoppingBag className="size-4" />
@@ -144,7 +152,7 @@ export default function CheckoutPage() {
                         </p>
                       </div>
                       <div className="text-sm text-muted-foreground mt-2">
-                        Jumlah: <span className="font-medium text-foreground">{item.quantity}</span> 
+                        Jumlah: <span className="font-mono font-medium text-foreground">{item.quantity}</span> 
                         {item.type === "ampas" || item.type === "biji" ? " kg" : " pcs"}
                       </div>
                     </div>
@@ -157,7 +165,7 @@ export default function CheckoutPage() {
 
           {/* Right Column (Summary) */}
           <div className="lg:col-span-5">
-            <section className="sticky top-24 rounded-[20px] border border-border bg-card p-6 shadow-sm">
+            <section className="sticky top-8 rounded-2xl border border-border bg-card p-6 shadow-sm">
               <h2 className="font-semibold mb-4 border-b border-border pb-4">Ringkasan Belanja</h2>
               
               <div className="space-y-3 text-sm mb-6">
@@ -169,7 +177,7 @@ export default function CheckoutPage() {
                   <span className="text-muted-foreground flex items-center gap-1.5">
                     <Truck className="size-3.5" /> Ongkos Kirim (Flat Rate)
                   </span>
-                  <span className="font-medium">{formatRupiah(SHIPPING_FEE)}</span>
+                  <span className="font-mono font-medium">{formatRupiah(SHIPPING_FEE)}</span>
                 </div>
               </div>
 
