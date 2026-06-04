@@ -2,6 +2,8 @@
 
 import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { useListings } from "@/context/ListingsContext";
 import {
   SparklesIcon,
   CameraIcon,
@@ -335,6 +337,9 @@ export default function WasteScanPage() {
     null,
   );
   const [matches, setMatches] = useState<DisplayMatch[]>([]);
+  
+  const { addListing } = useListings();
+  const router = useRouter();
 
   const samplePhoto =
     "https://placehold.co/600x400/6B3A2A/F5ECD7?text=Foto+Ampas+Kopi";
@@ -385,6 +390,27 @@ export default function WasteScanPage() {
     setVolume(2.5);
     setFreshness(2);
   }, []);
+
+  const handlePublish = () => {
+    const newListing = {
+      listingId: `lst-mock-${Math.floor(Math.random() * 1000)}`,
+      coffeeShopProfileId: "cs01-kopi-sudut",
+      coffeeShopName: "Kopi Sudut",
+      jenisKopi: jenis,
+      volumeKg: volume,
+      freshnessJam: freshness,
+      hargaPerKg: freshness <= 4 ? 2000 : freshness <= 12 ? 1000 : 0,
+      imageUrl: samplePhoto,
+      status: "open" as const,
+      expiresAt: new Date(Date.now() + 86400000).toISOString(),
+      createdAt: new Date().toISOString(),
+    };
+    addListing(newListing);
+    toast.success("Ampas Berhasil Diterbitkan!", {
+      description: "Listing ampas kopi Anda sekarang tayang di Marketplace.",
+    });
+    router.push("/dashboard");
+  };
 
   const ActiveStepIcon = ANALYZING_STEPS[stepIndex].icon;
 
@@ -602,7 +628,7 @@ export default function WasteScanPage() {
                 <Slider
                   id="fresh-slider"
                   min={0}
-                  max={24}
+                  max={48}
                   step={1}
                   value={[freshness]}
                   onValueChange={(v) =>
@@ -612,7 +638,37 @@ export default function WasteScanPage() {
                 />
                 <div className="flex justify-between font-mono text-[0.6875rem] text-muted-foreground">
                   <span>0 jam (baru)</span>
-                  <span>24 jam</span>
+                  <span>48 jam</span>
+                </div>
+              </div>
+
+              {/* Acuan grade — otomatis dari freshness */}
+              <div className="rounded-2xl border border-border bg-surface/50 p-4">
+                <p className="eyebrow mb-3 text-muted-foreground">
+                  Acuan Grade · otomatis dari freshness
+                </p>
+                <div className="flex flex-col gap-2.5 text-xs">
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex w-8 shrink-0 justify-center rounded-md bg-success/15 py-1 font-mono text-sm font-bold text-success">
+                      A
+                    </span>
+                    <span className="w-16 shrink-0 font-mono text-muted-foreground">1–4 jam</span>
+                    <span className="text-foreground">Premium · Skincare</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex w-8 shrink-0 justify-center rounded-md bg-highlight/20 py-1 font-mono text-sm font-bold text-highlight-foreground">
+                      B
+                    </span>
+                    <span className="w-16 shrink-0 font-mono text-muted-foreground">5–12 jam</span>
+                    <span className="text-foreground">Standar · Kompos</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex w-8 shrink-0 justify-center rounded-md bg-primary/15 py-1 font-mono text-sm font-bold text-primary">
+                      C
+                    </span>
+                    <span className="w-16 shrink-0 font-mono text-muted-foreground">13–48 jam</span>
+                    <span className="text-foreground">Industri · Briket</span>
+                  </div>
                 </div>
               </div>
 
@@ -620,15 +676,25 @@ export default function WasteScanPage() {
 
               {/* CTA */}
               {phase === "result" ? (
-                <Button
-                  variant="outline"
-                  size="lg"
-                  onClick={handleReset}
-                  className="h-12 w-full rounded-xl text-base"
-                >
-                  <RotateCcwIcon className="size-4" />
-                  Scan lagi
-                </Button>
+                <div className="flex gap-3">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    onClick={handleReset}
+                    className="h-12 flex-1 rounded-xl text-base"
+                  >
+                    <RotateCcwIcon className="size-4" />
+                    Reset
+                  </Button>
+                  <Button
+                    size="lg"
+                    onClick={handlePublish}
+                    className="h-12 flex-[2] rounded-xl text-base bg-primary hover:bg-primary/90 text-primary-foreground shadow-md"
+                  >
+                    <SparklesIcon className="size-4 mr-2" />
+                    Terbitkan ke Marketplace
+                  </Button>
+                </div>
               ) : (
                 <Button
                   size="lg"
@@ -888,7 +954,7 @@ export default function WasteScanPage() {
                           {avgDistance.toFixed(1)}
                         </p>
                         <p className="mt-1 text-[0.625rem] tracking-wide text-muted-foreground">
-                          km rata2
+                          km rata-rata
                         </p>
                       </div>
                     </div>

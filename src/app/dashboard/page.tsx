@@ -192,7 +192,7 @@ export default function DashboardPage() {
               </Button>
               <Button
                 className="gap-1.5 bg-primary text-primary-foreground hover:bg-primary/90"
-                render={<Link href="/waste-scan" />}
+                render={<Link href="/wastescan" />}
                 nativeButton={false}
               >
                 <PlusCircle className="size-4" />

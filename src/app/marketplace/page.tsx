@@ -13,8 +13,12 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import { toast } from "sonner";
+import Link from "next/link";
+import { useCart } from "@/context/CartContext";
+import { useListings } from "@/context/ListingsContext";
+import { CartDrawer } from "@/components/CartDrawer";
 
-import { wasteListings, products, coffeeBeans } from "@/data";
+import { products, coffeeBeans } from "@/data";
 import type {
   WasteListing,
   Product,
@@ -108,7 +112,7 @@ function CardShell({
   return (
     <article
       className={cn(
-        "group/card flex flex-col overflow-hidden rounded-[20px] border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_-20px_rgba(42,24,16,0.35)]",
+        "group/card flex flex-col overflow-hidden rounded-[20px] border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_-20px_color-mix(in_srgb,var(--color-foreground)_35%,transparent)]",
         className
       )}
     >
@@ -155,6 +159,8 @@ function CardMedia({
 function AmpasCard({ listing }: { listing: WasteListing }) {
   const available = listing.status === "open";
   const gratis = listing.hargaPerKg === 0;
+  const { addToCart } = useCart();
+
 
   return (
     <CardShell>
@@ -220,11 +226,19 @@ function AmpasCard({ listing }: { listing: WasteListing }) {
             size="sm"
             className="rounded-full"
             disabled={!available}
-            onClick={() =>
+            onClick={() => {
+              addToCart({
+                id: listing.listingId,
+                name: `Ampas ${jenisKopiLabel[listing.jenisKopi]}`,
+                price: listing.hargaPerKg,
+                type: "ampas",
+                imageUrl: listing.imageUrl,
+                subtitle: listing.coffeeShopName
+              });
               toast.success("Permintaan pickup terkirim", {
                 description: `Ampas ${jenisKopiLabel[listing.jenisKopi]} ${listing.volumeKg.toFixed(1)} kg — ${listing.coffeeShopName}.`,
-              })
-            }
+              });
+            }}
           >
             {available ? "Ambil" : "Habis"}
             {available ? <ArrowUpRight className="size-4" /> : null}
@@ -241,6 +255,8 @@ function AmpasCard({ listing }: { listing: WasteListing }) {
 
 function ProductCard({ product }: { product: Product }) {
   const inStock = product.status === "active" && product.stok > 0;
+  const { addToCart } = useCart();
+
 
   return (
     <CardShell>
@@ -256,7 +272,7 @@ function ProductCard({ product }: { product: Product }) {
               Verified
             </Badge>
           ) : (
-            <Badge className="bg-highlight text-foreground">
+            <Badge className="bg-highlight text-highlight-foreground">
               {kategoriLabel[product.kategori]}
             </Badge>
           )
@@ -283,11 +299,19 @@ function ProductCard({ product }: { product: Product }) {
             size="sm"
             className="rounded-full"
             disabled={!inStock}
-            onClick={() =>
+            onClick={() => {
+              addToCart({
+                id: product.productId,
+                name: product.namaProduk,
+                price: product.harga,
+                type: "produk",
+                imageUrl: product.imageUrl,
+                subtitle: product.umkmName
+              });
               toast.success("Ditambahkan ke keranjang", {
                 description: `${product.namaProduk} — ${formatRupiah(product.harga)}.`,
-              })
-            }
+              });
+            }}
           >
             <ShoppingBag className="size-4" />
             {inStock ? "Beli" : "Stok Habis"}
@@ -303,6 +327,7 @@ function ProductCard({ product }: { product: Product }) {
    ============================================================ */
 
 function BeanCard({ bean }: { bean: CoffeeBean }) {
+  const { addToCart } = useCart();
   return (
     <CardShell>
       <CardMedia
@@ -335,11 +360,19 @@ function BeanCard({ bean }: { bean: CoffeeBean }) {
           <Button
             size="sm"
             className="rounded-full"
-            onClick={() =>
+            onClick={() => {
+              addToCart({
+                id: bean.petaniProductId,
+                name: bean.asalKebun.split(",")[0],
+                price: bean.hargaPerKg,
+                type: "biji",
+                imageUrl: bean.imageUrl,
+                subtitle: bean.petaniName
+              });
               toast.success("Ditambahkan ke keranjang", {
                 description: `Biji ${bean.asalKebun.split(",")[0]} — ${bean.petaniName}.`,
-              })
-            }
+              });
+            }}
           >
             <ShoppingBag className="size-4" />
             Beli
@@ -356,18 +389,17 @@ function BeanCard({ bean }: { bean: CoffeeBean }) {
 
 type TabKey = "ampas" | "produk" | "biji";
 
-const TABS: { key: TabKey; label: string; icon: typeof Leaf; count: number }[] = [
-  { key: "ampas", label: "Ampas Mentah", icon: Leaf, count: wasteListings.length },
-  { key: "produk", label: "Produk Olahan", icon: ShoppingBag, count: products.length },
-  { key: "biji", label: "Biji Kopi Petani", icon: Sprout, count: coffeeBeans.length },
-];
-
-/* ============================================================
-   PAGE
-   ============================================================ */
-
 export default function MarketplacePage() {
   const [active, setActive] = useState<TabKey>("ampas");
+  const { cartCount, cartTotal } = useCart();
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const { listings: wasteListings } = useListings();
+
+  const TABS: { key: TabKey; label: string; icon: typeof Leaf; count: number }[] = [
+    { key: "ampas", label: "Ampas Mentah", icon: Leaf, count: wasteListings.length },
+    { key: "produk", label: "Produk Olahan", icon: ShoppingBag, count: products.length },
+    { key: "biji", label: "Biji Kopi Petani", icon: Sprout, count: coffeeBeans.length },
+  ];
 
   const grid =
     "grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3";
@@ -496,6 +528,23 @@ export default function MarketplacePage() {
           )}
         </div>
       </section>
+
+      {/* FLOATING CART BAR */}
+      {cartCount > 0 && (
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-in fade-in slide-in-from-bottom-5">
+          <div className="flex items-center gap-5 rounded-full bg-ink px-6 py-4 text-background shadow-[0_24px_60px_-10px_color-mix(in_srgb,var(--color-foreground)_50%,transparent)]">
+            <div className="flex flex-col pr-2 border-r border-background/20">
+              <span className="text-xs text-background/80 font-medium">{cartCount} Item</span>
+              <span className="font-mono text-base font-bold tracking-tight">{formatRupiah(cartTotal)}</span>
+            </div>
+            <Button size="sm" onClick={() => setIsCartOpen(true)} className="rounded-full bg-primary text-primary-foreground hover:bg-primary/90 font-semibold px-5">
+              Lihat Keranjang
+            </Button>
+          </div>
+        </div>
+      )}
+
+      <CartDrawer isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </>
   );
 }

@@ -409,11 +409,20 @@ body.on-dark .hint{color:#b8a787;}
   display:flex;align-items:center;justify-content:center;
   padding:.8rem;
   overflow:auto;
+  position:relative;
 }
 .diagram .dframe img{
   display:block;
   width:100%;height:auto;
   object-fit:contain;
+  cursor:zoom-in;
+}
+.diagram .dframe::after{
+  content:"\1F50D klik untuk perbesar";
+  position:absolute;top:.5rem;right:.5rem;
+  font-family:var(--font-mono);font-size:.58rem;letter-spacing:.02em;
+  background:rgba(33,19,9,.82);color:#F7F0E3;
+  padding:.22rem .5rem;border-radius:.4rem;pointer-events:none;z-index:2;
 }
 /* wide/landscape diagrams (DFD) */
 .diagram.wide .dframe{max-height:32vh;}
@@ -432,10 +441,84 @@ body.on-dark .hint{color:#b8a787;}
 .diagram-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;}
 @media(max-width:900px){.diagram-grid{grid-template-columns:1fr;}}
 
+/* ---------- BUSINESS MODEL CANVAS ---------- */
+.bmc{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  grid-template-rows:auto auto auto;
+  gap:10px;
+}
+.bmc .bx{
+  background:var(--card);border:1px solid var(--border);border-radius:12px;
+  padding:.7rem .8rem;border-top:3px solid var(--accent);
+  display:flex;flex-direction:column;min-height:0;
+}
+.bmc .bx .bh{display:flex;align-items:center;gap:.45rem;margin-bottom:.4rem;}
+.bmc .bx .bi{font-family:var(--font-mono);font-size:.58rem;font-weight:700;color:var(--muted-foreground);}
+.bmc .bx h4{font-size:.92rem;line-height:1.05;}
+.bmc .bx ul{list-style:none;margin:0;}
+.bmc .bx li{
+  font-size:.74rem;color:var(--muted-foreground);line-height:1.32;
+  padding:.12rem 0 .12rem .7rem;position:relative;
+}
+.bmc .bx li::before{content:"";position:absolute;left:0;top:.55rem;width:4px;height:4px;border-radius:50%;background:var(--accent);}
+.bmc .bx li strong{color:var(--foreground);font-weight:600;}
+/* color accents per top-border */
+.bmc .bx.b-p{border-top-color:var(--primary);}
+.bmc .bx.b-g{border-top-color:var(--highlight);}
+.bmc .bx.b-s{border-top-color:var(--success);}
+.bmc .bx.b-p li::before{background:var(--primary);}
+.bmc .bx.b-g li::before{background:var(--highlight);}
+.bmc .bx.b-s li::before{background:var(--success);}
+/* classic BMC placement */
+.bmc .kp  {grid-column:1;grid-row:1 / span 2;}
+.bmc .ka  {grid-column:2;grid-row:1;}
+.bmc .kr  {grid-column:2;grid-row:2;}
+.bmc .vp  {grid-column:3;grid-row:1 / span 2;}
+.bmc .cr  {grid-column:4;grid-row:1;}
+.bmc .ch  {grid-column:4;grid-row:2;}
+.bmc .cs  {grid-column:5;grid-row:1 / span 2;}
+.bmc .cost{grid-column:1 / span 3;grid-row:3;}
+.bmc .rev {grid-column:4 / span 2;grid-row:3;}
+.bmc .vp{background:rgba(192,85,43,.06);}
+@media(max-width:980px){
+  .bmc{grid-template-columns:repeat(2,1fr);grid-auto-rows:auto;}
+  .bmc .bx{grid-column:auto !important;grid-row:auto !important;}
+  .bmc .cost,.bmc .rev{grid-column:1 / span 2 !important;}
+}
+
+/* ---------- PRESENTER NOTES PANEL ---------- */
+#notes{
+  position:fixed;left:0;right:0;bottom:0;z-index:70;
+  transform:translateY(100%);transition:transform .35s var(--ease);
+  background:rgba(20,11,5,.94);backdrop-filter:blur(12px);
+  border-top:2px solid var(--primary);
+  box-shadow:0 -12px 40px rgba(0,0,0,.35);
+  max-height:38vh;display:flex;flex-direction:column;
+}
+#notes.show{transform:translateY(0);}
+#notes .nh{
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:.55rem clamp(20px,4vw,48px);border-bottom:1px solid rgba(255,255,255,.12);
+}
+#notes .nh .lbl{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--highlight);font-weight:600;}
+#notes .nh .nsno{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.08em;color:#a8977a;}
+#notes .nh .nx{background:transparent;border:1px solid rgba(255,255,255,.25);color:#e8d9bd;border-radius:6px;font-family:var(--font-mono);font-size:.62rem;padding:.2rem .5rem;cursor:pointer;}
+#notes .nh .nx:hover{background:var(--primary);border-color:var(--primary);color:#fff;}
+#notes .nbody{
+  overflow-y:auto;padding:.7rem clamp(20px,4vw,48px) 1rem;
+  font-family:var(--font-mono);font-size:.82rem;line-height:1.55;color:#ead9be;
+}
+#notes .nbody::-webkit-scrollbar{width:8px;}
+#notes .nbody::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:8px;}
+.navbtn.is-on{background:var(--primary);color:var(--background);border-color:var(--primary);}
+
 @media(max-width:760px){
   .slide{padding:8vh 24px 12vh;}
   .stat-cell{border-left:0;padding-left:0;border-top:1px solid rgba(255,255,255,.14);}
   .stat-cell:first-child{border-top:0;}
+  .bmc{grid-template-columns:1fr;}
+  .bmc .cost,.bmc .rev{grid-column:1 !important;}
 }
 
 /* print fallback */
@@ -443,7 +526,7 @@ body.on-dark .hint{color:#b8a787;}
   body{overflow:visible;}
   #deck{height:auto;overflow:visible;}
   .slide{height:100vh;page-break-after:always;}
-  #nav,#topbar,#progress,.hint{display:none;}
+  #nav,#topbar,#progress,.hint,#notes{display:none;}
 }
 </style>
 </head>
@@ -648,8 +731,8 @@ body.on-dark .hint{color:#b8a787;}
         </div>
         <div class="ent">
           <div class="ehead"><span class="eico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4M9 9h.01M9 12h.01M9 15h.01"/></svg></span><span class="enum">C4</span></div>
-          <h5>Brand Sponsor / ESG</h5><div class="erole">Carbon buyer</div>
-          <dl><div class="give">Kasih</div><dd>Beli carbon credit, sponsorship</dd><div class="get">Dapat</div><dd>Carbon Cert + ESG report (LST OJK)</dd></dl>
+          <h5>Brand Sponsor / ESG</h5><div class="erole">ESG / CSR buyer</div>
+          <dl><div class="give">Kasih</div><dd>Sponsorship + dana CSR</dd><div class="get">Dapat</div><dd>Bukti avoided-emissions + ESG impact report (bahan LST OJK)</dd></dl>
         </div>
       </div>
 
@@ -809,6 +892,109 @@ body.on-dark .hint{color:#b8a787;}
     </div>
   </section>
 
+  <!-- 7b. BUSINESS MODEL CANVAS -->
+  <section class="slide" id="s7b" data-dark="false">
+    <div class="inner">
+      <div class="anim flex between items-end wrap gap-m">
+        <div>
+          <div class="eyebrow teal">06.1 — Business Model Canvas</div>
+          <h2 class="h-lg mt-s" style="max-width:24ch;">Satu kanvas, <span class="italic c-primary">9 blok</span> yang saling mengunci.</h2>
+        </div>
+        <div class="cardish anim" style="padding:.6rem .9rem;text-align:right;">
+          <div class="eyebrow no-rule" style="justify-content:flex-end;">Model</div>
+          <div class="mono-num" style="font-weight:700;font-size:1.05rem;color:var(--accent);">Asset-light · Multi-sided</div>
+        </div>
+      </div>
+
+      <div class="anim bmc mt-l">
+        <!-- Row top -->
+        <div class="bx b-g kp">
+          <div class="bh"><span class="bi">08</span><h4>Key Partners</h4></div>
+          <ul>
+            <li><strong>Kampus</strong> — hub fisik & riset</li>
+            <li><strong>DLH</strong> — legitimasi & data kebijakan</li>
+            <li><strong>Logistik</strong> — armada pickup</li>
+            <li><strong>Brand/ESG</strong> — funding & legitimasi</li>
+            <li>Asosiasi kedai · komunitas urban farming</li>
+          </ul>
+        </div>
+        <div class="bx b-s ka">
+          <div class="bh"><span class="bi">07</span><h4>Key Activities</h4></div>
+          <ul>
+            <li>WasteScan & data collection</li>
+            <li>Smart Matching supply ↔ demand</li>
+            <li>Marketplace & ESG reporting</li>
+            <li>Koordinasi logistik · ESG/avoided-emissions reporting</li>
+          </ul>
+        </div>
+        <div class="bx b-s kr">
+          <div class="bh"><span class="bi">06</span><h4>Key Resources</h4></div>
+          <ul>
+            <li>Data limbah real-time</li>
+            <li>Platform + algoritma + API</li>
+            <li>Jaringan kedai · Hub kampus</li>
+            <li>Sertifikasi & tim teknologi/data</li>
+          </ul>
+        </div>
+        <div class="bx b-p vp">
+          <div class="bh"><span class="bi">02</span><h4>Value Proposition</h4></div>
+          <ul>
+            <li><strong>Kedai:</strong> limbah jadi brand asset, nol beban ops</li>
+            <li><strong>UMKM:</strong> bahan baku circular stabil & tersertifikasi</li>
+            <li><strong>Konsumen:</strong> belanja bermakna, jejak dampak transparan</li>
+            <li><strong>Sponsor:</strong> ESG evidence real-time & auditable</li>
+            <li><strong>Kampus/DLH:</strong> living lab & data kebijakan</li>
+          </ul>
+        </div>
+        <div class="bx b-p cr">
+          <div class="bh"><span class="bi">04</span><h4>Customer Relationships</h4></div>
+          <ul>
+            <li>Subscription · Grounds Coin loyalty</li>
+            <li>Eco-Badge · Verified Circular cert</li>
+            <li>ESG Dashboard · edukasi & komunitas</li>
+          </ul>
+        </div>
+        <div class="bx b-p ch">
+          <div class="bh"><span class="bi">03</span><h4>Channels</h4></div>
+          <ul>
+            <li>Web & Mobile App · Marketplace</li>
+            <li>Hub kampus · API/Data feed</li>
+            <li>Partnership channel (asosiasi)</li>
+          </ul>
+        </div>
+        <div class="bx cs">
+          <div class="bh"><span class="bi">01</span><h4>Customer Segments</h4></div>
+          <ul>
+            <li><strong>Coffee Shop</strong> — supply harian</li>
+            <li><strong>UMKM Hilirisasi</strong> — transformer</li>
+            <li><strong>End User B2C</strong> — 18–35, eco</li>
+            <li><strong>Brand Sponsor</strong> — target ESG</li>
+            <li>Kampus · DLH · Urban Farming · Logistik</li>
+          </ul>
+        </div>
+        <!-- Row bottom -->
+        <div class="bx b-g cost">
+          <div class="bh"><span class="bi">09</span><h4>Cost Structure</h4></div>
+          <ul>
+            <li><strong>Terbesar:</strong> pengembangan platform & akuisisi mitra (fase awal)</li>
+            <li>Operasional Hub kampus · koordinasi logistik · sertifikasi & compliance</li>
+            <li>Tim operasional · marketing · customer support · <strong>asset-light → fixed cost rendah</strong></li>
+          </ul>
+        </div>
+        <div class="bx b-p rev">
+          <div class="bh"><span class="bi">05</span><h4>Revenue Streams</h4></div>
+          <ul>
+            <li><strong>Primary:</strong> UMKM Subscription · Marketplace Commission 10–15%</li>
+            <li><strong>Secondary:</strong> ESG SaaS · Data Licensing · Petani Commission</li>
+            <li><strong>Upside (roadmap, butuh validasi MRV):</strong> Carbon Credit</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="anim lead mt-m" style="max-width:80ch;">Sembilan blok ini bukan teori lepas: tiap segmen punya value prop, channel, dan revenue stream-nya sendiri. <span class="c-accent" style="font-weight:600;">Model asset-light</span> — tanpa armada, gudang, atau pabrik — yang menjaga biaya tetap ringan.</p>
+    </div>
+  </section>
+
   <!-- 8. LIVE DEMO -->
   <section class="slide dark" id="s8" data-dark="true">
     <div class="blob" style="background:rgba(0,139,124,.2);width:34vw;height:34vw;top:-8vw;right:-6vw;"></div>
@@ -821,7 +1007,7 @@ body.on-dark .hint{color:#b8a787;}
         </div>
         <div class="anim">
           <h2 class="h-lg" style="max-width:14ch;"><span class="italic c-gold">App beneran,</span><br>live di Vercel.</h2>
-          <p class="lead mt-s">Next.js 14, empat layar jadi. Dua hero yang akan kami sorot: <span class="c-gold" style="font-weight:600;">WasteScan</span> (submit ampas plus Smart Match) dan <span class="c-gold" style="font-weight:600;">Marketplace 3-tab</span> (ampas mentah, produk olahan, biji petani).</p>
+          <p class="lead mt-s">Next.js 16, empat layar jadi. Dua hero yang akan kami sorot: <span class="c-gold" style="font-weight:600;">WasteScan</span> (submit ampas plus Smart Match) dan <span class="c-gold" style="font-weight:600;">Marketplace 3-tab</span> (ampas mentah, produk olahan, biji petani).</p>
 
           <div class="flex items-center gap-l mt-l wrap">
             <div class="qr" aria-label="QR ke aplikasi">
@@ -884,7 +1070,7 @@ body.on-dark .hint{color:#b8a787;}
       <h2 class="anim h-lg mt-m" style="max-width:24ch;">Jujur soal apa yang <span class="c-success" style="font-style:italic;">real</span>, <span class="c-gold" style="font-style:italic;">mock</span>, dan <span class="c-accent" style="font-style:italic;">roadmap.</span></h2>
 
       <div class="anim stagger mt-l" style="display:block;">
-        <div class="auto-row"><div class="nm">ESG / Carbon Calc</div><div class="ds">kg ampas × 0.5 = kg CO₂-eq. Formula nyata jalan di MVP.</div><span class="badge-status bs-real">Real</span></div>
+        <div class="auto-row"><div class="nm">ESG / Carbon Calc</div><div class="ds">kg ampas × 0,5 (titik-tengah rentang 0,4–0,85 faktor EPA/IPCC) = kg CO₂e — estimasi avoided emissions, bukan kredit tervalidasi. Formula jalan di MVP.</div><span class="badge-status bs-real">Real</span></div>
         <div class="auto-row"><div class="nm">Grounds Coin Ledger</div><div class="ds">Counter reward end-user, state nyata di app.</div><span class="badge-status bs-real">Real</span></div>
         <div class="auto-row"><div class="nm">WasteScan UI</div><div class="ds">Foto + dropdown → “smart analysis”. Rule-based mock, UI demo — bukan AI Vision.</div><span class="badge-status bs-mock">Mock UI</span></div>
         <div class="auto-row"><div class="nm">Smart Matching</div><div class="ds">Match supply ↔ UMKM by preferensi/jarak/freshness. Rule-based hardcoded.</div><span class="badge-status bs-mock">Mock UI</span></div>
@@ -999,9 +1185,20 @@ body.on-dark .hint{color:#b8a787;}
 <nav id="nav">
   <button class="navbtn" id="prev" aria-label="Slide sebelumnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
   <div id="dots"></div>
-  <span id="counter">01 / 14</span>
+  <span id="counter">01 / 15</span>
   <button class="navbtn" id="next" aria-label="Slide berikutnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+  <button class="navbtn" id="notesBtn" aria-label="Presenter notes (N)" title="Presenter notes — tekan N"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H8l-4 4V4Z"/><path d="M8 8h8M8 12h5"/></svg></button>
 </nav>
+
+<!-- PRESENTER NOTES -->
+<aside id="notes" aria-hidden="true">
+  <div class="nh">
+    <span class="lbl">Presenter Notes</span>
+    <span class="nsno" id="notesSlideNo">Slide 01</span>
+    <button class="nx" id="notesClose">N · tutup</button>
+  </div>
+  <div class="nbody" id="notesBody"></div>
+</aside>
 
 <script>
 (function(){
@@ -1013,6 +1210,45 @@ body.on-dark .hint{color:#b8a787;}
   var counter = document.getElementById('counter');
   var progress = document.getElementById('progress');
   var hint = document.getElementById('hint');
+
+  // ---- PRESENTER NOTES (speaker notes Elseva, mapped per slide id) ----
+  var NOTES = {
+    s1: "Setiap pagi jutaan orang menikmati secangkir kopi. Namun sangat sedikit yang bertanya ke mana ampas kopi itu pergi setelah cangkirnya kosong. Hari ini kami ingin menunjukkan bahwa sesuatu yang kita anggap sampah ternyata masih memiliki nilai ekonomi, sosial, dan lingkungan.",
+    s2: "Indonesia adalah salah satu negara dengan konsumsi kopi yang besar. Setiap hari, ampas kopi dihasilkan dalam jumlah yang sangat besar dan sebagian besar berakhir di tempat pembuangan. Kita kehilangan potensi ekonomi sekaligus menambah beban lingkungan.",
+    s3: "Kami percaya masalahnya bukan pada limbahnya. Masalahnya adalah belum ada sistem yang mampu mempertemukan pihak yang menghasilkan limbah dengan pihak yang membutuhkan limbah tersebut sebagai bahan baku.",
+    s4: "GroundsToGrow adalah contoh Business Model Disruption pada Level 4 (Radical), dengan strategi Core Value Digital Interface (Level 6), yang membentuk 8-entity Value Constellation (Level 8) di sektor circular economy.",
+    s5: "Empat entitas utama menjadi penggerak nilai, sementara empat entitas pendukung memperkuat keberlanjutan ekosistem sehingga manfaat tidak berhenti pada satu transaksi saja.",
+    s6: "Coffee shop mengunggah ketersediaan ampas kopi. Sistem melakukan pencocokan kebutuhan. Logistik mengambil limbah, UMKM mengolahnya menjadi produk bernilai tambah, lalu produk dipasarkan kembali.",
+    s6b: "Diagram DFD dan ERD ini memperlihatkan bagaimana data mengalir di balik prosesnya: dari kedai submit ampas, masuk ke smart matching, sampai transaksi marketplace dan laporan ESG. Semua skema, proses, dan aliran data sudah dipetakan sebelum satu baris kode produksi ditulis — backend tinggal mengikuti cetak biru ini saat pilot. Pemetaan, bukan tebakan.",
+    s7: "Model bisnis kami memiliki beberapa sumber pendapatan sehingga tidak bergantung pada satu aliran pendapatan saja. Dua stream primary — subscription UMKM dan komisi marketplace — sudah terbukti di pasar; sisanya kami perlakukan sebagai lapisan upside.",
+    s7b: "Business Model Canvas merangkum semuanya dalam satu kanvas: sembilan blok yang saling mengunci. Inti yang kami tekankan — value proposition berbeda untuk tiap segmen, dan model asset-light tanpa armada, gudang, atau pabrik, sehingga biaya tetap rendah dan platform bisa fokus sebagai orchestrator.",
+    s8: "Agar tidak hanya menjadi konsep, kami menyiapkan MVP berbasis web. WasteScan yang ditampilkan merupakan mock UI untuk menunjukkan alur pengguna dan masih menjadi roadmap untuk implementasi AI yang sebenarnya.",
+    s9: "Semakin banyak coffee shop yang bergabung, semakin besar pasokan. Semakin besar pasokan, semakin menarik bagi UMKM. Semakin banyak UMKM, semakin banyak produk untuk konsumen. Siklus ini terus memperkuat platform.",
+    s10: "Kami memulai dengan MVP sederhana dan berkembang menuju sistem yang lebih terintegrasi melalui otomatisasi dan analitik. Kami jujur soal mana yang sudah real, mana yang masih mock UI, dan mana yang roadmap.",
+    s11: "Sampai titik ini mungkin terlihat bahwa kami membangun aplikasi kopi. Namun sebenarnya GroundsToGrow hanyalah pintu masuk. Mesin di belakangnya bernama WasteLoop. Kami bukan aplikasi kopi. Kami adalah operating system untuk circular economy.",
+    s12: "Enam bulan pertama fokus pada validasi. Dua belas bulan berikutnya fokus pada ekspansi ekosistem dan integrasi fitur lanjutan.",
+    s13: "Kami tidak hanya meminta nilai. Kami meminta kesempatan untuk membuktikan bahwa limbah dapat menjadi sumber daya yang menciptakan nilai baru. From Waste to Wealth. From Coffee to Carbon. Terima kasih."
+  };
+  var notesPanel = document.getElementById('notes');
+  var notesBody = document.getElementById('notesBody');
+  var notesSlideNo = document.getElementById('notesSlideNo');
+  var notesBtn = document.getElementById('notesBtn');
+  var notesOpen = false;
+
+  function renderNote(i){
+    var id = slides[i] ? slides[i].id : '';
+    notesBody.textContent = NOTES[id] || '— Tidak ada catatan untuk slide ini. —';
+    notesSlideNo.textContent = 'Slide ' + pad(i+1) + ' / ' + pad(total) + (id ? ' · #' + id : '');
+    notesBody.scrollTop = 0;
+  }
+  function setNotes(open){
+    notesOpen = open;
+    notesPanel.classList.toggle('show', open);
+    notesPanel.setAttribute('aria-hidden', open ? 'false' : 'true');
+    notesBtn.classList.toggle('is-on', open);
+    if(open) renderNote(current);
+  }
+  function toggleNotes(){ setNotes(!notesOpen); }
 
   // build dots
   slides.forEach(function(s, i){
@@ -1034,6 +1270,8 @@ body.on-dark .hint{color:#b8a787;}
     progress.style.width = ((i)/(total-1)*100)+'%';
     // toggle dark chrome
     document.body.classList.toggle('on-dark', slides[i].getAttribute('data-dark')==='true');
+    // keep presenter notes in sync
+    if(notesOpen) renderNote(i);
   }
 
   function goTo(i){
@@ -1047,6 +1285,8 @@ body.on-dark .hint{color:#b8a787;}
 
   document.getElementById('next').addEventListener('click', next);
   document.getElementById('prev').addEventListener('click', prev);
+  notesBtn.addEventListener('click', function(e){ e.stopPropagation(); toggleNotes(); });
+  document.getElementById('notesClose').addEventListener('click', function(e){ e.stopPropagation(); setNotes(false); });
 
   // observer keeps active in sync with scroll/snap
   if('IntersectionObserver' in window){
@@ -1063,6 +1303,8 @@ body.on-dark .hint{color:#b8a787;}
 
   // keyboard
   window.addEventListener('keydown', function(e){
+    if(e.key==='n' || e.key==='N'){ e.preventDefault(); toggleNotes(); return; }
+    if(e.key==='Escape' && notesOpen){ e.preventDefault(); setNotes(false); return; }
     if(e.key==='ArrowRight' || e.key==='ArrowDown' || e.key===' ' || e.key==='PageDown'){ e.preventDefault(); next(); }
     else if(e.key==='ArrowLeft' || e.key==='ArrowUp' || e.key==='PageUp'){ e.preventDefault(); prev(); }
     else if(e.key==='Home'){ e.preventDefault(); goTo(0); }
@@ -1111,6 +1353,15 @@ body.on-dark .hint{color:#b8a787;}
   }
 
   setActive(0);
+})();
+
+/* Diagram: klik untuk buka full-resolution di tab baru (biar kebaca) */
+(function(){
+  document.querySelectorAll('.diagram .dframe img').forEach(function(img){
+    img.addEventListener('click', function(){
+      window.open(img.getAttribute('src'), '_blank', 'noopener');
+    });
+  });
 })();
 </script>
 </body>

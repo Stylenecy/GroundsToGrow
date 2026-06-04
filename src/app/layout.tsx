@@ -4,6 +4,9 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { CartProvider } from "@/context/CartContext";
+import { ListingsProvider } from "@/context/ListingsContext";
+import { OrderProvider } from "@/context/OrderContext";
 
 // Display — Fraunces (serif ekspresif, editorial). Variable, normal + italic.
 const display = Fraunces({
@@ -49,10 +52,16 @@ export default function RootLayout({
       className={`${display.variable} ${sans.variable} ${mono.variable} ${script.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <SiteHeader />
-        <main className="flex-1">{children}</main>
-        <SiteFooter />
-        <Toaster richColors position="top-center" />
+        <ListingsProvider>
+          <OrderProvider>
+            <CartProvider>
+              <SiteHeader />
+              <main className="flex-1">{children}</main>
+              <SiteFooter />
+              <Toaster richColors position="top-center" />
+            </CartProvider>
+          </OrderProvider>
+        </ListingsProvider>
       </body>
     </html>
   );
