@@ -18,7 +18,8 @@ export default function CheckoutPage() {
   const [isPaymentOpen, setIsPaymentOpen] = useState(false);
 
   const SHIPPING_FEE = 15000;
-  const grandTotal = cartTotal + (items.length > 0 ? SHIPPING_FEE : 0);
+  const SERVICE_FEE = 3000;
+  const grandTotal = cartTotal + (items.length > 0 ? SHIPPING_FEE + SERVICE_FEE : 0);
 
   const formatRupiah = (value: number) =>
     new Intl.NumberFormat("id-ID", {
@@ -178,6 +179,12 @@ export default function CheckoutPage() {
                     <Truck className="size-3.5" /> Ongkos Kirim (Flat Rate)
                   </span>
                   <span className="font-mono font-medium">{formatRupiah(SHIPPING_FEE)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-muted-foreground flex items-center gap-1.5">
+                    <ShieldCheck className="size-3.5" /> Biaya Layanan
+                  </span>
+                  <span className="font-mono font-medium">{formatRupiah(SERVICE_FEE)}</span>
                 </div>
               </div>
 
