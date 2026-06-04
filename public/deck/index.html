@@ -409,11 +409,20 @@ body.on-dark .hint{color:#b8a787;}
   display:flex;align-items:center;justify-content:center;
   padding:.8rem;
   overflow:auto;
+  position:relative;
 }
 .diagram .dframe img{
   display:block;
   width:100%;height:auto;
   object-fit:contain;
+  cursor:zoom-in;
+}
+.diagram .dframe::after{
+  content:"\1F50D klik untuk perbesar";
+  position:absolute;top:.5rem;right:.5rem;
+  font-family:var(--font-mono);font-size:.58rem;letter-spacing:.02em;
+  background:rgba(33,19,9,.82);color:#F7F0E3;
+  padding:.22rem .5rem;border-radius:.4rem;pointer-events:none;z-index:2;
 }
 /* wide/landscape diagrams (DFD) */
 .diagram.wide .dframe{max-height:32vh;}
@@ -1344,6 +1353,15 @@ body.on-dark .hint{color:#b8a787;}
   }
 
   setActive(0);
+})();
+
+/* Diagram: klik untuk buka full-resolution di tab baru (biar kebaca) */
+(function(){
+  document.querySelectorAll('.diagram .dframe img').forEach(function(img){
+    img.addEventListener('click', function(){
+      window.open(img.getAttribute('src'), '_blank', 'noopener');
+    });
+  });
 })();
 </script>
 </body>

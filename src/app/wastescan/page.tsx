@@ -628,7 +628,7 @@ export default function WasteScanPage() {
                 <Slider
                   id="fresh-slider"
                   min={0}
-                  max={24}
+                  max={48}
                   step={1}
                   value={[freshness]}
                   onValueChange={(v) =>
@@ -638,7 +638,37 @@ export default function WasteScanPage() {
                 />
                 <div className="flex justify-between font-mono text-[0.6875rem] text-muted-foreground">
                   <span>0 jam (baru)</span>
-                  <span>24 jam</span>
+                  <span>48 jam</span>
+                </div>
+              </div>
+
+              {/* Acuan grade — otomatis dari freshness */}
+              <div className="rounded-2xl border border-border bg-surface/50 p-4">
+                <p className="eyebrow mb-3 text-muted-foreground">
+                  Acuan Grade · otomatis dari freshness
+                </p>
+                <div className="flex flex-col gap-2.5 text-xs">
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex w-8 shrink-0 justify-center rounded-md bg-success/15 py-1 font-mono text-sm font-bold text-success">
+                      A
+                    </span>
+                    <span className="w-16 shrink-0 font-mono text-muted-foreground">1–4 jam</span>
+                    <span className="text-foreground">Premium · Skincare</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex w-8 shrink-0 justify-center rounded-md bg-highlight/20 py-1 font-mono text-sm font-bold text-highlight-foreground">
+                      B
+                    </span>
+                    <span className="w-16 shrink-0 font-mono text-muted-foreground">5–12 jam</span>
+                    <span className="text-foreground">Standar · Kompos</span>
+                  </div>
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex w-8 shrink-0 justify-center rounded-md bg-primary/15 py-1 font-mono text-sm font-bold text-primary">
+                      C
+                    </span>
+                    <span className="w-16 shrink-0 font-mono text-muted-foreground">13–48 jam</span>
+                    <span className="text-foreground">Industri · Briket</span>
+                  </div>
                 </div>
               </div>
 
