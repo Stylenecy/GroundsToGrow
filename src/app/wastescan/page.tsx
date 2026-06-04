@@ -924,7 +924,7 @@ export default function WasteScanPage() {
                           {avgDistance.toFixed(1)}
                         </p>
                         <p className="mt-1 text-[0.625rem] tracking-wide text-muted-foreground">
-                          km rata2
+                          km rata-rata
                         </p>
                       </div>
                     </div>

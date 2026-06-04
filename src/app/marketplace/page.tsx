@@ -112,7 +112,7 @@ function CardShell({
   return (
     <article
       className={cn(
-        "group/card flex flex-col overflow-hidden rounded-[20px] border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_-20px_rgba(42,24,16,0.35)]",
+        "group/card flex flex-col overflow-hidden rounded-[20px] border border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_-20px_color-mix(in_srgb,var(--color-foreground)_35%,transparent)]",
         className
       )}
     >
@@ -272,7 +272,7 @@ function ProductCard({ product }: { product: Product }) {
               Verified
             </Badge>
           ) : (
-            <Badge className="bg-highlight text-foreground">
+            <Badge className="bg-highlight text-highlight-foreground">
               {kategoriLabel[product.kategori]}
             </Badge>
           )
@@ -532,7 +532,7 @@ export default function MarketplacePage() {
       {/* FLOATING CART BAR */}
       {cartCount > 0 && (
         <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 animate-in fade-in slide-in-from-bottom-5">
-          <div className="flex items-center gap-5 rounded-full bg-ink px-6 py-4 text-background shadow-[0_24px_60px_-10px_rgba(42,24,16,0.5)]">
+          <div className="flex items-center gap-5 rounded-full bg-ink px-6 py-4 text-background shadow-[0_24px_60px_-10px_color-mix(in_srgb,var(--color-foreground)_50%,transparent)]">
             <div className="flex flex-col pr-2 border-r border-background/20">
               <span className="text-xs text-background/80 font-medium">{cartCount} Item</span>
               <span className="font-mono text-base font-bold tracking-tight">{formatRupiah(cartTotal)}</span>
