@@ -394,7 +394,7 @@ export default function WasteScanPage() {
   const handlePublish = () => {
     const newListing = {
       listingId: `lst-mock-${Math.floor(Math.random() * 1000)}`,
-      coffeeShopProfileId: "u01a-coffee-rina",
+      coffeeShopProfileId: "cs01-kopi-sudut",
       coffeeShopName: "Kopi Sudut",
       jenisKopi: jenis,
       volumeKg: volume,
