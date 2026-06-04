@@ -1,0 +1,1696 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pusat Belajar — GroundsToGrow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F7F0E3; --surface:#EFE6D6; --card:#FBF6EC; --ink:#211309; --espresso:#2A1810;
+  --muted:#7A6A54; --terracotta:#C0552B; --teal:#008B7C; --gold:#E8A93D; --matcha:#3D5C3F;
+  --border:#DDCDB2; --terracotta-soft:#F2DDD0; --teal-soft:#D4E8E5; --gold-soft:#F8EAD0; --matcha-soft:#DCE5DC;
+  --shadow:0 1px 2px rgba(33,19,9,.04),0 8px 24px rgba(33,19,9,.07);
+  --shadow-lg:0 4px 12px rgba(33,19,9,.08),0 18px 48px rgba(33,19,9,.12);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Hanken Grotesk',system-ui,sans-serif;background:var(--bg);color:var(--espresso);
+  line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(rgba(122,106,84,.035) 1px,transparent 1px);background-size:4px 4px;
+}
+.mono{font-family:'JetBrains Mono',monospace}
+.serif{font-family:'Fraunces',serif}
+h1,h2,h3,h4{font-family:'Fraunces',serif;line-height:1.15;color:var(--ink);font-weight:600}
+
+/* ===== HEADER ===== */
+header.site{
+  position:sticky;top:0;z-index:100;background:rgba(247,240,227,.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
+}
+.header-inner{max-width:1280px;margin:0 auto;padding:.7rem 1.25rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:.65rem;flex:1;min-width:200px}
+.brand .orb{width:38px;height:38px;border-radius:50%;background:radial-gradient(circle at 30% 30%,var(--terracotta),#8f3d1d);
+  display:grid;place-items:center;color:#fff;font-family:'JetBrains Mono';font-weight:700;font-size:.8rem;box-shadow:var(--shadow);flex-shrink:0}
+.brand h1{font-size:1.15rem;font-weight:700;letter-spacing:-.01em}
+.brand .sub{font-size:.72rem;color:var(--muted);font-family:'JetBrains Mono';letter-spacing:.02em}
+.header-actions{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem .9rem;border-radius:10px;font-weight:700;
+  font-size:.85rem;text-decoration:none;border:1.5px solid transparent;cursor:pointer;transition:.15s;font-family:'Hanken Grotesk'}
+.btn-primary{background:var(--terracotta);color:#fff;box-shadow:var(--shadow)}
+.btn-primary:hover{background:#a8481f;transform:translateY(-1px)}
+.btn-accent{background:var(--teal);color:#fff;box-shadow:var(--shadow)}
+.btn-accent:hover{background:#00746a;transform:translateY(-1px)}
+.btn-ghost{background:var(--card);color:var(--espresso);border-color:var(--border)}
+.btn-ghost:hover{background:var(--surface)}
+.deadline-note{font-size:.72rem;color:var(--muted);font-family:'JetBrains Mono';width:100%;text-align:left;margin-top:.15rem}
+.deadline-note b{color:var(--terracotta)}
+
+/* ===== LAYOUT ===== */
+.shell{max-width:1280px;margin:0 auto;display:flex;gap:2rem;padding:1.5rem 1.25rem 5rem;align-items:flex-start}
+nav.side{position:sticky;top:84px;width:230px;flex-shrink:0}
+nav.side .nav-title{font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);
+  font-family:'JetBrains Mono';font-weight:600;margin:0 0 .6rem .25rem}
+.nav-link{display:flex;align-items:center;gap:.6rem;width:100%;text-align:left;background:none;border:none;cursor:pointer;
+  padding:.6rem .7rem;border-radius:9px;font-family:'Hanken Grotesk';font-size:.92rem;font-weight:600;color:var(--espresso);
+  transition:.13s;margin-bottom:.15rem}
+.nav-link:hover{background:var(--surface)}
+.nav-link.active{background:var(--ink);color:var(--bg)}
+.nav-link .nnum{font-family:'JetBrains Mono';font-size:.72rem;font-weight:700;opacity:.6;width:1.1rem;flex-shrink:0}
+.nav-link.active .nnum{opacity:.9;color:var(--gold)}
+main{flex:1;min-width:0}
+
+/* mobile nav */
+.mobile-nav{display:none}
+.mobile-nav select{width:100%;padding:.7rem .9rem;border-radius:10px;border:1.5px solid var(--border);background:var(--card);
+  font-family:'Hanken Grotesk';font-weight:700;font-size:.95rem;color:var(--ink);appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%237A6A54' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 1rem center}
+
+/* ===== SECTIONS ===== */
+section.panel{display:none;animation:fade .35s ease}
+section.panel.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.sec-head{margin-bottom:1.5rem;padding-bottom:1.1rem;border-bottom:2px solid var(--border)}
+.sec-eyebrow{font-family:'JetBrains Mono';font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--terracotta);font-weight:600;margin-bottom:.4rem}
+.sec-head h2{font-size:2rem;letter-spacing:-.02em;font-weight:700}
+.sec-head p.lead{color:var(--muted);font-size:1rem;margin-top:.4rem;max-width:62ch}
+
+/* generic content */
+.prose p{margin:.7rem 0;max-width:70ch}
+.prose strong,.prose b{color:var(--ink);font-weight:700}
+.prose ul,.prose ol{margin:.7rem 0 .9rem 1.3rem;max-width:70ch}
+.prose li{margin:.3rem 0}
+.prose h3{font-size:1.3rem;margin:1.6rem 0 .6rem}
+.prose h4{font-size:1.05rem;margin:1.2rem 0 .5rem}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.3rem 1.4rem;box-shadow:var(--shadow);margin-bottom:1rem}
+.card-surface{background:var(--surface)}
+
+/* callout */
+.callout{border-radius:12px;padding:1rem 1.2rem;margin:1rem 0;border:1px solid var(--border);position:relative;padding-left:1.3rem}
+.callout::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;border-radius:5px 0 0 5px}
+.callout.warn{background:var(--gold-soft)}.callout.warn::before{background:var(--gold)}
+.callout.danger{background:var(--terracotta-soft)}.callout.danger::before{background:var(--terracotta)}
+.callout.info{background:var(--teal-soft)}.callout.info::before{background:var(--teal)}
+.callout.good{background:var(--matcha-soft)}.callout.good::before{background:var(--matcha)}
+.callout .ctitle{font-weight:800;font-size:.82rem;text-transform:uppercase;letter-spacing:.04em;margin-bottom:.35rem;font-family:'Hanken Grotesk'}
+.callout.warn .ctitle{color:#9a6c12}.callout.danger .ctitle{color:#9a3d18}.callout.info .ctitle{color:#006359}.callout.good .ctitle{color:#2c4530}
+
+/* must-remember grid */
+.remember-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.9rem;margin:1.2rem 0}
+.remember-card{background:linear-gradient(135deg,var(--ink),#3a2415);color:var(--bg);border-radius:14px;padding:1.1rem 1.2rem;box-shadow:var(--shadow-lg)}
+.remember-card .rnum{font-family:'JetBrains Mono';font-size:.72rem;color:var(--gold);font-weight:700;letter-spacing:.1em}
+.remember-card h4{color:#fff;font-size:1.02rem;margin:.3rem 0 .35rem}
+.remember-card p{font-size:.86rem;color:rgba(247,240,227,.82);margin:0}
+
+/* tables */
+.tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--border);margin:1rem 0;box-shadow:var(--shadow)}
+table{border-collapse:collapse;width:100%;font-size:.88rem;background:var(--card);min-width:520px}
+th,td{text-align:left;padding:.7rem .85rem;border-bottom:1px solid var(--border);vertical-align:top}
+th{background:var(--ink);color:var(--bg);font-family:'Hanken Grotesk';font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.03em;position:sticky;top:0}
+tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface)}
+td strong{color:var(--terracotta)}
+.tbl-wrap.num td:nth-child(2){font-family:'JetBrains Mono';font-weight:600;color:var(--ink)}
+
+/* badges */
+.badge{display:inline-flex;align-items:center;gap:.3rem;font-family:'JetBrains Mono';font-size:.68rem;font-weight:700;
+  padding:.2rem .5rem;border-radius:6px;letter-spacing:.03em;text-transform:uppercase;vertical-align:middle}
+.b-slide{background:var(--ink);color:var(--gold)}
+.b-real{background:var(--matcha-soft);color:#2c4530}
+.b-mock{background:var(--gold-soft);color:#9a6c12}
+.b-road{background:var(--teal-soft);color:#006359}
+.b-primary{background:var(--terracotta-soft);color:#9a3d18}
+.b-time{background:var(--surface);color:var(--muted);border:1px solid var(--border)}
+
+/* person selector */
+.person-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.4rem}
+.person-tab{display:flex;flex-direction:column;align-items:center;gap:.3rem;padding:.7rem 1.1rem;border-radius:12px;
+  border:1.5px solid var(--border);background:var(--card);cursor:pointer;transition:.15s;min-width:88px;font-family:'Hanken Grotesk'}
+.person-tab:hover{border-color:var(--terracotta);transform:translateY(-2px)}
+.person-tab.active{background:var(--terracotta);border-color:var(--terracotta);color:#fff;box-shadow:var(--shadow-lg)}
+.person-tab .pav{width:34px;height:34px;border-radius:50%;background:var(--surface);display:grid;place-items:center;
+  font-family:'Fraunces';font-weight:700;font-size:1rem;color:var(--ink)}
+.person-tab.active .pav{background:rgba(255,255,255,.22);color:#fff}
+.person-tab .pname{font-weight:700;font-size:.9rem}
+.person-tab .pslides{font-family:'JetBrains Mono';font-size:.66rem;opacity:.7}
+.person-pane{display:none}.person-pane.active{display:block}
+.person-intro{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:1.2rem 1.4rem;margin-bottom:1.4rem}
+.person-intro .role{font-family:'JetBrains Mono';font-size:.74rem;color:var(--terracotta);font-weight:700;letter-spacing:.05em;text-transform:uppercase}
+.person-intro h3{font-size:1.4rem;margin:.2rem 0 .5rem}
+.person-intro .meta{display:flex;gap:1.2rem;flex-wrap:wrap;font-size:.82rem;color:var(--muted);margin-bottom:.6rem;font-family:'JetBrains Mono'}
+.person-intro .meta b{color:var(--ink)}
+.person-intro .pep{font-style:italic;color:var(--espresso);font-size:.95rem;border-left:3px solid var(--gold);padding-left:.9rem}
+
+/* slide card */
+.slide-card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);margin-bottom:1.5rem;overflow:hidden}
+.slide-card .sc-head{background:var(--surface);padding:1rem 1.4rem;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:.8rem;flex-wrap:wrap}
+.slide-card .sc-head h4{font-size:1.15rem;flex:1;min-width:200px;letter-spacing:-.01em}
+.slide-card .sc-body{padding:1.1rem 1.4rem 1.4rem}
+.sc-block{margin:1rem 0}
+.sc-block:first-child{margin-top:.2rem}
+.sc-label{display:inline-flex;align-items:center;gap:.4rem;font-family:'Hanken Grotesk';font-weight:800;font-size:.74rem;
+  text-transform:uppercase;letter-spacing:.06em;margin-bottom:.45rem;padding:.18rem .5rem;border-radius:6px}
+.l-screen{background:var(--surface);color:var(--muted)}
+.l-understand{background:var(--teal-soft);color:#006359}
+.l-say{background:var(--terracotta-soft);color:#9a3d18}
+.l-transition{background:var(--gold-soft);color:#9a6c12}
+.l-jury{background:var(--matcha-soft);color:#2c4530}
+.l-save{background:var(--ink);color:var(--gold)}
+.sc-block p{margin:.4rem 0;font-size:.93rem;max-width:72ch}
+.sc-block ul{margin:.4rem 0 .4rem 1.2rem}
+.sc-block li{margin:.35rem 0;font-size:.92rem}
+.say-list{list-style:none;margin-left:0!important}
+.say-list li{padding:.5rem .8rem .5rem 1.6rem;background:var(--terracotta-soft);border-radius:8px;margin:.4rem 0!important;font-size:.9rem;position:relative}
+.say-list li::before{content:"\201C";position:absolute;left:.55rem;top:.3rem;font-family:'Fraunces';font-size:1.3rem;color:var(--terracotta);line-height:1}
+.jury-q{margin:.5rem 0}
+.jury-q .q{font-weight:700;color:var(--ink);font-size:.9rem}
+.jury-q .a{font-size:.9rem;color:var(--espresso);margin-top:.15rem;padding-left:.8rem;border-left:2px solid var(--matcha)}
+.save-box{background:var(--ink);color:var(--bg);border-radius:10px;padding:.9rem 1.1rem;margin-top:.5rem}
+.save-box .sc-label{background:rgba(232,169,61,.2);color:var(--gold)}
+.save-box p{color:rgba(247,240,227,.9)}.save-box b{color:#fff}
+.transition-line{background:var(--gold-soft);border-radius:10px;padding:.7rem 1rem;font-size:.92rem;font-style:italic;color:#7a5510;border:1px dashed var(--gold)}
+
+/* "ini bagianku" highlight */
+.mine-btn{margin-left:auto;font-size:.72rem;padding:.35rem .7rem;border-radius:8px;border:1.5px solid var(--teal);background:var(--card);
+  color:var(--teal);font-weight:700;cursor:pointer;font-family:'Hanken Grotesk';transition:.15s;white-space:nowrap}
+.mine-btn:hover{background:var(--teal-soft)}
+.slide-card.mine{border-color:var(--teal);border-width:2px;box-shadow:0 0 0 4px var(--teal-soft),var(--shadow-lg)}
+.slide-card.mine .mine-btn{background:var(--teal);color:#fff}
+.slide-card.mine .sc-head{background:var(--teal-soft)}
+.slide-card.mine .sc-head::after{content:"BAGIANKU";font-family:'JetBrains Mono';font-size:.62rem;font-weight:700;
+  background:var(--teal);color:#fff;padding:.15rem .45rem;border-radius:5px;letter-spacing:.05em}
+
+/* accordion Q&A */
+.accordion{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:.6rem;background:var(--card);box-shadow:var(--shadow)}
+.acc-head{width:100%;text-align:left;background:none;border:none;cursor:pointer;padding:.95rem 1.2rem;display:flex;align-items:flex-start;gap:.7rem;font-family:'Hanken Grotesk'}
+.acc-head:hover{background:var(--surface)}
+.acc-num{font-family:'JetBrains Mono';font-size:.78rem;font-weight:700;color:var(--terracotta);flex-shrink:0;margin-top:.1rem}
+.acc-q{flex:1;font-weight:700;font-size:.96rem;color:var(--ink)}
+.acc-icon{flex-shrink:0;width:20px;height:20px;display:grid;place-items:center;color:var(--muted);transition:.2s;font-size:1.1rem;font-family:'JetBrains Mono'}
+.accordion.open .acc-icon{transform:rotate(45deg);color:var(--terracotta)}
+.acc-body{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.acc-body-inner{padding:0 1.2rem 1.1rem 2.7rem;font-size:.92rem;color:var(--espresso)}
+.acc-body-inner p{margin:.3rem 0}
+.qa-cat{font-family:'JetBrains Mono';font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  margin:1.4rem 0 .6rem;padding-bottom:.3rem;border-bottom:1px solid var(--border);color:var(--muted)}
+.qa-cat:first-child{margin-top:.5rem}
+
+/* risky claim */
+.risk-card{background:var(--terracotta-soft);border:1px solid #e0a98c;border-radius:14px;padding:1.1rem 1.3rem;margin-bottom:1rem}
+.risk-card h4{color:#9a3d18;font-size:1.05rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem}
+.risk-row{margin:.5rem 0;font-size:.9rem;display:flex;gap:.5rem}
+.risk-row .ic{flex-shrink:0;font-weight:700;font-family:'JetBrains Mono'}
+.risk-row.no .ic{color:#b3261e}.risk-row.yes .ic{color:var(--matcha)}
+.risk-row.no{color:#7a2e16}
+.risk-row.yes{background:var(--matcha-soft);padding:.5rem .7rem;border-radius:8px}
+.risk-note{font-size:.84rem;color:var(--muted);font-style:italic;margin-top:.5rem}
+
+/* timeline */
+.timeline{position:relative;margin:1.5rem 0;padding-left:1.5rem}
+.timeline::before{content:"";position:absolute;left:.35rem;top:.5rem;bottom:.5rem;width:2px;background:var(--border)}
+.tl-act{font-family:'Fraunces';font-weight:700;font-size:1.1rem;color:var(--terracotta);margin:1.4rem 0 .6rem -.3rem;position:relative}
+.tl-act:first-child{margin-top:0}
+.tl-item{position:relative;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.9rem 1.1rem;margin-bottom:.8rem;box-shadow:var(--shadow)}
+.tl-item::before{content:"";position:absolute;left:-1.27rem;top:1.1rem;width:11px;height:11px;border-radius:50%;background:var(--terracotta);border:2px solid var(--bg);box-shadow:0 0 0 2px var(--terracotta)}
+.tl-item.dark::before{background:var(--ink);box-shadow:0 0 0 2px var(--ink)}
+.tl-item .tl-top{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:.4rem}
+.tl-item h4{font-size:1rem;flex:1;min-width:160px}
+.tl-item .tl-pts{font-size:.88rem;margin:.3rem 0}
+.tl-item .tl-trans{font-size:.85rem;font-style:italic;color:#7a5510;background:var(--gold-soft);padding:.45rem .7rem;border-radius:7px;margin-top:.5rem;display:inline-block}
+.tl-item.compress{border-style:dashed;opacity:.92}
+
+/* demo steps */
+.demo-step{display:flex;gap:1rem;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem;margin-bottom:.8rem;box-shadow:var(--shadow)}
+.demo-step .ds-time{font-family:'JetBrains Mono';font-size:.76rem;font-weight:700;color:var(--teal);flex-shrink:0;width:5.2rem;padding-top:.1rem}
+.demo-step .ds-content{flex:1;min-width:0}
+.demo-step .ds-action{font-weight:700;font-size:.9rem;color:var(--ink);margin-bottom:.3rem}
+.demo-step .ds-say{font-size:.88rem;color:var(--espresso);font-style:italic;background:var(--terracotta-soft);padding:.5rem .7rem;border-radius:8px}
+.chip-row{display:flex;gap:.5rem;flex-wrap:wrap;margin:.8rem 0}
+.chip{font-family:'JetBrains Mono';font-size:.74rem;font-weight:600;background:var(--surface);border:1px solid var(--border);padding:.3rem .6rem;border-radius:7px;color:var(--ink)}
+.cheat-strip{background:var(--ink);color:var(--bg);border-radius:12px;padding:1.1rem 1.3rem;font-family:'JetBrains Mono';font-size:.82rem;line-height:1.9;overflow-x:auto;margin:1rem 0;white-space:pre-wrap}
+.cheat-strip .arrow{color:var(--gold)}
+.cheat-strip .step{color:var(--gold);font-weight:700}
+
+/* one-liner list */
+.oneliner{display:grid;gap:.5rem;margin:1rem 0}
+.oneliner .ol-item{background:var(--card);border:1px solid var(--border);border-radius:9px;padding:.6rem .9rem;font-size:.9rem}
+.oneliner .ol-item b{color:var(--terracotta)}
+.word-do,.word-dont{display:flex;flex-wrap:wrap;gap:.4rem;margin:.6rem 0}
+.word-do span,.word-dont span{font-family:'JetBrains Mono';font-size:.78rem;padding:.3rem .6rem;border-radius:7px;font-weight:600}
+.word-do span{background:var(--matcha-soft);color:#2c4530}
+.word-dont span{background:var(--terracotta-soft);color:#9a3d18;text-decoration:line-through;text-decoration-color:rgba(154,61,24,.5)}
+
+/* scroll top + print */
+.fab{position:fixed;bottom:1.4rem;right:1.4rem;display:flex;flex-direction:column;gap:.6rem;z-index:90}
+.fab button{width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;box-shadow:var(--shadow-lg);
+  display:grid;place-items:center;font-size:1.1rem;transition:.15s;background:var(--ink);color:var(--bg)}
+.fab button:hover{transform:translateY(-2px)}
+.fab .print-fab{background:var(--terracotta);color:#fff}
+#topFab{opacity:0;pointer-events:none;transition:.25s}
+#topFab.show{opacity:1;pointer-events:auto}
+
+/* responsive */
+@media(max-width:860px){
+  .shell{flex-direction:column;gap:1rem;padding:1rem 1rem 5rem}
+  nav.side{display:none}
+  .mobile-nav{display:block;position:sticky;top:64px;z-index:80;background:var(--bg);padding:.6rem 0 .4rem;margin:-.5rem 0 .5rem}
+  .sec-head h2{font-size:1.55rem}
+  .brand h1{font-size:1rem}
+  .header-actions .btn{padding:.45rem .7rem;font-size:.8rem}
+  .person-tab{min-width:74px;padding:.55rem .8rem}
+}
+@media(max-width:480px){
+  .header-actions{width:100%}
+  .header-actions .btn{flex:1;justify-content:center}
+}
+
+/* print */
+@media print{
+  header.site,nav.side,.mobile-nav,.fab,.person-tabs,.mine-btn{display:none!important}
+  body{background:#fff;font-size:11pt;color:#000;background-image:none}
+  .shell{display:block;max-width:none;padding:0}
+  section.panel{display:block!important;page-break-before:always}
+  section.panel:first-of-type{page-break-before:avoid}
+  .person-pane{display:block!important;page-break-inside:avoid}
+  .accordion .acc-body{max-height:none!important}
+  .slide-card,.accordion,.tl-item,.demo-step,.card,.risk-card{box-shadow:none;border:1px solid #ccc;page-break-inside:avoid}
+  a{color:#000;text-decoration:none}
+  .print-only{display:block!important}
+}
+.print-only{display:none}
+</style>
+</head>
+<body>
+<header class="site">
+  <div class="header-inner">
+    <div class="brand">
+      <div class="orb">G2G</div>
+      <div>
+        <h1>Pusat Belajar — GroundsToGrow</h1>
+        <div class="sub">Persiapan Presentasi UAS · Digital Platform &amp; Sharing Economy</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <a class="btn btn-primary" href="https://groundstogrow-mvp.vercel.app/deck" target="_blank" rel="noopener">▶ Buka Deck</a>
+      <a class="btn btn-accent" href="https://groundstogrow-mvp.vercel.app" target="_blank" rel="noopener">◆ Buka App</a>
+      <div class="deadline-note">⏰ Deadline <b>Jumat, 5 Juni</b> · Ruang <b>D.1.3</b> · Dosen: Andhika Galuh Prabawati, S.Kom., M.Kom.</div>
+    </div>
+  </div>
+</header>
+
+<div class="shell">
+  <nav class="side">
+    <div class="nav-title">Navigasi</div>
+    <button class="nav-link active" data-target="mulai"><span class="nnum">01</span> Mulai</button>
+    <button class="nav-link" data-target="pembagian"><span class="nnum">02</span> Pembagian Presentasi</button>
+    <button class="nav-link" data-target="panduan"><span class="nnum">03</span> Panduan Per Orang</button>
+    <button class="nav-link" data-target="qna"><span class="nnum">04</span> Q&amp;A Juri</button>
+    <button class="nav-link" data-target="alur"><span class="nnum">05</span> Alur &amp; Timing</button>
+    <button class="nav-link" data-target="demo"><span class="nnum">06</span> Demo Script</button>
+  </nav>
+
+  <main>
+    <div class="mobile-nav">
+      <select id="mobileNav" aria-label="Pilih seksi">
+        <option value="mulai">01 · Mulai</option>
+        <option value="pembagian">02 · Pembagian Presentasi</option>
+        <option value="panduan">03 · Panduan Per Orang</option>
+        <option value="qna">04 · Q&amp;A Juri</option>
+        <option value="alur">05 · Alur &amp; Timing</option>
+        <option value="demo">06 · Demo Script</option>
+      </select>
+    </div>
+
+    <!-- ============ 01 MULAI ============ -->
+    <section class="panel active" id="mulai">
+      <div class="sec-head">
+        <div class="sec-eyebrow">01 — Mulai di sini</div>
+        <h2>Materi Belajar Presentasi</h2>
+        <p class="lead">Semua bahan persiapan presentasi besok ada di satu halaman ini. Buka deck &amp; app sambil belajar, baca panduanmu, latihan ngomong. Beres.</p>
+      </div>
+
+      <div class="prose">
+        <p>Halo tim! Ini <strong>SEMUA bahan</strong> buat persiapan presentasi besok. Tenang, gampang kok. Buka dua web ini sambil belajar (dari HP/laptop):</p>
+      </div>
+
+      <div class="card">
+        <p style="margin-top:0"><strong>▶ Deck presentasi:</strong> <a href="https://groundstogrow-mvp.vercel.app/deck" target="_blank" rel="noopener" style="color:var(--terracotta);font-weight:700">groundstogrow-mvp.vercel.app/deck</a><br><span style="font-size:.85rem;color:var(--muted)">Geser pakai panah kiri/kanan · pencet huruf <b class="mono">N</b> buat lihat catatan presenter.</span></p>
+        <p style="margin-bottom:0"><strong>◆ App / aplikasi:</strong> <a href="https://groundstogrow-mvp.vercel.app" target="_blank" rel="noopener" style="color:var(--teal);font-weight:700">groundstogrow-mvp.vercel.app</a></p>
+      </div>
+
+      <div class="prose"><h3>Langkah belajar (semua orang sama)</h3></div>
+      <div class="card">
+        <ol style="margin:0 0 0 1.2rem">
+          <li>Buka seksi <b>Pembagian Presentasi</b> → lihat kamu bawain SLIDE yang mana.</li>
+          <li>Buka <b>Panduan-&lt;Namamu&gt;</b> (seksi Panduan Per Orang) → penjelasan LENGKAP tiap slide-mu: apa isinya, yang harus kamu PAHAMI, yang kamu ucapkan, transisi, dan jawaban kalau juri nanya bagianmu.</li>
+          <li>Buka deck ke slide-mu, baca panduan sambil lihat slidenya.</li>
+          <li><b>WAJIB</b> baca seksi <b>Q&amp;A Juri</b> → latihan jawab juri (juri bisa nanya ke siapa aja).</li>
+          <li>Latihan ngomong bagianmu minimal 1x. Besok kita gabung + latihan bareng.</li>
+        </ol>
+      </div>
+
+      <div class="prose"><h3>Wajib diingat SEMUA — biar nggak kejebak juri</h3>
+      <p>Empat poin ini adalah pelindung kredibilitas kalian. Hafalkan refleksnya.</p></div>
+      <div class="remember-grid">
+        <div class="remember-card">
+          <div class="rnum">ANTI-JEBAK 01</div>
+          <h4>Volume ampas = ESTIMASI</h4>
+          <p>Pakai rentang (250–300 ribu ton kering), bukan angka pasti. Selalu ucap kata "estimasi" + sumber BPS. Tidak ada sensus ampas.</p>
+        </div>
+        <div class="remember-card">
+          <div class="rnum">ANTI-JEBAK 02</div>
+          <h4>CO₂ = emisi yang DIHINDARI</h4>
+          <p>Avoided emissions (estimasi EPA/IPCC), BUKAN kredit karbon yang dijual. Belum lewat MRV/verifikasi pihak ketiga.</p>
+        </div>
+        <div class="remember-card">
+          <div class="rnum">ANTI-JEBAK 03</div>
+          <h4>WasteScan AI = MOCK by design</h4>
+          <p>Sengaja mock buat demo. AI beneran (computer vision) ada di roadmap. Jujur aja kalau ditanya — jangan pura-pura sudah jalan.</p>
+        </div>
+        <div class="remember-card">
+          <div class="rnum">ANTI-JEBAK 04</div>
+          <h4>Kalau ragu angka → "estimasi konservatif"</h4>
+          <p>Jangan over-claim. Mengakui keterbatasan = naik kredibilitas, bukan turun. Asset-light matchmaker — kami koordinasi, bukan olah material.</p>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <div class="ctitle">◆ Intinya</div>
+        Buka deck + app, baca Panduan-mu + Q&amp;A Juri, latihan ngomong. Beres. 🚀
+      </div>
+    </section>
+
+    <!-- ============ 02 PEMBAGIAN ============ -->
+    <section class="panel" id="pembagian">
+      <div class="sec-head">
+        <div class="sec-eyebrow">02 — Pembagian Presentasi</div>
+        <h2>Siapa Bawa Slide Mana</h2>
+        <p class="lead">Deck 15 slide · total ±7 menit · bagi rata 3 slide/orang, sesuai keahlian. Pencet <b class="mono">N</b> di deck buat presenter notes.</p>
+      </div>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>Slide</th><th>Topik</th><th>Pembawa</th><th>Kenapa dia</th></tr></thead>
+          <tbody>
+            <tr><td><strong>1. Cover</strong></td><td>Pembuka + tagline</td><td><b>Elseva</b></td><td>Storyteller — buka cerita</td></tr>
+            <tr><td><strong>2. Problem at Scale</strong></td><td>Data ampas/CO₂/Piyungan</td><td><b>Elseva</b></td><td>Narasi hook</td></tr>
+            <tr><td><strong>3. Reframe</strong></td><td>"Sampah = idle resource"</td><td><b>Elseva</b></td><td>Nutup Act 1, lempar ke solusi</td></tr>
+            <tr><td><strong>4. Digital Disruption (L4-6-8)</strong></td><td>Teori dosen</td><td><b>Dex</b></td><td>Systems thinker — kerangka konsep</td></tr>
+            <tr><td><strong>5. 8-Entity Value Constellation</strong></td><td>Ekosistem multi-sided</td><td><b>Dex</b></td><td>Arsitektur sistem</td></tr>
+            <tr><td><strong>6. Business Process</strong></td><td>Submit→Match→Pickup→Olah</td><td><b>Gatot</b></td><td>Paham kopi + detail proses</td></tr>
+            <tr><td><strong>7. Data Architecture</strong></td><td>DFD / ERD (diagram)</td><td><b>Gatot</b></td><td>Teknis + teliti</td></tr>
+            <tr><td><strong>8. Revenue Model</strong></td><td>6 sumber pendapatan</td><td><b>Elsava</b></td><td>Analis bisnis</td></tr>
+            <tr><td><strong>9. Business Model Canvas</strong></td><td>BMC 9 blok</td><td><b>Elsava</b></td><td>Bisnis — lanenya</td></tr>
+            <tr><td><strong>10. Live Demo 🏆</strong></td><td>Demo app langsung</td><td><b>Samuel</b></td><td>Dia yang bangun app + paham kopi</td></tr>
+            <tr><td><strong>11. Network Effect</strong></td><td>Flywheel pertumbuhan</td><td><b>Elsava</b></td><td>Logika growth bisnis</td></tr>
+            <tr><td><strong>12. Automation &amp; Roadmap</strong></td><td>Mock vs real, AI Vision</td><td><b>Samuel</b></td><td>Teknis app</td></tr>
+            <tr><td><strong>13. WasteLoop Reveal</strong></td><td>"Bukan app kopi — OS circular"</td><td><b>Samuel</b></td><td>Twist + paham operasional kopi</td></tr>
+            <tr><td><strong>14. Roadmap 6-12 bulan</strong></td><td>Pilot → ekspansi</td><td><b>Gatot</b></td><td>Realisme operasional</td></tr>
+            <tr><td><strong>15. Closing &amp; Ask</strong></td><td>Tim + permintaan + tutup</td><td><b>Dex</b></td><td>Lead — nutup + ngajak</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="prose"><h3>Porsi tiap orang (impas, 3 slide masing-masing)</h3></div>
+      <div class="card">
+        <ul style="margin:0 0 0 1.2rem">
+          <li><b>Elseva</b> → slide 1, 2, 3 (Act 1 — pembuka cerita)</li>
+          <li><b>Dex</b> → slide 4, 5, 15 (teori + closing — kerangka &amp; penutup)</li>
+          <li><b>Gatot</b> → slide 6, 7, 14 (proses bisnis + data + roadmap — bagian kopi/operasional)</li>
+          <li><b>Elsava</b> → slide 8, 9, 11 (revenue + BMC + network — bisnis)</li>
+          <li><b>Samuel</b> → slide 10, 12, 13 (demo app + automation + reveal — bagian kopi/teknis)</li>
+        </ul>
+      </div>
+      <div class="callout good">
+        <div class="ctitle">▲ Logika pembagian</div>
+        Bagian <b>perkopian &amp; cara kerja waste</b> dipegang <b>Samuel &amp; Gatot</b> (mereka paham). Bagian <b>teori + penutup</b> di Dex. Bisnis di Elsava. Cerita di Elseva. Adil, 3 slide masing-masing.
+      </div>
+
+      <div class="prose"><h3>⚠️ Yang SEMUA orang wajib</h3></div>
+      <div class="card">
+        <ol style="margin:0 0 0 1.2rem">
+          <li><b>Baca seksi Q&amp;A Juri</b> — juri tanya bisa ke siapa aja. Minimal hafal: angka kunci + 5 klaim rawan (volume ampas = estimasi, CO₂e = avoided-emissions BUKAN kredit karbon, WasteScan AI = mock by design, jangan sebut kompetitor yang nggak jelas).</li>
+          <li><b>Latihan transisi</b> — pas selesai bagianmu, lempar mulus ke orang berikutnya (kalimat jembatan ada di seksi Alur &amp; Timing).</li>
+          <li><b>Samuel khusus:</b> latihan demo 2-3 menit pakai Demo Script. Buka app di tab terpisah (bukan cuma iframe di deck), test dulu sebelum maju.</li>
+        </ol>
+      </div>
+
+      <div class="callout warn">
+        <div class="ctitle">⏱️ Timing kasar (±7 menit)</div>
+        Act 1 (Elseva) ~75 dtk · Teori (Dex) ~55 dtk · Proses+Data (Gatot) ~55 dtk · Bisnis (Elsava) ~60 dtk · <b>Demo (Samuel) ~120 dtk</b> · Reveal+Roadmap (Samuel/Gatot) ~50 dtk · Closing (Dex) ~30 dtk.
+      </div>
+    </section>
+    <!-- ============ 03 PANDUAN ============ -->
+    <section class="panel" id="panduan">
+      <div class="sec-head">
+        <div class="sec-eyebrow">03 — Panduan Per Orang</div>
+        <h2>Panduan Belajar Tiap Presenter</h2>
+        <p class="lead">Klik namamu untuk lihat panduan lengkapmu. Tiap slide jadi kartu: di layar, yang dipahami, yang diucapkan, transisi, Q&amp;A juri, dan penyelamat kalau blank. Tekan "★ ini bagianku" buat highlight.</p>
+      </div>
+      <div class="person-tabs">
+        <button class="person-tab active" data-person="dex"><span class="pav">D</span><span class="pname">Dex</span><span class="pslides">4·5·15</span></button>
+        <button class="person-tab" data-person="elseva"><span class="pav">E</span><span class="pname">Elseva</span><span class="pslides">1·2·3</span></button>
+        <button class="person-tab" data-person="gatot"><span class="pav">G</span><span class="pname">Gatot</span><span class="pslides">6·7·14</span></button>
+        <button class="person-tab" data-person="elsava"><span class="pav">E</span><span class="pname">Elsava</span><span class="pslides">8·9·11</span></button>
+        <button class="person-tab" data-person="samuel"><span class="pav">S</span><span class="pname">Samuel</span><span class="pslides">10·12·13</span></button>
+      </div>
+      <div class="person-pane active" id="pane-dex" data-name="Dex">
+        <div class="person-intro">
+          <div class="role">Lead / MVP — Teori &amp; Penutup</div>
+          <h3>Dex</h3>
+          <div class="meta">
+            <span>Slide: <b>4 · 5 · 15</b></span>
+            <span>Durasi: <b>~2,5–3 menit</b></span>
+          </div>
+          <div class="pep">Kamu yang nyusun kerangka teori ini dari awal — jadi kamu bukan lagi ngapal, kamu lagi cerita soal yang kamu bangun sendiri. Alurnya: klaim teori → bukti konstelasi → ajakan &amp; penutup. Tinggal percaya diri.</div>
+        </div>
+      <div class="slide-card">
+        <div class="sc-head">
+          <span class="badge b-slide">SLIDE 4</span>
+          <h4>Klasifikasi Teori — "Ini bukan digitalisasi proses lama. Ini Digital Disruption."</h4>
+          <button class="mine-btn" onclick="toggleMine(this)">★ ini bagianku</button>
+        </div>
+        <div class="sc-body">
+          <div class="sc-block"><span class="sc-label l-screen">🖥️ Di layar</span>
+            <div>Judul besar "Ini bukan digitalisasi proses lama. Ini <b>Digital Disruption</b>." Lalu 3 baris bertingkat (badge L4, L6, L8) dengan deskripsi singkat. Di bawahnya kotak "Pitch line" — kalimat teori dari materi Bu Dhika. Eyebrow: "03 — Klasifikasi Teori · Materi P15".</div></div>
+          <div class="sc-block"><span class="sc-label l-understand">🧠 Yang harus dipahami</span>
+            <div><p>Slide ini nunjukin ke dosen "kami paham materi, bukan asal bikin app". Ada <b>3 tingkat berbeda</b>, urutannya logis seperti tangga:</p>
+  <ul>
+    <li><b>L4 — Radical Disruption (seberapa dalam perubahannya).</b> Kita TIDAK cuma mindahin proses lama ke digital — kita bikin <b>pasar yang tadinya nggak ada</b>: UMKM hilirisasi jadi pelaku ekonomi resmi, ampas jadi aset bukan biaya. Analogi: bukan "ojek pangkalan dikasih aplikasi", tapi "menciptakan kategori ojek online yang sebelumnya nggak ada".</li>
+    <li><b>L6 — Core Value Digital Interface (model strateginya).</b> Kita <b>orchestrator</b>, bukan operator. Analogi: <b>Gojek nggak punya motor, kita nggak punya pabrik kompos</b>. Kita kontrol 3 hal: data, kepercayaan, koneksi. Asset-light.</li>
+    <li><b>L8 — Value Constellation (bentuk jaringannya).</b> Nilai nggak ngalir lurus — muter di <b>jaringan 8 pihak yang semuanya kasih + terima sekaligus</b>. Dibuktikan di slide berikutnya.</li>
+  </ul>
+  <p><b>Kenapa penting:</b> dari 4 aspek penilaian, <b>Inovasi Ide bobotnya 40%</b> — terbesar. Slide ini yang "ngeklaim" inovasinya secara akademik.</p></div></div>
+          <div class="sc-block"><span class="sc-label l-say">🗣️ Yang diucapkan</span>
+            <ul class="say-list">
+              <li>Penting buat kami tegaskan: ini bukan sekadar digitalisasi proses lama — ini Digital Disruption, dan kami petakan persis ke 9-Level Model yang Ibu ajarkan.</li>
+              <li>Tiga level jadi tulang punggung. Level 4 Radical — kami nggak mindahin proses lama, kami bikin pasar baru: ampas yang tadinya biaya, jadi aset.</li>
+              <li>Level 6, Core Value Digital Interface — persis pola Gojek atau Airbnb. Kami orchestrator, bukan operator: nggak ngangkut, nggak ngolah, kami cuma kontrol data, trust, dan koneksi.</li>
+              <li>Dan Level 8, Value Constellation — jaringan 8 entitas dengan platform di pusat, yang akan kami tunjukkan sebentar lagi.</li>
+            </ul></div>
+          <div class="sc-block"><span class="sc-label l-transition">🔗 Transisi</span>
+            <div class="transition-line">Klaim Level 8 ini bukan teori kosong — izinkan kami tunjukkan delapan entitasnya satu per satu.</div></div>
+          <div class="sc-block"><span class="sc-label l-jury">❓ Kalau juri nanya</span>
+            <div class="jury-q"><div class="q">"Kenapa Digital Disruption, bukan migration atau conversion?"</div><div class="a">Karena kami mengubah radikal model bisnisnya: ampas dari biaya jadi aset, dan menciptakan pasar baru — UMKM hilirisasi sebagai pelaku ekonomi. Migration/conversion cuma mindahin proses lama; kami menciptakan kategori yang sebelumnya nggak ada.</div></div>
+            <div class="jury-q"><div class="q">"Apa bedanya orchestrator (L6) dengan pengepul biasa?"</div><div class="a">Pengepul beli, simpan, jual — punya aset dan tanggung risiko stok. Kami asset-light: nggak nyimpen ampas, kami cuma mempertemukan pihak dan jamin trust lewat data. Persis Gojek yang nggak punya motor.</div></div>
+          </div>
+          <div class="save-box"><span class="sc-label">🆘 Kalau blank pas maju</span>
+            <p>Sebut tiga frasa ini aja: <b>"Level 4 Radical, Level 6 orchestrator kayak Gojek, Level 8 jaringan 8 entitas."</b> Asal tiga frasa ini keluar, slide ini sukses.</p></div>
+        </div>
+      </div>
+      <div class="slide-card">
+        <div class="sc-head">
+          <span class="badge b-slide">SLIDE 5</span>
+          <h4>8-Entity Value Constellation — "Satu orchestrator, 8 entitas yang saling memberi."</h4>
+          <button class="mine-btn" onclick="toggleMine(this)">★ ini bagianku</button>
+        </div>
+        <div class="sc-body">
+          <div class="sc-block"><span class="sc-label l-screen">🖥️ Di layar</span>
+            <div>Judul "Satu orchestrator, <b>8 entitas</b> yang saling memberi." Logo platform (orb badge "8") di kanan atas. Dua baris kartu: <b>Core — 4 Pelaku Langsung</b> (Coffee Shop C1, UMKM Hilirisasi C2, End User B2C C3, Brand Sponsor/ESG C4) dan <b>Supporting — 4 Enabler</b> (Kampus S1, Dinas Lingkungan S2, Urban Farming S3, Logistik Partner S4). Tiap kartu nunjukin "Kasih" (terracotta) dan "Dapat" (hijau).</div></div>
+          <div class="sc-block"><span class="sc-label l-understand">🧠 Yang harus dipahami</span>
+            <div><p>Ini <b>bukti</b> dari klaim Level 8. Konsep paling penting: <b>tiap entitas memberi sesuatu DAN menerima sesuatu — dua arah, bukan satu arah.</b> Itu yang bikin namanya "konstelasi", bukan "rantai pasok". Yang wajib nempel — 4 Core + tahu 4 Supporting:</p>
+  <ul>
+    <li><b>Coffee Shop</b> → kasih ampas, dapat disposal gratis + Eco-Badge (citra sustainable).</li>
+    <li><b>UMKM Hilirisasi</b> → kasih subscription (mereka yang bayar), dapat supply stabil + sertifikat Verified Circular Source.</li>
+    <li><b>End User B2C</b> → kasih aktivasi marketplace + review, dapat produk verified + Grounds Coin.</li>
+    <li><b>Brand Sponsor/ESG</b> → kasih dana CSR/carbon, dapat bukti dampak + ESG report (buat lapor OJK).</li>
+    <li><b>Supporting (4 enabler):</b> Kampus (host Hub + talent), DLH (data waste buat kebijakan), Urban Farming (demand kompos), Logistik (idle capacity off-peak).</li>
+  </ul>
+  <p><b>Kenapa penting:</b> ini yang bedain kita dari kompetitor linear (Waste4Change, Rebricks). Mereka collector/processor satu arah. Kita jaringan 8 sisi yang saling mengunci — itu moat-nya.</p></div></div>
+          <div class="sc-block"><span class="sc-label l-say">🗣️ Yang diucapkan</span>
+            <ul class="say-list">
+              <li>Di pusat ada platform sebagai orchestrator. Di sekelilingnya 8 entitas — 4 pelaku langsung, 4 pendukung.</li>
+              <li>Kuncinya: tiap entitas memberi DAN menerima. Coffee shop kasih ampas, dapat disposal gratis dan Eco-Badge. UMKM bayar subscription, dapat supply stabil dan sertifikasi.</li>
+              <li>Empat pendukung — Kampus, Dinas Lingkungan, Urban Farming, Logistik — yang bikin ekosistem ini tahan lama, bukan cuma satu transaksi.</li>
+              <li>Inilah Value Constellation: nilai berputar di jaringan, bukan ngalir lurus lalu berhenti.</li>
+            </ul></div>
+          <div class="sc-block"><span class="sc-label l-transition">🔗 Transisi</span>
+            <div class="transition-line">Setelah lihat siapa saja pemainnya, sekarang [pembawa slide 6] akan tunjukkan bagaimana mereka benar-benar bekerja, langkah demi langkah.</div></div>
+          <div class="sc-block"><span class="sc-label l-jury">❓ Kalau juri nanya</span>
+            <div class="jury-q"><div class="q">"Kenapa coffee shop mau ikut kalau nggak dapat uang?"</div><div class="a">Mereka dapat dua hal bernilai tanpa kerja tambahan: disposal gratis (hemat biaya) dan Eco-Badge yang jadi nilai jual ke konsumen Gen Z. Cost saving plus brand value lebih besar dari sekadar uang tunai.</div></div>
+            <div class="jury-q"><div class="q">"Apa peran DLH dan Kampus — mereka nggak bayar?"</div><div class="a">Betul, mereka enabler bukan sumber revenue. DLH dapat data flow waste buat laporan Adipura/SDG; Kampus dapat living lab dan channel pengabdian. Mutual benefit yang memperkuat network effect dan legitimasi.</div></div>
+          </div>
+          <div class="save-box"><span class="sc-label">🆘 Kalau blank pas maju</span>
+            <p>Tunjuk layar: <b>"Delapan entitas, semuanya memberi dan menerima sekaligus — itu inti Value Constellation."</b> Sebut 4 Core (Coffee Shop, UMKM, End User, Sponsor) — udah cukup.</p></div>
+        </div>
+      </div>
+      <div class="slide-card">
+        <div class="sc-head">
+          <span class="badge b-slide">SLIDE 15</span>
+          <h4>Closing: Tim &amp; Ask — "Lima orang, satu loop yang mau kami tutup."</h4>
+          <button class="mine-btn" onclick="toggleMine(this)">★ ini bagianku</button>
+        </div>
+        <div class="sc-body">
+          <div class="sc-block"><span class="sc-label l-screen">🖥️ Di layar</span>
+            <div>Slide gelap. Judul "Lima orang, satu loop yang mau kami <b>tutup</b>." Lalu 5 foto/avatar tim. Di bawahnya 3 kartu "Ask": <b>Validasi</b>, <b>Pilot Support</b>, <b>Next Step</b>. Garis pemisah, lalu tagline besar "From Waste to <b>Wealth</b>. From Coffee to <b>Carbon</b>." + URL + "Terima kasih · Q&amp;A".</div></div>
+          <div class="sc-block"><span class="sc-label l-understand">🧠 Yang harus dipahami</span>
+            <div><p>Ini bukan slide basa-basi. Ini <b>momen menutup loop cerita</b> — dan kamu yang buka kerangkanya di slide 4, jadi pas kamu yang nutup. <b>"Ask" kita bukan minta nilai, tapi minta kesempatan membuktikan.</b> Tiga Ask-nya:</p>
+  <ul>
+    <li><b>Validasi</b> → minta feedback Bu Dhika atas model &amp; framework, biar pilot makin tajam.</li>
+    <li><b>Pilot Support</b> → minta akses Hub kampus + koneksi DLH Sleman buat cold-start.</li>
+    <li><b>Next Step</b> → inkubasi LPPM + pitch kompetisi pendanaan early-stage.</li>
+  </ul>
+  <p><b>Kenapa penting:</b> closing kuat ninggalin kesan terakhir. Juri sering kasih nilai di 30 detik terakhir. Tagline "From Waste to Wealth, From Coffee to Carbon" adalah benang merah seluruh pitch.</p></div></div>
+          <div class="sc-block"><span class="sc-label l-say">🗣️ Yang diucapkan</span>
+            <ul class="say-list">
+              <li>Kami berlima — satu loop yang ingin kami tutup: dari ampas yang terbuang, jadi nilai yang berputar.</li>
+              <li>Yang kami minta bukan sekadar nilai, tapi kesempatan membuktikan: validasi model dari Ibu, dukungan pilot lewat Hub kampus dan DLH Sleman, dan langkah lanjut ke inkubasi LPPM.</li>
+              <li>Aplikasinya sudah live, bisa langsung dibuka di groundstogrow-mvp.vercel.app.</li>
+              <li>(pelan, mantap) From Waste to Wealth. From Coffee to Carbon. Terima kasih — kami siap untuk pertanyaan.</li>
+            </ul></div>
+          <div class="sc-block"><span class="sc-label l-transition">🔗 Transisi</span>
+            <div class="transition-line">Ini slide terakhir — bukan transisi, tapi <b>pembuka sesi Q&amp;A</b>. Setelah tagline, diam sejenak, senyum, undang pertanyaan. Jangan buru-buru duduk.</div></div>
+          <div class="sc-block"><span class="sc-label l-jury">❓ Kalau juri nanya</span>
+            <div class="jury-q"><div class="q">"Tim mahasiswa, emang qualified eksekusi?"</div><div class="a">Ini concept-stage yang sudah tervalidasi konsepnya. Eksekusi lewat dosen pembimbing UKDW, inkubator LPPM, dan jalur kompetisi pendanaan — kami nggak klaim langsung jadi, tapi jalur scale-nya jelas.</div></div>
+            <div class="jury-q"><div class="q">"Langkah konkret pertama setelah ini apa?"</div><div class="a">Cold-start di Jogja: Hub di kampus UKDW, 5 coffee shop dan 3–5 UMKM trial, lalu pilot zero-waste bareng DLH Sleman. Sekuens supply-first.</div></div>
+          </div>
+          <div class="save-box"><span class="sc-label">🆘 Kalau blank pas maju</span>
+            <p>Apapun yang terjadi, <b>jatuhkan taglinenya</b>: "From Waste to Wealth, From Coffee to Carbon. Terima kasih." Itu penutup yang sah dan kuat. Sisanya bonus.</p></div>
+        </div>
+      </div>
+        <div class="prose"><h4>✅ Checklist sebelum besok</h4></div>
+        <div class="card"><ol style="margin:0 0 0 1.2rem">
+          <li><b>Buka deck, latih slide 4 → 5 → 15 langsung dari layar.</b> Tekan <b class="mono">N</b> buat presenter notes. (Slide 15 = #s13 di deck, counter 13/15 karena ada 2 slide sisipan.)</li>
+          <li><b>Hafalkan 3 frasa jangkar slide 4:</b> "Level 4 Radical · Level 6 orchestrator (Gojek) · Level 8 Value Constellation 8 entitas."</li>
+          <li><b>Latihan ngomong full bagianmu 1x dengan timer</b> — target 2,5–3 menit. Pastikan transisi ke pembawa slide 6 dan pembukaan Q&amp;A mulus.</li>
+          <li><b>Baca ulang Q&amp;A defense</b> — fokus 3 pertanyaan: "kenapa Digital Disruption?", "apa moat-nya?", dan "coffee shop mau ikut kenapa?".</li>
+        </ol></div>
+      </div>
+      <div class="person-pane" id="pane-elseva" data-name="Elseva">
+        <div class="person-intro">
+          <div class="role">Storyteller — Pembuka Cerita (Act 1)</div>
+          <h3>Elseva</h3>
+          <div class="meta">
+            <span>Slide: <b>1 · 2 · 3</b></span>
+            <span>Durasi: <b>~2,5–3 menit</b></span>
+          </div>
+          <div class="pep">Kamu membuka pitch, jadi ini momen paling menentukan kesan pertama. Tugasmu satu: bikin juri <i>peduli</i> sebelum mereka lihat angka. Alurnya: Cover (kenalan + janji besar) → Problem (masalahnya nyata &amp; besar) → Reframe (balik cara pandang: ini bukan sampah, ini sumber daya nganggur). Kamu yang menanam tagline di kepala juri.</div>
+        </div>
+      <div class="slide-card">
+        <div class="sc-head">
+          <span class="badge b-slide">SLIDE 1</span>
+          <h4>Cover + Tagline</h4>
+          <button class="mine-btn" onclick="toggleMine(this)">★ ini bagianku</button>
+        </div>
+        <div class="sc-body">
+          <div class="sc-block"><span class="sc-label l-screen">🖥️ Di layar</span>
+            <div>Logo daun terakota, brand <b>GroundsToGrow × WasteLoop</b>, judul besar <b>"From Waste to Wealth. From Coffee to Carbon."</b>, satu kalimat lead tentang "ekosistem multi-sisi 8 entitas", tiga tag (Digital Disruption · 8-Entity Value Constellation · MVP Live), dan di kanan ada daftar tim + dosen (Andhika Galuh Prabawati) + jadwal UAS.</div></div>
+          <div class="sc-block"><span class="sc-label l-understand">🧠 Yang harus dipahami</span>
+            <div><p>Slide ini bukan buat dibaca, tapi buat <b>menanam rasa penasaran</b>. Analogi: ini seperti adegan pembuka film — kamu kasih satu kalimat yang bikin orang mikir "lho, kok bisa?". Kalimat <b>"From Waste to Wealth, From Coffee to Carbon"</b> adalah jantung seluruh pitch: limbah (waste) → kekayaan/nilai (wealth), dan kopi (konkret, sehari-hari) → carbon (isu iklim besar). Dua perjalanan kecil-ke-besar dalam satu napas.</p>
+  <p><b>Kenapa penting:</b> kalau juri ingat satu hal saja dari presentasi, kita mau itu kalimat ini. Kamu yang menanamnya.</p></div></div>
+          <div class="sc-block"><span class="sc-label l-say">🗣️ Yang diucapkan</span>
+            <ul class="say-list">
+              <li>Setiap pagi, jutaan orang menikmati secangkir kopi. Tapi hampir nggak ada yang bertanya: ke mana ampasnya pergi setelah cangkirnya kosong?</li>
+              <li>Hari ini kami mau menunjukkan bahwa sesuatu yang kita anggap sampah ternyata masih punya nilai — ekonomi, sosial, dan lingkungan.</li>
+              <li>Namanya GroundsToGrow. Prinsipnya satu: From Waste to Wealth, From Coffee to Carbon.</li>
+            </ul></div>
+          <div class="sc-block"><span class="sc-label l-transition">🔗 Transisi</span>
+            <div class="transition-line">Dan kalau kita lihat skalanya, masalah ini jauh lebih besar dari yang kita kira.</div></div>
+          <div class="sc-block"><span class="sc-label l-jury">❓ Kalau juri nanya</span>
+            <div class="jury-q"><div class="q">"GroundsToGrow itu aplikasi apa sih sebenarnya?"</div><div class="a">Singkatnya, platform yang mempertemukan kedai kopi yang punya ampas dengan UMKM dan petani yang butuh ampas itu sebagai bahan baku. Kami nggak mengolah sendiri — kami koordinatornya. Detailnya akan dijelaskan rekan saya di slide berikutnya.</div></div>
+            <div class="jury-q"><div class="q">"WasteLoop itu apa?"</div><div class="a">Itu nama "mesin" di belakangnya — visi besar kami sebagai operating system untuk circular economy, bukan cuma kopi. Tapi itu nanti di akhir, biar tetap kejutan. (jangan bocorkan terlalu detail di awal)</div></div>
+          </div>
+          <div class="save-box"><span class="sc-label">🆘 Kalau blank pas maju</span>
+            <p>Yang penting cuma satu kalimat — ucapkan <b>"From Waste to Wealth, From Coffee to Carbon"</b> dengan mantap, lalu lanjut. Itu sudah cukup membuka pitch.</p></div>
+        </div>
+      </div>
+      <div class="slide-card">
+        <div class="sc-head">
+          <span class="badge b-slide">SLIDE 2</span>
+          <h4>The Problem at Scale (Data)</h4>
+          <button class="mine-btn" onclick="toggleMine(this)">★ ini bagianku</button>
+        </div>
+        <div class="sc-body">
+          <div class="sc-block"><span class="sc-label l-screen">🖥️ Di layar</span>
+            <div>Slide gelap, dramatis. Judul <b>"Setiap hari, sesuatu yang bernilai kita buang ke tempat sampah."</b> Tiga angka besar berdampingan:
+  <ul>
+    <li><b>~290 RB TON</b> — konsumsi kopi domestik Indonesia/tahun (BPS 2023) → estimasi ~250–300 ribu ton ampas kering terbuang.</li>
+    <li><b>0,4–0,85 T CO₂e</b> — potensi emisi dihindari per ton ampas dialihkan dari TPA (estimasi EPA/IPCC, avoided emissions, belum MRV).</li>
+    <li><b>Rp 0</b> — nilai yang ter-capture hari ini; 100% jadi beban biaya disposal.</li>
+  </ul>
+  Di bawahnya: catatan sumber, lalu paragraf tentang <b>TPA Piyungan ditutup permanen (Maret 2024)</b> + kandungan nitrogen ampas ~2% + "yang hilang adalah koordinator".</div></div>
+          <div class="sc-block"><span class="sc-label l-understand">🧠 Yang harus dipahami</span>
+            <div><p>Ini bagian terpenting buat kamu kuasai. Tiga angka punya tugas masing-masing — pahami <i>kenapa</i> tiap angka ada:</p>
+  <ol>
+    <li><b>~290 ribu ton</b> = membuktikan masalahnya <b>besar dan nyata</b>. Ini angka konsumsi kopi (sumber kuat: BPS), bukan ampas hasil sensus. Dari situ kita <b>estimasi</b> ampasnya 250–300 ribu ton kering. <b>Kata kunci WAJIB: "estimasi".</b> Tidak ada sensus ampas — dihitung dari konsumsi (1 kg kopi seduh → ~0,9–1 kg ampas kering).</li>
+    <li><b>0,4–0,85 ton CO₂e</b> = menghubungkan kopi ke <b>isu iklim</b> ("Coffee to Carbon"). Tapi ini <b>estimasi</b> EPA &amp; IPCC — <b>bukan kredit karbon terverifikasi</b>. Avoided emissions = "emisi yang dihindari", beda dari "kredit yang kami hasilkan".</li>
+    <li><b>Rp 0</b> = pukulan emosional. Semua nilai sekarang nol, malah jadi biaya buang. Inilah celah yang platform isi.</li>
+  </ol>
+  <p>Slide inilah yang <b>paling mungkin dijebak juri</b>. Kalau kamu sebut angka presisi tunggal seolah sensus, kredibilitas jatuh. Tapi kalau kamu sendiri bilang "ini estimasi dari konsumsi, berbasis BPS" — justru kelihatan jujur dan pintar. <b>Mengakui keterbatasan = naik kredibilitas.</b></p></div></div>
+          <div class="sc-block"><span class="sc-label l-say">🗣️ Yang diucapkan</span>
+            <ul class="say-list">
+              <li>Indonesia salah satu konsumen kopi terbesar — sekitar 290 ribu ton kopi diminum per tahun, data BPS. Dari situ kami estimasi ada 250 sampai 300 ribu ton ampas kering yang terbuang tiap tahun, nyaris tanpa daur ulang.</li>
+              <li>Setiap ton ampas yang dibuang ke TPA juga melepas metana. Estimasi kami sekitar 0,4 sampai 0,85 ton CO₂e bisa dihindari per ton — ini avoided emissions berdasarkan faktor EPA dan IPCC, jujur, ini belum kredit karbon terverifikasi.</li>
+              <li>Dan yang ironis: nilai yang ter-capture hari ini? Nol rupiah. Semua jadi beban biaya buang.</li>
+              <li>Khusus di Jogja, sejak TPA Piyungan ditutup permanen Maret 2024, kota ini benar-benar kehabisan ruang buang. Yang hilang bukan teknologinya — yang hilang adalah koordinator yang mempertemukan kedai, UMKM pengolah, dan petani.</li>
+            </ul></div>
+          <div class="sc-block"><span class="sc-label l-transition">🔗 Transisi</span>
+            <div class="transition-line">Jadi sebenarnya masalahnya bukan di limbahnya. Masalahnya cara kita memandang limbah itu.</div></div>
+          <div class="sc-block"><span class="sc-label l-jury">❓ Kalau juri nanya</span>
+            <div class="jury-q"><div class="q">"Angka 290 ribu ton itu ampas atau kopi? Dari mana?"</div><div class="a">Itu konsumsi kopinya, dari BPS 2023. Ampasnya kami estimasi turunan — sekitar 250–300 ribu ton kering — karena memang nggak ada sensus ampas. Faktornya 1 kg kopi seduh jadi sekitar 0,9–1 kg ampas kering.</div></div>
+            <div class="jury-q"><div class="q">"0,4–0,85 itu kok rentang lebar? CO₂e-nya valid nggak?"</div><div class="a">Rentang karena dua basis berbeda: angka bawah dari pendekatan life-cycle, angka atas dari faktor metana langsung EPA (34 ton metana per 1.000 ton sampah makanan, GWP metana 25 dari IPCC). Kami tampilkan sebagai estimasi avoided emissions, belum lewat MRV — jadi belum bisa diklaim sebagai kredit.</div></div>
+          </div>
+          <div class="save-box"><span class="sc-label">🆘 Kalau blank pas maju</span>
+            <p>Pegang satu kalimat: <b>"Masalahnya besar — ratusan ribu ton ampas terbuang tiap tahun, nilainya nol rupiah, dan sejak Piyungan tutup, Jogja butuh solusi sekarang."</b> Selama kata "estimasi" dan "BPS" keluar, kamu aman.</p></div>
+        </div>
+      </div>
+      <div class="slide-card">
+        <div class="sc-head">
+          <span class="badge b-slide">SLIDE 3</span>
+          <h4>The Reframe (waste ≠ sampah, waste = idle resource)</h4>
+          <button class="mine-btn" onclick="toggleMine(this)">★ ini bagianku</button>
+        </div>
+        <div class="sc-body">
+          <div class="sc-block"><span class="sc-label l-screen">🖥️ Di layar</span>
+            <div>Dua judul besar: <b>"Ini <s>sampah.</s>"</b> (kata "sampah" dicoret) lalu <b>"Ini idle resource dengan 8 sisi ekosistem."</b> Paragraf tentang menaruh ampas di <i>titik awal sebuah loop</i>. Tiga kartu:
+  <ul>
+    <li><b>Limbah jadi aset</b> — kedai berhenti bayar disposal, dapat ESG Eco-Badge + dashboard.</li>
+    <li><b>Grup WA jadi trust layer</b> — Smart Matching gantikan kontak personal dengan reputation score.</li>
+    <li><b>Loop, bukan TPA</b> — kopi pagi → skincare malam → kompos → tanaman. Empat hop. Nilai berputar.</li>
+  </ul>
+  Di bawah ada tulisan tangan: "resource, not rubbish ✿".</div></div>
+          <div class="sc-block"><span class="sc-label l-understand">🧠 Yang harus dipahami</span>
+            <div><p>Ini <b>momen "aha"</b> dari pitch — titik balik di mana cara pandang juri dibalik. Konsep intinya: <b>waste ≠ sampah, waste = idle resource</b> (sumber daya yang sedang nganggur). Analogi: ampas kopi seperti kamar kosong di rumahmu — selama nggak dipakai, dia cuma "beban". Begitu ada platform yang mempertemukannya dengan yang butuh (Airbnb buat kamar; GroundsToGrow buat ampas), si "beban" berubah jadi sumber pendapatan. Itulah <b>circular economy</b> dan <b>sharing economy</b> bertemu.</p>
+  <p><b>Kenapa penting:</b> ini menjawab "kalau ampas berguna, kenapa belum ada yang manfaatin?" Jawabannya di kartu kedua — selama ini koordinasinya cuma lewat grup WhatsApp dan kenalan personal, <b>nggak ada sistem yang bisa dipercaya &amp; diskalakan</b>. Masalahnya bukan produksi limbah, tapi <b>kegagalan koordinasi</b>. Kartu ketiga (empat hop) menunjukkan nilainya nggak berhenti — terus berputar, makanya disebut <i>loop</i>.</p></div></div>
+          <div class="sc-block"><span class="sc-label l-say">🗣️ Yang diucapkan</span>
+            <ul class="say-list">
+              <li>Kami percaya masalahnya bukan pada limbahnya. Selama ini kita lihat ampas di ujung rantai — sebagai sesuatu yang dibuang.</li>
+              <li>Kami balik: ampas bukan sampah, tapi idle resource — sumber daya yang nganggur. Kami taruh dia di titik awal sebuah loop, di mana 8 pihak masing-masing menambah satu lapis nilai sebelum mengoper ke berikutnya.</li>
+              <li>Yang selama ini hilang bukan kebutuhannya — kedai, UMKM, dan petani sebenarnya saling membutuhkan. Yang hilang adalah sistem yang mempertemukan mereka. Selama ini cuma grup WhatsApp dan kontak pribadi.</li>
+              <li>Bayangkan: kopi pagi bisa jadi skincare malam, lalu kompos, lalu tanaman. Nilai berputar — resource, not rubbish.</li>
+            </ul></div>
+          <div class="sc-block"><span class="sc-label l-transition">🔗 Transisi</span>
+            <div class="transition-line">Nah, kalau ini bukan sekadar daur ulang biasa — lalu sebenarnya ini apa secara teori? Saya serahkan ke [rekan, pembawa Slide 4] untuk menjelaskan kerangkanya.</div></div>
+          <div class="sc-block"><span class="sc-label l-jury">❓ Kalau juri nanya</span>
+            <div class="jury-q"><div class="q">"Kalau ampas memang berguna, kenapa belum ada yang ambil selama ini?"</div><div class="a">Karena koordinasinya selama ini manual — lewat grup WA dan kenalan, nggak ada reputation score, nggak ada riwayat transaksi yang bisa diverifikasi, nggak bisa diskalakan. Itu coordination failure, bukan kekurangan kebutuhan. Platform kami mengisi persis celah itu.</div></div>
+            <div class="jury-q"><div class="q">"Berarti kalian mengolah ampasnya jadi produk?"</div><div class="a">Tidak — kami asset-light. Kami nggak menyentuh materialnya. Kami mempertemukan supply (kedai) dengan demand (UMKM/petani) dan memonetisasi koordinasi + data jejak keberlanjutannya. Yang mengolah adalah UMKM mitra.</div></div>
+          </div>
+          <div class="save-box"><span class="sc-label">🆘 Kalau blank pas maju</span>
+            <p>Satu kalimat penyelamat: <b>"Ini bukan sampah — ini sumber daya nganggur. Yang hilang selama ini bukan kebutuhannya, tapi koordinatornya. Itulah kami."</b> Ucapkan itu, lalu oper ke rekan berikutnya.</p></div>
+        </div>
+      </div>
+        <div class="prose"><h4>✅ Checklist sebelum besok</h4></div>
+        <div class="card"><ol style="margin:0 0 0 1.2rem">
+          <li><b>Buka deck slide 1–3</b>, pencet <b class="mono">N</b> untuk lihat presenter notes-mu di tiap slide. Cocokkan dengan panduan ini.</li>
+          <li><b>Baca seksi Q&amp;A Juri</b> — terutama Klaim Rawan #1 (volume) &amp; #2 (CO₂e) dan cheat-sheet angka. Itu langsung relevan ke Slide 2-mu.</li>
+          <li><b>Hafalkan 2 refleks kata</b> yang harus selalu keluar di Slide 2: "estimasi" dan "berdasarkan BPS/EPA/IPCC". Refleks larangan: jangan bilang "tepat X ton" atau "kami jual kredit karbon".</li>
+          <li><b>Latihan ngomong 1x dengan suara keras</b> (~2,5–3 menit). Fokus ke transisi antar slide dan kalimat pembuka "Setiap pagi, jutaan orang menikmati secangkir kopi…" — itu hook-mu.</li>
+        </ol></div>
+      </div>
+      <div class="person-pane" id="pane-gatot" data-name="Gatot">
+        <div class="person-intro">
+          <div class="role">Research Lead — Proses, Data &amp; Roadmap</div>
+          <h3>Gatot</h3>
+          <div class="meta">
+            <span>Slide: <b>6 · 7 · 14</b></span>
+            <span>Durasi: <b>~4–5 menit (≈1,5 mnt/slide)</b></span>
+          </div>
+          <div class="pep">Ini bagian paling "engineering" dari pitch — dan kamu yang paling paham kopi &amp; operasionalnya. Kamu pegang "otak operasional". Pola besar: <b>proses → cetak biru → masa depan.</b> Catatan deck: urutan tayang s6 (Business Process) → s6b (Data Architecture) → s7 (Revenue). Roadmap (s12) ada di dekat penutup.</div>
+        </div>
+      <div class="slide-card">
+        <div class="sc-head">
+          <span class="badge b-slide">SLIDE 6</span>
+          <h4>Business Process — "Lima langkah dari ampas pagi ke produk di marketplace"</h4>
+          <button class="mine-btn" onclick="toggleMine(this)">★ ini bagianku</button>
+        </div>
+        <div class="sc-body">
+          <div class="sc-block"><span class="sc-label l-screen">🖥️ Di layar</span>
+            <div>Judul besar "Lima langkah dari ampas pagi ke produk di marketplace." Lalu 5 kartu langkah berurutan: <b>01 Submit → 02 Smart Match → 03 Pickup → 04 Hilirisasi → 05 Marketplace.</b> Di bawahnya dua diagram asli yang sudah dirender: <b>DFD Level 0 (Context Diagram)</b> dan <b>Activity Diagram end-to-end (AD-CX-01)</b>. Ada badge "Loop: produk → kompos → urban farming → kembali ke siklus" + tag "ESG ter-hitung tiap langkah" + "Verified Circular Source".</div></div>
+          <div class="sc-block"><span class="sc-label l-understand">🧠 Yang harus dipahami</span>
+            <div><p>Ini <b>rantai pasok sirkular</b> dibuat sesederhana mungkin. Inti: sampah (ampas kopi) di satu titik adalah <b>bahan baku</b> di titik lain — platform jadi "mak comblang" yang mempertemukan <b>supply</b> (kedai punya ampas) dengan <b>demand</b> (UMKM butuh ampas). Tiap langkah punya nilai nyata:</p>
+  <ul>
+    <li><b>Submit</b> = digitalisasi sampah jadi data (kedai foto ampas, isi jenis Arabika/Robusta + volume di WasteScan).</li>
+    <li><b>Smart Match</b> = jantung platform. Engine cocokkan ampas ke UMKM berdasarkan jarak pickup, freshness, preferensi olahan. Bikin platform "pintar", bukan papan pengumuman.</li>
+    <li><b>Pickup</b> = logistik nyata; partner angkut dari kedai ke Hub kampus saat jam off-peak (hemat ongkos).</li>
+    <li><b>Hilirisasi</b> = UMKM olah jadi produk bernilai: skincare, briket, kompos, eco-print.</li>
+    <li><b>Marketplace</b> = end user beli; komisi 10–15% masuk ke platform, Grounds Coin keluar sebagai reward.</li>
+  </ul>
+  <p>Kuncinya: <b>ESG terhitung di tiap langkah</b> — tiap kg ampas yang berpindah ke-track. Analogi: <b>Gojek, tapi yang dijemput adalah ampas kopi, dan tujuannya UMKM yang mengubahnya jadi produk.</b></p></div></div>
+          <div class="sc-block"><span class="sc-label l-say">🗣️ Yang diucapkan</span>
+            <ul class="say-list">
+              <li>Cara kerja GroundsToGrow bisa diringkas jadi lima langkah, dari ampas yang numpuk pagi hari di kedai sampai jadi produk yang dibeli orang.</li>
+              <li>Mulai dari Submit — kedai foto ampasnya, pilih jenis kopi dan volume. Lalu engine kami melakukan Smart Match: mencocokkan ampas ke UMKM yang paling pas berdasarkan jarak, kesegaran, dan jenis olahan.</li>
+              <li>Setelah cocok, Pickup dilakukan partner logistik ke Hub kampus. UMKM mengolahnya jadi skincare, briket, atau kompos — dan produk jadinya masuk Marketplace, di mana kami ambil komisi 10–15%.</li>
+              <li>Yang penting: dampak ESG-nya terhitung di setiap langkah, dan ada label Verified Circular Source. Tiap produk bisa ditelusuri sampai ke kedai asalnya.</li>
+            </ul></div>
+          <div class="sc-block"><span class="sc-label l-transition">🔗 Transisi</span>
+            <div class="transition-line">Nah, lima langkah ini terlihat sederhana di permukaan — tapi di baliknya ada arsitektur data yang sudah kami rancang detail. Mari saya tunjukkan cetak birunya.</div></div>
+          <div class="sc-block"><span class="sc-label l-jury">❓ Kalau juri nanya</span>
+            <div class="jury-q"><div class="q">"Smart Match-nya pakai AI?"</div><div class="a">Untuk MVP, Smart Match berbasis rule/skor: tiap UMKM dapat poin dari kecocokan jenis kopi (+50), freshness (+30), jarak dalam radius (+20), dan prioritas subscriber. Diambil Top 3. AI/ML baru di roadmap, pakai data historis. Jadi sekarang sudah jalan dengan logika transparan, bukan black box.</div></div>
+            <div class="jury-q"><div class="q">"Apa bedanya ini sama bank sampah biasa?"</div><div class="a">Bank sampah berhenti di pengumpulan. Kami menghubungkannya ke demand — ada UMKM yang spesifik butuh ampas itu, dan ada marketplace untuk jual produk akhirnya. Loop-nya tertutup sampai konsumen dan kembali ke kompos.</div></div>
+          </div>
+          <div class="save-box"><span class="sc-label">🆘 Kalau blank pas maju</span>
+            <p>Ingat lima kata berurutan: <b>Submit → Match → Pickup → Olah → Jual.</b> Sebut itu, sisanya akan ngalir. Itu tulang punggung seluruh slide.</p></div>
+        </div>
+      </div>
+      <div class="slide-card">
+        <div class="sc-head">
+          <span class="badge b-slide">SLIDE 7</span>
+          <h4>Data Architecture (s6b) — "Bukan slide, ini cetak biru yang sudah dirender"</h4>
+          <button class="mine-btn" onclick="toggleMine(this)">★ ini bagianku</button>
+        </div>
+        <div class="sc-body">
+          <div class="sc-block"><span class="sc-label l-screen">🖥️ Di layar</span>
+            <div>Judul "Bukan slide, ini <b>cetak biru</b> yang sudah dirender." Di pojok ada angka: <b>7 proses · 9 data store · 23 entitas.</b> Lalu diagram asli: <b>DFD Level 1 (7 sub-proses + 9 data store)</b>, <b>ERD Core MVP (23 entitas berelasi)</b>, dan <b>Flowchart FC-02 WasteScan demo flow</b>. Ditutup kalimat: "Schema, proses, dan aliran data sudah dipetakan sebelum satu baris produksi ditulis. Backend Supabase tinggal mengikuti ERD ini saat pilot. <b>Pemetaan, bukan tebakan.</b>"</div></div>
+          <div class="sc-block"><span class="sc-label l-understand">🧠 Yang harus dipahami</span>
+            <div><p>Satu pesan utama: kami tidak cuma bikin tampilan cantik — kami sudah merancang <b>fondasi datanya</b> seperti tim engineering beneran. Bedanya dua diagram (juri sering nanya):</p>
+  <ul>
+    <li><b>DFD (Data Flow Diagram)</b> = "data mengalir ke mana?" Peta <b>proses</b>. Level 0 = platform sebagai satu kotak hitam dengan 8 entitas + Bank. Level 1 = platform dipecah jadi <b>7 sub-proses</b>: Listing Management, Smart Matching, Pickup Coordination, Marketplace Transactions, Subscription, Carbon Credit Issuance, Reporting &amp; Analytics. Di antaranya <b>9 data store</b> (D1 Listings, D2 Users, D3 Matches/Pickups, dst).</li>
+    <li><b>ERD (Entity Relationship Diagram)</b> = "data disimpan dalam bentuk apa, dan apa hubungannya?" Peta <b>struktur database</b>: 23+ entitas (users, coffee_shop_profiles, umkm_profiles, listings, matches, pickups, products, orders, certificates, carbon_credits, esg_metrics) lengkap dengan relasi (satu kedai → banyak listing; satu listing → banyak match; satu match → satu pickup).</li>
+  </ul>
+  <p><b>Kenapa penting:</b> ini bukti kredibilitas teknis. Banyak tim mahasiswa berhenti di ide. Kalau besok harus dibangun backend (Supabase/Postgres), tinggal ikuti cetak biru ini. Gampangnya: <b>DFD = aliran air di pipa (proses); ERD = denah ruangan &amp; gimana ruangan saling terhubung (data).</b></p></div></div>
+          <div class="sc-block"><span class="sc-label l-say">🗣️ Yang diucapkan</span>
+            <ul class="say-list">
+              <li>Lima langkah tadi terlihat simpel, tapi di belakangnya ada arsitektur data lengkap. Ini bukan sekadar slide — ini cetak biru asli yang sudah kami render.</li>
+              <li>Ada dua hal: DFD menunjukkan bagaimana data mengalir — dari kedai submit ampas, masuk ke Smart Matching, sampai transaksi marketplace dan laporan ESG. Total 7 proses dan 9 data store.</li>
+              <li>Lalu ERD menunjukkan struktur database-nya — 23 entitas berelasi, dari User, Coffee Shop, Listing, Match, sampai Carbon Credit.</li>
+              <li>Intinya: semua ini sudah dipetakan sebelum satu baris kode produksi ditulis. Saat pilot, backend Supabase tinggal mengikuti ERD ini. Ini pemetaan, bukan tebakan.</li>
+            </ul></div>
+          <div class="sc-block"><span class="sc-label l-transition">🔗 Transisi</span>
+            <div class="transition-line">Jadi fondasinya sudah matang. Pertanyaannya: ke mana kami mau bawa ini? Itu yang akan saya tunjukkan di roadmap. <i>(Kalau urutan tim membuatmu menyerahkan ke orang lain di sini: "...dan rekan saya akan melanjutkan ke model pendapatannya.")</i></div></div>
+          <div class="sc-block"><span class="sc-label l-jury">❓ Kalau juri nanya</span>
+            <div class="jury-q"><div class="q">"Bedanya DFD sama ERD apa?"</div><div class="a">DFD memetakan aliran proses — data bergerak dari mana ke mana. ERD memetakan struktur penyimpanan — entitas/tabel apa saja dan bagaimana relasinya. DFD soal gerakan, ERD soal bentuk.</div></div>
+            <div class="jury-q"><div class="q">"Kalau belum ada backend, ini cuma teori dong?"</div><div class="a">Justru sebaliknya — desain database matang itu prasyarat backend yang baik. ERD kami sudah 3NF, pakai UUID, langsung bisa diadopsi ke Supabase/Postgres tanpa rombak. Yang belum dibangun cuma implementasinya, bukan desainnya.</div></div>
+            <div class="jury-q"><div class="q">"Kenapa angkanya 23 entitas / 7 proses?"</div><div class="a">23 entitas mencakup semua aktor (8 peran), objek transaksi (listing, match, pickup, order), dan objek dampak (certificate, carbon credit, ESG metric). 7 proses adalah fungsi inti platform. Semua ada di dokumen foundation 04-DFD dan 05-ERD.</div></div>
+          </div>
+          <div class="save-box"><span class="sc-label">🆘 Kalau blank pas maju</span>
+            <p>Ucapkan: <b>"Ini cetak biru yang sudah dirender — DFD untuk aliran data, ERD untuk struktur database. Pemetaan, bukan tebakan."</b> Kalimat "pemetaan, bukan tebakan" adalah punchline-nya.</p></div>
+        </div>
+      </div>
+      <div class="slide-card">
+        <div class="sc-head">
+          <span class="badge b-slide">SLIDE 14</span>
+          <h4>Roadmap (s12) — "Dari clickable demo ke pilot Jogja yang hidup"</h4>
+          <button class="mine-btn" onclick="toggleMine(this)">★ ini bagianku</button>
+        </div>
+        <div class="sc-body">
+          <div class="sc-block"><span class="sc-label l-screen">🖥️ Di layar</span>
+            <div>Judul "Dari clickable demo ke <b>pilot Jogja yang hidup.</b>" Tiga kolom timeline:
+  <ul>
+    <li><b>Now · UAS — Foundation + MVP:</b> 4 screen Next.js live di Vercel, 11 dokumen foundation, WasteScan + Marketplace 3-tab, pitch teori Level 4-6-8.</li>
+    <li><b>0–6 Bulan — Pilot Cold-Start:</b> Hub di kampus UKDW, 5 coffee shop + 3–5 UMKM trial, DLH Sleman zero-waste pilot, Backend Supabase + Midtrans.</li>
+    <li><b>6–12 Bulan — Scale + AI:</b> AI Vision auto-grading (WasteScan v2), Logistik API (Gojek/Lalamove), carbon credit batch pertama, ekspansi vertikal WasteLoop.</li>
+  </ul>
+  Penutup: "Eksekusi: dosen pembimbing UKDW + inkubator LPPM + pitch ke BPC / KSE Juara. <b>Concept-stage validated, jalur scale jelas.</b>"</div></div>
+          <div class="sc-block"><span class="sc-label l-understand">🧠 Yang harus dipahami</span>
+            <div><p>Roadmap ini <b>dirancang jujur dan realistis</b> — itu kekuatannya. Pesan inti: "kami tahu sekarang ada di tahap konsep, dan punya jalan jelas untuk membuktikannya." Tiga fase = tiga tujuan berbeda:</p>
+  <ul>
+    <li><b>Now:</b> <i>menunjukkan</i> (sudah ada demo &amp; dokumen — bukti kami serius).</li>
+    <li><b>0–6 bulan:</b> <i>memvalidasi</i> (pilot kecil &amp; terkendali — 1 Hub, 5 kedai, beberapa UMKM, plus DLH Sleman). Di fase ini backend nyata baru dibangun.</li>
+    <li><b>6–12 bulan:</b> <i>menskalakan</i> (baru tambah hal canggih: AI Vision, integrasi logistik, carbon credit pertama).</li>
+  </ul>
+  <p><b>Kenapa urutan ini penting:</b> fitur "wah" (AI, carbon credit) sengaja ditaruh paling akhir — kami tidak menjanjikan AI di hari pertama. Itu kedewasaan: validasi dulu, baru investasi teknologi mahal. <b>"Cold-start"</b> = tantangan platform baru yang belum punya pengguna di kedua sisi — makanya pilot dimulai dari satu kampus (Hub UKDW) sebagai jangkar. Analogi: <b>kami tidak langsung buka 100 cabang — kami buktikan dulu satu warung laku.</b></p></div></div>
+          <div class="sc-block"><span class="sc-label l-say">🗣️ Yang diucapkan</span>
+            <ul class="say-list">
+              <li>Roadmap kami sederhana: dari demo yang bisa diklik hari ini, menuju pilot di Jogja yang benar-benar hidup.</li>
+              <li>Sekarang, di tahap UAS, kami sudah punya MVP live di Vercel plus 11 dokumen foundation. Ini bukti konsepnya nyata.</li>
+              <li>Enam bulan pertama fokus ke validasi: satu Hub di UKDW, sekitar 5 kedai dan 3–5 UMKM, plus pilot zero-waste bareng DLH Sleman. Di sinilah backend Supabase dan pembayaran Midtrans kami bangun.</li>
+              <li>Baru di 6–12 bulan kami tambah yang canggih: AI Vision untuk auto-grading ampas, integrasi logistik Gojek/Lalamove, dan batch carbon credit pertama. Kami sengaja taruh AI di akhir — validasi dulu, baru skala.</li>
+            </ul></div>
+          <div class="sc-block"><span class="sc-label l-transition">🔗 Transisi</span>
+            <div class="transition-line">Jadi kami concept-stage yang sudah tervalidasi, dengan jalur scale yang jelas. Selanjutnya, [rekan berikutnya] akan menutup dengan tim kami dan apa yang kami minta.</div></div>
+          <div class="sc-block"><span class="sc-label l-jury">❓ Kalau juri nanya</span>
+            <div class="jury-q"><div class="q">"Kenapa AI baru di 6–12 bulan, kenapa nggak sekarang?"</div><div class="a">Karena AI butuh data nyata untuk dilatih — dan data itu baru terkumpul setelah pilot jalan. Membangun AI sebelum punya pengguna itu boros. Kami validasi product-market fit dulu, baru investasi teknologi.</div></div>
+            <div class="jury-q"><div class="q">"Bagaimana atasi cold-start — gimana dapat kedai DAN UMKM pertama?"</div><div class="a">Kami pakai kampus sebagai jangkar: Hub UKDW jadi titik temu, mahasiswa volunteer bantu operasional, dan endorsement DLH Sleman memberi kredibilitas supaya kedai &amp; UMKM mau ikut. Kami tidak mulai dari nol di ruang kosong — kami mulai dari ekosistem yang sudah ada.</div></div>
+            <div class="jury-q"><div class="q">"Sumber daya/dana dari mana untuk eksekusi?"</div><div class="a">Lewat dosen pembimbing UKDW, inkubasi LPPM, dan pitch ke kompetisi pendanaan early-stage seperti BPC atau KSE Juara. Jalur pendanaannya sudah kami petakan.</div></div>
+          </div>
+          <div class="save-box"><span class="sc-label">🆘 Kalau blank pas maju</span>
+            <p>Pegang tiga kata fase: <b>Now (tunjukkan) → 0–6 bulan (validasi/pilot) → 6–12 bulan (scale + AI).</b> Jangan lupa punchline: <b>"Validasi dulu, baru skala — concept-stage validated, jalur scale jelas."</b></p></div>
+        </div>
+      </div>
+        <div class="prose"><h4>✅ Checklist sebelum besok</h4></div>
+        <div class="card"><ol style="margin:0 0 0 1.2rem">
+          <li><b>Buka deck</b>, langsung ke Slide 6, Slide 7 (Data Architecture), dan Slide 14 (Roadmap). Tekan <b class="mono">N</b> di tiap slide untuk presenter notes.</li>
+          <li><b>Latihan ngomong 1x dengan suara keras</b> untuk ketiga slide, target ±1,5 mnt/slide. Patokan: S6 = "Submit→Match→Pickup→Olah→Jual"; S7 = "DFD aliran data, ERD struktur, pemetaan bukan tebakan"; S14 = "Now→Pilot→Scale, validasi dulu baru AI".</li>
+          <li><b>Baca seksi Q&amp;A Juri</b>, khususnya Smart Match, beda DFD/ERD, cold-start, dan kenapa AI di akhir — area yang paling mungkin ditanya ke kamu.</li>
+          <li><b>Hafalkan 3 angka kunci:</b> 7 proses · 9 data store · 23 entitas (S7), komisi 10–15% (S6), dan 5 kedai + 3–5 UMKM + 1 Hub UKDW untuk pilot 0–6 bulan (S14).</li>
+        </ol></div>
+      </div>
+      <div class="person-pane" id="pane-elsava" data-name="Elsava">
+        <div class="person-intro">
+          <div class="role">Business Analyst — Revenue, BMC &amp; Network</div>
+          <h3>Elsava</h3>
+          <div class="meta">
+            <span>Slide: <b>8 · 9 · 11</b></span>
+            <span>Durasi: <b>~4–5 menit (≈1,5 mnt/slide)</b></span>
+          </div>
+          <div class="pep">Ini "otak bisnis" pitch — dan kamu yang nulis BusinessModel.md, jadi ini kandang kamu sendiri. Alurnya: <b>duit → struktur → daya tahan.</b> Catatan posisi: di antara Slide 9 dan Slide 11 ada Slide 10 (Live Demo, orang lain). Jadi kamu menyerahkan setelah Slide 9, lalu mengambil alih lagi di Slide 11.</div>
+        </div>
+      <div class="slide-card">
+        <div class="sc-head">
+          <span class="badge b-slide">SLIDE 8</span>
+          <h4>Revenue Model — "6 stream: 2 primary terbukti, 4 upside"</h4>
+          <button class="mine-btn" onclick="toggleMine(this)">★ ini bagianku</button>
+        </div>
+        <div class="sc-body">
+          <div class="sc-block"><span class="sc-label l-screen">🖥️ Di layar</span>
+            <div>Judul "6 stream: 2 primary terbukti, 4 upside" + badge "Proyeksi Year 1: ~Rp 500jt–1.5M / bln". 6 kartu revenue:
+  <ol>
+    <li><b>UMKM Subscription</b> (Primary) — Rp 30–100jt/bln</li>
+    <li><b>B2C Commission</b> (Primary) — komisi 10–15% — Rp 5–20jt/bln</li>
+    <li><b>ESG SaaS Chain</b> (Secondary) — Rp 10–50jt/bln</li>
+    <li><b>Carbon Credit</b> (Upside) — Rp 5–50jt/bln</li>
+    <li><b>Data Licensing</b> (Upside) — Rp 5–20jt/thn</li>
+    <li><b>Petani Commission</b> (Transactional, 5%) — Rp 2–10jt/bln</li>
+  </ol></div></div>
+          <div class="sc-block"><span class="sc-label l-understand">🧠 Yang harus dipahami</span>
+            <div><p>Inti yang harus nempel: <b>pendapatan kami bertumpu pada 2 stream yang sudah terbukti, sisanya bonus.</b> Juri paling cepat menyerang model bisnis mahasiswa yang "ngarang angka besar dari carbon credit" — kita balik itu duluan. Fondasi = <b>UMKM Subscription</b> (paling stabil &amp; terprediksi, recurring tiap bulan, model SaaS/MRR) + <b>Marketplace Commission 10–15%</b> (tumbuh seiring jumlah UMKM &amp; produk). Dua-duanya <b>sudah terbukti jalan di pasar Indonesia</b>.</p>
+  <p>Carbon Credit &amp; ESG SaaS sengaja jadi <b>lapisan upside</b> — "bonus, bukan fondasi". Analogi: pondasi rumah pakai beton teruji, bukan menggantungkan rumah pada balon yang belum tentu mengembang.</p></div></div>
+          <div class="sc-block"><span class="sc-label l-say">🗣️ Yang diucapkan</span>
+            <ul class="say-list">
+              <li>Model bisnis kami punya enam sumber pendapatan, supaya tidak bergantung cuma pada satu aliran.</li>
+              <li>Tapi yang jadi tulang punggung cuma dua: langganan UMKM dan komisi marketplace 10 sampai 15 persen — dua model yang sudah terbukti di pasar.</li>
+              <li>Empat sisanya — ESG SaaS, carbon credit, data licensing, komisi petani — kami perlakukan sebagai lapisan upside. Bonus kalau kena, bukan fondasi yang kami pertaruhkan.</li>
+              <li>(opsional kalau ditanya angka) Proyeksi tahun pertama sekitar 500 juta sampai 1,5 miliar per bulan, dan itu didorong terutama dari subscription.</li>
+            </ul></div>
+          <div class="sc-block"><span class="sc-label l-transition">🔗 Transisi</span>
+            <div class="transition-line">Enam stream ini cuma satu blok dari model bisnis yang lebih besar — biar kelihatan utuh, mari kita lihat seluruhnya dalam satu kanvas.</div></div>
+          <div class="sc-block"><span class="sc-label l-jury">❓ Kalau juri nanya</span>
+            <div class="jury-q"><div class="q">"Kenapa carbon credit cuma upside, bukan andalan?"</div><div class="a">Karena carbon credit butuh sertifikasi dan verifikasi MRV pihak ketiga yang belum kami punya. Kami jujur: itu roadmap, jadi tidak kami jadikan fondasi angka. (Nyambung ke Slide 12 "honest by design".)</div></div>
+            <div class="jury-q"><div class="q">"Angka proyeksinya dari mana?"</div><div class="a">Itu estimasi range, bukan klaim pasti — basisnya tarif langganan UMKM dikali jumlah mitra di fase pilot, plus komisi 10–15% dari transaksi marketplace. Stream yang paling bisa diprediksi sejak bulan pertama adalah subscription.</div></div>
+          </div>
+          <div class="save-box"><span class="sc-label">🆘 Kalau blank pas maju</span>
+            <p>Sebut ini saja — <b>"Dua primary terbukti, empat upside. Kami tidak menggantungkan model bisnis pada angka yang belum tervalidasi."</b> Itu inti seluruh slide.</p></div>
+        </div>
+      </div>
+      <div class="slide-card">
+        <div class="sc-head">
+          <span class="badge b-slide">SLIDE 9</span>
+          <h4>Business Model Canvas — "Satu kanvas, 9 blok yang saling mengunci"</h4>
+          <button class="mine-btn" onclick="toggleMine(this)">★ ini bagianku</button>
+        </div>
+        <div class="sc-body">
+          <div class="sc-block"><span class="sc-label l-screen">🖥️ Di layar</span>
+            <div>Judul "Satu kanvas, 9 blok yang saling mengunci" + badge "Asset-light · Multi-sided". Kanvas BMC klasik penuh 9 blok: Key Partners, Key Activities, Key Resources, <b>Value Proposition</b> (di tengah, disorot), Customer Relationships, Channels, Customer Segments, Cost Structure (bawah kiri), Revenue Streams (bawah kanan).</div></div>
+          <div class="sc-block"><span class="sc-label l-understand">🧠 Yang harus dipahami</span>
+            <div><p>BMC = <b>satu halaman yang merangkum SELURUH model bisnis</b> — dari siapa pelanggannya, apa nilai yang ditawarkan, sampai dari mana uang masuk dan ke mana keluar. Jangan baca 9 blok satu-satu (membosankan). Pahami <b>2 pesan kunci</b> yang membedakan kanvas kita:</p>
+  <ol>
+    <li><b>Value proposition BEDA untuk tiap segmen</b> — bukan satu produk untuk semua. Kedai dapat "limbah jadi brand asset tanpa beban ops"; UMKM dapat "bahan baku circular stabil &amp; tersertifikasi"; konsumen dapat "belanja bermakna dengan jejak dampak transparan"; sponsor dapat "ESG evidence real-time &amp; auditable". Ciri model <b>multi-sided</b>.</li>
+    <li><b>Model asset-light</b> — tidak punya armada, gudang, atau pabrik. Kita orchestrator/matchmaker (seperti Airbnb/Uber: tidak punya hotel/mobil). Konsekuensi: <b>fixed cost rendah</b>, biaya terbesar cuma di pengembangan platform &amp; akuisisi mitra di fase awal. Inilah kenapa model ini bisa scale tanpa modal fisik besar.</li>
+  </ol>
+  <p><b>Kenapa penting:</b> juri menilai apakah kamu paham bisnis holistik, bukan cuma fitur. Kanvas membuktikan tiap segmen punya value prop, channel, dan revenue-nya masing-masing — semua nyambung, tidak ada blok yang ngambang.</p></div></div>
+          <div class="sc-block"><span class="sc-label l-say">🗣️ Yang diucapkan</span>
+            <ul class="say-list">
+              <li>Business Model Canvas ini merangkum semuanya dalam satu kanvas — sembilan blok yang saling mengunci.</li>
+              <li>Dua hal yang kami tekankan. Pertama: value proposition kami berbeda untuk tiap segmen — kedai, UMKM, konsumen, sponsor — masing-masing dapat nilai yang berbeda.</li>
+              <li>Kedua: modelnya asset-light. Tanpa armada, tanpa gudang, tanpa pabrik. Kami orchestrator. Jadi biaya tetap kami rendah, dan platform bisa fokus mempertemukan supply dan demand.</li>
+              <li>(kalau mau sebut struktur biaya) Biaya terbesar kami justru di pengembangan platform dan akuisisi mitra di awal, bukan di aset fisik.</li>
+            </ul></div>
+          <div class="sc-block"><span class="sc-label l-transition">🔗 Transisi</span>
+            <div class="transition-line">Itu kerangka bisnisnya secara utuh. Sekarang, biar bukan cuma konsep, mari lihat aplikasinya yang sudah live. → (serahkan ke pembawa Slide 10 / Live Demo.)</div></div>
+          <div class="sc-block"><span class="sc-label l-jury">❓ Kalau juri nanya</span>
+            <div class="jury-q"><div class="q">"Apa bedanya asset-light di sini dengan dropship biasa?"</div><div class="a">Kami bukan cuma perantara jual-beli. Kami mengoordinasikan 8 entitas sekaligus dan menghasilkan data limbah + bukti ESG yang punya nilai sendiri. Aset kami adalah jaringan dan data, bukan barang fisik.</div></div>
+            <div class="jury-q"><div class="q">"Kalau asset-light, apa moat / pembeda kalian?"</div><div class="a">Justru di data dan jaringan. Makin banyak kedai dan transaksi, makin akurat matching dan makin sulit ditiru — itu yang akan saya jelaskan di slide network effect. (Jembatan mulus ke Slide 11.)</div></div>
+          </div>
+          <div class="save-box"><span class="sc-label">🆘 Kalau blank pas maju</span>
+            <p>Cukup dua kata kunci — <b>"9 blok yang saling mengunci, modelnya asset-light dan multi-sided."</b> Lalu tunjuk Value Proposition di tengah: "tiap segmen dapat nilai berbeda." Itu sudah cukup.</p></div>
+        </div>
+      </div>
+      <div class="slide-card">
+        <div class="sc-head">
+          <span class="badge b-slide">SLIDE 11</span>
+          <h4>Network Effect / Flywheel — "Tiap entitas baru menaikkan nilai 7 sisi lain"</h4>
+          <button class="mine-btn" onclick="toggleMine(this)">★ ini bagianku</button>
+        </div>
+        <div class="sc-body">
+          <div class="sc-block"><span class="sc-label l-screen">🖥️ Di layar</span>
+            <div>Roda "8-Sided Flywheel" berputar di kiri (8 node mengelilingi hub). Di kanan: judul "Tiap entitas baru menaikkan nilai 7 sisi lain" + narasi loop + 2 kartu: <b>Data Network Effect</b> dan <b>Trust / Reputation</b>.</div></div>
+          <div class="sc-block"><span class="sc-label l-understand">🧠 Yang harus dipahami</span>
+            <div><p>Network effect = <b>makin banyak yang ikut, makin bernilai platformnya untuk semua orang</b> (analogi: WhatsApp — telepon pertama tak berguna, sejuta pengguna jadi sangat berharga). Flywheel = roda gila: sekali berputar, tiap putaran mendorong putaran berikutnya makin kencang, <b>tanpa harus didorong dari nol lagi</b>.</p>
+  <p>Urutan loop yang harus kamu hafal alurnya: <b>Coffee shop baru gabung → volume ampas naik → UMKM tertarik (supply terjamin) → variasi produk bertambah → konsumen B2C naik → data ESG &amp; jejak karbon terkumpul → brand sponsor &amp; DLH tertarik → ekosistem makin dikenal → coffee shop baru makin terdorong gabung → (balik ke awal, makin kuat).</b></p>
+  <p><b>Kenapa powerful (jawaban paling penting buat juri):</b> setiap putaran menghasilkan lebih banyak data, transaksi, legitimasi. Makin besar ekosistem, makin susah kompetitor meniru — nilai utamanya di <b>jaringan dan data</b>, bukan aset fisik. Ini yang bikin model asset-light (Slide 9) punya pertahanan.</p>
+  <p>Dua jenis network effect di kartu:</p>
+  <ul>
+    <li><b>Data Network Effect:</b> makin banyak submit ampas → matching makin akurat → prediksi aliran limbah makin presisi.</li>
+    <li><b>Trust / Reputation:</b> Eco-Badge bikin kedai berlomba, dan Verified Cert jadi <b>switching cost</b> buat UMKM (susah pindah karena sudah dapat sertifikasi &amp; reputasi di sini).</li>
+  </ul></div></div>
+          <div class="sc-block"><span class="sc-label l-say">🗣️ Yang diucapkan</span>
+            <ul class="say-list">
+              <li>Ini yang membuat model kami bertahan: network effect. Tiap entitas baru yang masuk, menaikkan nilai tujuh sisi lainnya.</li>
+              <li>Coffee shop nambah, pasokan naik. Pasokan naik, UMKM makin tertarik. UMKM banyak, produk untuk konsumen makin banyak. Konsumen naik, data dan jejak karbon terkumpul — dan itu menarik brand sponsor serta dinas lingkungan. Mereka endorse, coffee shop baru makin terdorong gabung. Loop yang mempercepat dirinya sendiri.</li>
+              <li>Kenapa ini kuat? Tiap putaran menghasilkan lebih banyak data dan legitimasi. Makin besar, makin sulit ditiru — karena nilainya ada di jaringan dan data, bukan di aset fisik.</li>
+            </ul></div>
+          <div class="sc-block"><span class="sc-label l-transition">🔗 Transisi</span>
+            <div class="transition-line">Loop inilah mesin pertumbuhan kami — dan sebenarnya GroundsToGrow hanyalah pintu masuknya. → (serahkan ke pembawa Slide 12 / reveal WasteLoop.)</div></div>
+          <div class="sc-block"><span class="sc-label l-jury">❓ Kalau juri nanya</span>
+            <div class="jury-q"><div class="q">"Bagaimana kalian memulai flywheel kalau di awal belum ada siapa-siapa? (chicken-and-egg)"</div><div class="a">Kami mulai dari sisi supply yang paling mudah: kedai kopi yang justru senang lepas dari biaya disposal. Lewat Hub kampus dan asosiasi kedai, kami kumpulkan volume dulu, baru itu menarik UMKM. Jadi kami dorong satu sisi roda dulu, bukan dua-duanya sekaligus.</div></div>
+            <div class="jury-q"><div class="q">"Apa yang menghentikan kompetitor besar meniru kalian?"</div><div class="a">Switching cost dan data. UMKM yang sudah punya Verified Cert dan reputasi di sini rugi kalau pindah, dan data aliran limbah yang kami kumpulkan tidak bisa di-copy — itu butuh waktu dan jaringan, bukan modal.</div></div>
+          </div>
+          <div class="save-box"><span class="sc-label">🆘 Kalau blank pas maju</span>
+            <p>Satu kalimat penyelamat — <b>"Tiap entitas baru menaikkan nilai 7 sisi lain. Makin besar ekosistem, makin susah ditiru, karena nilainya di jaringan dan data."</b> Tunjuk roda di layar sambil ucapkan itu.</p></div>
+        </div>
+      </div>
+        <div class="prose"><h4>✅ Checklist sebelum besok</h4></div>
+        <div class="card"><ol style="margin:0 0 0 1.2rem">
+          <li><b>Buka deck slide 8 → 9 → 11</b>, pencet <b class="mono">N</b> di tiap slide untuk presenter notes — pastikan kalimatmu sinkron.</li>
+          <li><b>Latihan ngomong 1x utuh</b> dari Slide 8 ke 9 (sambungan duit→struktur), lalu Slide 11 terpisah — target ±1,5 mnt/slide, santai.</li>
+          <li><b>Hafal alur 8 langkah flywheel</b> (coffee shop → ampas → UMKM → produk → konsumen → data → sponsor/DLH → balik) — ini satu-satunya yang perlu urutan; sisanya cukup paham konsep.</li>
+          <li><b>Siapkan 2 jawaban andalan:</b> (a) "kenapa carbon credit cuma upside" dan (b) "chicken-and-egg / kenapa susah ditiru" — dua ini paling mungkin ditanya juri di bagianmu.</li>
+        </ol></div>
+      </div>
+      <div class="person-pane" id="pane-samuel" data-name="Samuel">
+        <div class="person-intro">
+          <div class="role">Presenter Demo — Live Demo, Automation &amp; Reveal</div>
+          <h3>Samuel</h3>
+          <div class="meta">
+            <span>Slide: <b>10 · 12 · 13</b></span>
+            <span>Durasi: <b>~4–5 menit (Demo ~2:30)</b></span>
+          </div>
+          <div class="pep">Kamu yang paling ngerti kopi DAN yang bangun app-nya — di tanganmu pitch ini berhenti jadi slide dan jadi <i>barang yang beneran jalan</i>. Kamu pegang <b>klimaks teknis</b>: buktiin app beneran ada (Demo) → jujur soal real/mock/roadmap (Automation) → buka kartu besar (Reveal). Tiga slide = "lihat → percaya → wow". Lihat juga seksi <b>Demo Script</b> untuk langkah lengkap + Plan B.</div>
+        </div>
+      <div class="slide-card">
+        <div class="sc-head">
+          <span class="badge b-slide">SLIDE 10</span>
+          <h4>LIVE DEMO (app live di Vercel)</h4>
+          <button class="mine-btn" onclick="toggleMine(this)">★ ini bagianku</button>
+        </div>
+        <div class="sc-body">
+          <div class="sc-block"><span class="sc-label l-screen">🖥️ Di layar</span>
+            <div>Slide gelap "07 — Live Demo" dengan browser frame berisi iframe <span class="mono">groundstogrow-mvp.vercel.app</span> + QR code. Tapi <b>inti slide ini bukan deck-nya — kamu pindah ke app live</b> dan demo langsung. Eyebrow: "App beneran, live di Vercel · Next.js 16".</div></div>
+          <div class="sc-block"><span class="sc-label l-understand">🧠 Yang harus dipahami</span>
+            <div><p>Ini momen "buktinya nih". Semua slide sebelumnya teori; sekarang giliranmu nunjukin <b>alur sirkular itu beneran nyambung end-to-end</b>: ampas masuk lewat WasteScan → ketemu UMKM lewat Smart Match → terbit ke Marketplace → dibeli → checkout → bayar → tercatat di Histori → dampak kerekam di Dashboard. Analogi: orang lain udah cerita resepnya enak; kamu yang <b>bawa piringnya ke meja juri</b>. Kunci sukses bukan ngapal klik, tapi <i>ngerti kenapa tiap layar ada</i> — jadi kalau app nyangkut kamu tetap bisa cerita alurnya tanpa panik.</p>
+  <p><b>Urutan klik aman:</b> WasteScan (Analisa dengan AI → hasil Grade + 3 Smart Match) → Terbitkan ke Marketplace → menu atas <b>Marketplace</b> (3 tab: Ampas Mentah / Produk Olahan / Biji Kopi Petani) → klik <b>Beli</b> di tab Produk Olahan → bar bawah-tengah <b>Lihat Keranjang</b> → <b>Lanjut ke Checkout</b> → <b>Bayar Sekarang</b> → modal QRIS → Bayar → <b>Pesanan Berhasil</b> → Lacak Pesanan (Histori) → menu atas <b>Dashboard</b> (ESG 87) → <b>Beranda</b> (diagram 8-entity).</p>
+  <p><b>3 aturan emas yang bikin demo mulus:</b></p>
+  <ol>
+    <li><b>Jangan refresh</b> — keranjang disimpan di memori, bukan localStorage. Refresh = keranjang kosong, ulang dari klik Beli.</li>
+    <li><b>Beli dari tab Produk Olahan</b> (harga jelas), jangan tab Ampas (banyak yang Gratis Rp 0, total checkout jadi nol &amp; kurang meyakinkan).</li>
+    <li><b>Pindah layar lewat menu atas</b>, JANGAN klik "Submit Ampas Baru" di Dashboard — itu link mati, kasih 404.</li>
+  </ol></div></div>
+          <div class="sc-block"><span class="sc-label l-say">🗣️ Yang diucapkan</span>
+            <ul class="say-list">
+              <li>Daripada cuma cerita, saya tunjukin langsung — ini bukan mockup gambar, ini live di Vercel, alurnya nyambung dari ampas sampai checkout.</li>
+              <li>(WasteScan) Saya owner kedai, abis shift ampas numpuk. Input: Arabika, 2,5 kilo, masih segar 2 jam. Klik Analisa — keluar Grade A, plus AI nyodorin 3 UMKM terdekat yang cocok. Supply ketemu demand otomatis — ini sharing economy-nya.</li>
+              <li>(Marketplace → beli → checkout) Saya terbitkan listing-nya, lalu di Marketplace saya beli satu produk olahan — perhatikan badge Verified, bukti produk ini beneran dari ampas yang ter-trace. Masuk keranjang, checkout, bayar pakai QRIS.</li>
+              <li>(Sukses → Dashboard) Pesanan tercatat, dan di Dashboard semuanya kerekam: ESG 87, Grounds Coin, kilo ampas teralihkan, estimasi karbon dihindari. Kedai bukan cuma berbuat baik — dia punya angka buat laporan keberlanjutan.</li>
+            </ul></div>
+          <div class="sc-block"><span class="sc-label l-transition">🔗 Transisi</span>
+            <div class="transition-line">Nah, biar fair — saya mau jujur soal mana dari yang barusan kalian lihat itu sudah beneran jalan, dan mana yang masih simulasi.</div></div>
+          <div class="sc-block"><span class="sc-label l-jury">❓ Kalau juri nanya</span>
+            <div class="jury-q"><div class="q">"AI WasteScan-nya beneran?"</div><div class="a">Mock by design. Kami validasi alur end-to-end dulu; modelnya tinggal pasang begitu ada dataset. Saya jelasin lengkap di slide berikutnya. (jangan defensif — ini sengaja).</div></div>
+            <div class="jury-q"><div class="q">"Pembayaran ini real?"</div><div class="a">Disimulasikan. Alur payment-nya utuh — proses, konfirmasi, masuk histori — integrasi Midtrans tinggal pasang di pilot.</div></div>
+          </div>
+          <div class="save-box"><span class="sc-label">🆘 Kalau blank pas maju</span>
+            <p>Satu kalimat penyelamat — <b>"Ampas yang tadinya sampah, di platform ini ketemu pembeli otomatis, sampai checkout, dan tercatat dampak karbonnya."</b> Kalau app crash: buka folder <span class="mono">team/demo-backup/</span> (screenshot/rekaman) sambil ngomong tenang — "ini live deployment, kadang ada hiccup jaringan, tapi alurnya persis ini."</p></div>
+        </div>
+      </div>
+      <div class="slide-card">
+        <div class="sc-head">
+          <span class="badge b-slide">SLIDE 12</span>
+          <h4>AUTOMATION &amp; HONESTY (real / mock / roadmap)</h4>
+          <button class="mine-btn" onclick="toggleMine(this)">★ ini bagianku</button>
+        </div>
+        <div class="sc-body">
+          <div class="sc-block"><span class="sc-label l-screen">🖥️ Di layar</span>
+            <div>Slide gelap "09 — Automation &amp; Integration", judul <i>"Jujur soal apa yang real, mock, dan roadmap."</i> Tabel 6 baris dengan badge warna: <span class="badge b-real">Real</span> (hijau), <span class="badge b-mock">Mock UI</span> (gold), <span class="badge b-road">Roadmap</span> (teal). Penutup: <i>"Honest by design."</i></div></div>
+          <div class="sc-block"><span class="sc-label l-understand">🧠 Yang harus dipahami</span>
+            <div><p>Slide ini <b>kontra-intuitif tapi paling kuat</b>: kamu mengaku separuh fitur masih simulasi — dan justru itu yang bikin juri percaya. Tim yang berani bilang "ini belum jadi" = tim yang <b>tahu persis batas produknya</b>. Juri dosen paling sebel sama mahasiswa yang ngaku punya "AI canggih" padahal cuma if-else. Kamu memotong itu duluan. Yang harus nempel: <b>3 kategori + contohnya</b>.</p>
+  <ul>
+    <li><b>Real (beneran jalan):</b> (1) <b>ESG/Carbon Calculator</b> — rumus <span class="mono">kg ampas × 0,5 = kg CO₂e</span> (0,5 = titik-tengah rentang EPA/IPCC 0,4–0,85). (2) <b>Grounds Coin Ledger</b> — counter reward, state nyata.</li>
+    <li><b>Mock UI (UI demo, logika rule-based hardcoded):</b> (3) <b>WasteScan</b> — foto+dropdown → "smart analysis", bukan AI Vision. (4) <b>Smart Matching</b> — match by jarak/freshness/preferensi, aturannya di-hardcode.</li>
+    <li><b>Roadmap (belum dibangun):</b> (5) <b>AI Vision</b> (WasteScan v2) — foto → klasifikasi real, masih R&amp;D dataset. (6) <b>Backend + Payment + Logistik</b> — Supabase/Postgres, Midtrans, Gojek/Lalamove, post-pilot.</li>
+  </ul>
+  <p><b>Poin Carbon yang HARUS akurat:</b> angka CO₂ itu <b>estimasi avoided emissions (emisi yang dihindari), BUKAN carbon credit terverifikasi</b>. Bahan pelaporan ESG, bukan kredit yang dijual hari ini. Jangan pernah bilang "ini carbon credit".</p></div></div>
+          <div class="sc-block"><span class="sc-label l-say">🗣️ Yang diucapkan</span>
+            <ul class="say-list">
+              <li>Kami sengaja transparan. Yang sudah real jalan di app: kalkulasi karbon dan ledger Grounds Coin.</li>
+              <li>Yang masih mock UI: WasteScan dan Smart Matching — logikanya rule-based, bukan AI beneran. Tapi UX-nya persis produk jadi.</li>
+              <li>Yang roadmap: AI Vision asli, backend, payment gateway, integrasi logistik — semua ada di rencana pilot.</li>
+              <li>Kami nggak menjanjikan yang belum ditepati. Honest by design.</li>
+            </ul></div>
+          <div class="sc-block"><span class="sc-label l-transition">🔗 Transisi</span>
+            <div class="transition-line">Dan kalau kalian pikir ini cuma soal kopi — sebenarnya kopi cuma pintu masuknya. Saya tunjukin yang lebih besar.</div></div>
+          <div class="sc-block"><span class="sc-label l-jury">❓ Kalau juri nanya</span>
+            <div class="jury-q"><div class="q">"Angka CO₂ 0,5 itu dari mana, valid?"</div><div class="a">Titik-tengah rentang faktor EPA/IPCC (0,4–0,85 ton CO₂e/ton ampas). Estimasi avoided emissions, basis faktor metana IPCC. Belum lewat MRV, jadi posisinya bahan laporan ESG — bukan kredit yang kami jual.</div></div>
+            <div class="jury-q"><div class="q">"MVP sesimpel ini, bisa jadi production?"</div><div class="a">Bisa. Yang mock itu logika, bukan arsitektur — DFD &amp; ERD-nya sudah dipetakan. Backend Supabase, Midtrans, AI Vision tinggal pasang sesuai cetak biru, tim teknis hire post-pilot.</div></div>
+          </div>
+          <div class="save-box"><span class="sc-label">🆘 Kalau blank pas maju</span>
+            <p>Inget tiga warna — <b>"Real: kalkulasi karbon &amp; coin. Mock: WasteScan &amp; Matching. Roadmap: AI Vision, backend, payment."</b> Tutup dengan <b>"Honest by design."</b> Itu cukup.</p></div>
+        </div>
+      </div>
+      <div class="slide-card">
+        <div class="sc-head">
+          <span class="badge b-slide">SLIDE 13</span>
+          <h4>WASTELOOP REVEAL (the big reveal)</h4>
+          <button class="mine-btn" onclick="toggleMine(this)">★ ini bagianku</button>
+        </div>
+        <div class="sc-body">
+          <div class="sc-block"><span class="sc-label l-screen">🖥️ Di layar</span>
+            <div>Slide gelap "10 — The Reveal". Teks besar: <i>"We&rsquo;re not a <s>coffee app</s>. We&rsquo;re the <b>OS for circular economy.</b>"</i> Lalu 4 kartu vertikal: ☕ Coffee (live) · 🥖 Bakery · 🥬 Sayur · 🥚 Telur. Penutup: <i>"Satu engine, banyak vertikal. Kopi duluan, karena ceritanya paling nempel di kepala juri."</i></div></div>
+          <div class="sc-block"><span class="sc-label l-understand">🧠 Yang harus dipahami</span>
+            <div><p>Ini <b>twist</b> pitch — momen "ooh". Sepanjang presentasi semua orang mikir kalian bikin aplikasi kopi. Slide ini buka kartu: <b>GroundsToGrow cuma wajah; mesin di belakangnya namanya WasteLoop</b> — arsitektur orchestrator yang <i>sama</i> bisa nangani limbah organik apa pun, bukan cuma ampas kopi. Analogi: Amazon mulai dari jualan buku, tapi engine-nya ternyata buat jualan <i>apa saja</i>.</p>
+  <p>Kalian pilih kopi duluan <b>bukan karena terbatas, tapi karena strategi</b> — cerita ampas kopi paling gampang nempel di kepala orang, jadi pintu masuk sempurna. Pesan ke juri: "pasarnya jauh lebih besar dari yang kalian kira, dan arsitekturnya sudah siap di-scale."</p></div></div>
+          <div class="sc-block"><span class="sc-label l-say">🗣️ Yang diucapkan</span>
+            <ul class="say-list">
+              <li>Sampai sini mungkin kelihatan kami bikin aplikasi kopi. Sebenarnya kopi cuma pintu masuknya.</li>
+              <li>Mesin di belakangnya namanya WasteLoop — orchestrator yang sama bisa nangani limbah organik apa pun: roti sisa, trim sayur, cangkang telur.</li>
+              <li>Satu engine, banyak vertikal. Kami bukan aplikasi kopi — kami operating system buat circular economy.</li>
+              <li>Kami mulai dari kopi karena ceritanya paling nempel. Tapi pasarnya jauh lebih luas.</li>
+            </ul></div>
+          <div class="sc-block"><span class="sc-label l-transition">🔗 Transisi</span>
+            <div class="transition-line">Dan biar visi ini bukan cuma mimpi, [pembawa Roadmap] bakal tunjukin gimana kami eksekusi langkah demi langkahnya. <i>(berhenti percaya diri, kasih panggung ke orang Roadmap)</i></div></div>
+          <div class="sc-block"><span class="sc-label l-jury">❓ Kalau juri nanya</span>
+            <div class="jury-q"><div class="q">"Kalau bisa banyak vertikal, kenapa nggak langsung semua?"</div><div class="a">Fokus. Cold-start marketplace itu susah; kami menangin satu vertikal (kopi, Jogja) dulu sampai loop-nya muter, baru replikasi engine-nya. Asset-light, jadi ekspansi ke vertikal baru = nambah kategori, bukan bangun ulang.</div></div>
+            <div class="jury-q"><div class="q">"WasteLoop ini produk terpisah?"</div><div class="a">Sama platform, beda framing. GroundsToGrow = brand consumer-facing untuk kopi; WasteLoop = nama arsitektur/visi platformnya. Satu kode, banyak vertikal.</div></div>
+          </div>
+          <div class="save-box"><span class="sc-label">🆘 Kalau blank pas maju</span>
+            <p>Satu kalimat yang nggak boleh kelewat — <b>"Kami bukan aplikasi kopi. Kami OS untuk circular economy — kopi cuma vertikal pertama."</b> Itu seluruh inti slide (mic-drop-mu).</p></div>
+        </div>
+      </div>
+        <div class="prose"><h4>✅ Checklist sebelum besok</h4></div>
+        <div class="card"><ol style="margin:0 0 0 1.2rem">
+          <li><b>Buka app live</b> dan latihan demo full 1x (WasteScan → Marketplace → Beli → Checkout → Bayar → Histori → Dashboard → Beranda). Rasakan ritme kliknya. Inget 3 aturan emas: jangan refresh, beli dari tab Produk Olahan, pindah lewat menu atas.</li>
+          <li><b>Baca seksi Demo Script</b> sekali penuh — terutama bagian "Plan B" (kalau crash) dan urutan klik cheat-strip. Pastikan folder <span class="mono">team/demo-backup/</span> (screenshot + rekaman) siap.</li>
+          <li><b>Hafalkan 3 kategori Automation</b> (real: carbon+coin / mock: WasteScan+matching / roadmap: AI Vision+backend) + kalimat carbon ("avoided emissions, bukan carbon credit"). Ini yang paling sering ditanya juri.</li>
+          <li><b>Buka deck di /deck, pencet N</b> untuk presenter notes slide Live Demo, Automation, dan Reveal. Latih kalimat penutup Reveal ("kami bukan aplikasi kopi, kami OS untuk circular economy") sampai keluar otomatis — itu mic-drop-mu.</li>
+        </ol></div>
+      </div>
+    </section>
+    <!-- ============ 04 QNA ============ -->
+    <section class="panel" id="qna">
+      <div class="sec-head">
+        <div class="sec-eyebrow">04 — Q&amp;A Juri</div>
+        <h2>Hadapi Juri — Cheat-Sheet</h2>
+        <p class="lead">WAJIB semua baca. Juri tanya bisa ke siapa aja. Klik pertanyaan untuk buka jawaban. Bagian "Klaim Rawan" = wajib hafal, ini yang bikin atau hancurin kredibilitas.</p>
+      </div>
+
+      <div class="callout danger">
+        <div class="ctitle">⚡ Aturan Emas — baca dulu sebelum apa pun</div>
+        <ol style="margin:.3rem 0 0 1.1rem">
+          <li><b>Volume ampas &amp; CO2e = ESTIMASI, bukan sensus.</b> Selalu ucap "estimasi" + sumber (BPS / EPA / IPCC). Jangan lempar angka presisi tunggal seolah sensus.</li>
+          <li><b>CO2e = avoided emissions, BUKAN carbon credit terverifikasi.</b> Belum lewat MRV. Jangan bilang "kami jual kredit karbon".</li>
+          <li><b>WasteScan AI = mock by design</b> (demo MVP). Versi real = roadmap. Jujur kalau ditanya.</li>
+          <li><b>Posisikan carbon sebagai ESG-enablement</b>, bukan revenue dari jual kredit (pasar IDXCarbon masih tipis, ~Rp50 M kumulatif).</li>
+          <li><b>Kompetitor yang disebut HANYA yang verifiable:</b> Olio, Kaffe Bueno, Coffeeco, Rebricks, Waste4Change. <b>JANGAN sebut "ToastedCircular"</b> (tidak bisa diverifikasi).</li>
+          <li><b>Kami asset-light matchmaker</b> — tidak menyentuh material, tidak punya armada/pabrik. Itu inti diferensiasi, ulangi terus.</li>
+        </ol>
+      </div>
+
+      <div class="prose"><h3>Bagian A — 18 Pertanyaan Juri Paling Mungkin</h3></div>
+
+      <div class="qa-cat">🟢 Bisnis / Model</div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q1</span>
+          <span class="acc-q">Apa sebenarnya yang kalian jual — kalian kan tidak menyentuh ampasnya?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p>Kami menjual <b>koordinasi dan kepercayaan</b>, bukan material. GroundsToGrow adalah matchmaker multi-sisi asset-light: menghubungkan kafe (supply ampas) dengan pengompos/UMKM/urban farm (demand), lalu memonetisasi transaksi, subscription, dan data jejak keberlanjutan. Seperti Gojek tidak punya motor tapi mengontrol ekosistem transportasi — kami tidak punya pabrik kompos tapi mengontrol ekosistem limbah kopi.</p></div></div>
+      </div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q2</span>
+          <span class="acc-q">Kenapa coffee shop mau ikut?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p>Tiga keuntungan nyata tanpa tambahan kerja: <b>disposal gratis</b> (hapus biaya buang), <b>Eco-Badge + ESG dashboard</b> (bukti keberlanjutan untuk marketing), dan semua <b>tanpa ubah operasional</b> — cukup pisahkan ampas dan scan. Mereka punya dua tekanan sekaligus, biaya naik dan tuntutan sustainability, kami jawab keduanya.</p></div></div>
+      </div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q3</span>
+          <span class="acc-q">Kenapa UMKM mau bayar subscription?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p>Mereka tidak bayar untuk ampas — mereka bayar untuk <b>kepastian</b>. Tanpa platform, UMKM harus telepon kafe satu-satu, koordinasi sendiri, tidak pernah tahu volume minggu depan. Subscription memberi volume terprediksi, kualitas terstandar, jadwal pengiriman pasti, plus sertifikasi <b>Verified Circular Source</b> yang menaikkan nilai jual produk mereka.</p></div></div>
+      </div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q4</span>
+          <span class="acc-q">Revenue mana yang paling realistis di tahun pertama?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p><b>UMKM Subscription dan Marketplace Commission (10–15%).</b> Contoh: 10 UMKM @ Rp500rb/bulan = Rp5 juta/bulan recurring sejak bulan pertama, tanpa infrastruktur berat. ESG SaaS dan Carbon Credit adalah target tahun 2–3 setelah data dan jaringan cukup besar untuk menarik enterprise.</p></div></div>
+      </div>
+      <div class="qa-cat">🔵 Teknis</div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q5</span>
+          <span class="acc-q">WasteScan AI itu sungguh jalan atau cuma tampilan?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p>Di MVP ini WasteScan adalah <b>mock by design</b> — demo alur dan UX pencatatan volume/kualitas. Versi produksi (computer vision untuk estimasi berat &amp; deteksi kontaminasi) ada di roadmap; secara teknis ini masalah image-classification yang sudah matang, tinggal data training. Yang kami buktikan hari ini adalah <b>arsitektur platform dan flow-nya</b>, bukan klaim AI sudah produksi.</p></div></div>
+      </div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q6</span>
+          <span class="acc-q">Bagaimana kalian jamin kualitas/keaslian ampas (tidak tercampur)?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p>Kit onboarding berisi <b>wadah standar + panduan pemisahan</b>, jadi kontaminasi ditekan di sumber. Setiap perpindahan ampas tercatat (scan saat pickup, scan saat terima) sehingga supply chain bisa ditelusuri sampai kafe asal — itu syarat label "Verified Circular Product". Verifikasi berat aktual dilakukan saat pickup, bukan hanya klaim kafe.</p></div></div>
+      </div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q7</span>
+          <span class="acc-q">Smart Matching kalian pakai algoritma apa?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p>Matching mempertimbangkan jarak, volume, spesifikasi kualitas, harga, dan jadwal — di MVP ini <b>rule-based/constraint matching</b>, cukup untuk skala awal. Saat volume data naik, ini berkembang jadi optimisasi rute + prediksi supply 3–7 hari dari pola historis. Kami sengaja tidak over-engineer di fase validasi.</p></div></div>
+      </div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q8</span>
+          <span class="acc-q">Stack-nya apa dan apakah scalable?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p><b>Next.js 16 + Tailwind, deploy di Vercel</b> (live sekarang). Asset-light, jadi yang di-scale adalah software dan data, bukan gudang/armada — biaya marginal per kafe tambahan mendekati nol. Data limbah real-time adalah fondasi untuk matching dan ESG reporting.</p></div></div>
+      </div>
+      <div class="qa-cat">🟣 Dampak / Impact</div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q9</span>
+          <span class="acc-q">Seberapa besar masalah yang kalian selesaikan? Berapa volume ampasnya?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p>Estimasi dari konsumsi kopi domestik ~290 ribu ton/tahun (BPS): ordenya ratusan ribu ton ampas — sekitar <b>250–300 ribu ton kering atau &gt;500 ribu ton basah</b> per tahun di Indonesia. Ini <b>estimasi turunan dari konsumsi, bukan sensus</b>, karena memang tidak ada sensus ampas. Ampasnya terkonsentrasi di kafe, jadi ini aliran limbah organik yang paling mudah di-divert lewat platform.</p></div></div>
+      </div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q10</span>
+          <span class="acc-q">Bagaimana kalian ukur dampak lingkungannya?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p>Setiap ton ampas yang dialihkan dari TPA menghindari emisi metana. Estimasi konservatif kami <b>~0,4–0,85 ton CO2e dihindari per ton ampas</b>, berbasis faktor EPA (34 ton metana per 1.000 ton sampah makanan) dan GWP metana 25 dari IPCC. Kami sebut ini secara jujur sebagai <b>avoided-emissions estimasi, bukan kredit karbon terverifikasi</b>. (Lihat klaim rawan #2.)</p></div></div>
+      </div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q11</span>
+          <span class="acc-q">Apa bukti ampas kopi benar berguna jadi pupuk/kompos?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p>Jurnal peer-reviewed (Foods, 2024) mencatat ampas kopi mengandung <b>nitrogen ~2%</b> (rentang 1,2–2,4%) plus fosfor &amp; kalium, rasio <b>C:N ~20:1</b> — ideal untuk pengomposan. Catatan jujur: ampas segar agak asam dan berkafein, manfaat penuh muncul <b>setelah dikompos</b>. Karena itu value kami adalah agregasi + matchmaking ke pengompos, bukan klaim "ampas = pupuk instan".</p></div></div>
+      </div>
+      <div class="qa-cat">🟠 Kompetisi</div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q12</span>
+          <span class="acc-q">Apa bedanya dengan Waste4Change atau Rebricks?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p>Mereka operator/pengolah <b>asset-heavy</b>: Rebricks punya pabrik konblok, Waste4Change jasa angkut &amp; operator logistik. Kami <b>marketplace asset-light</b> — tidak mengolah, tidak punya armada, hanya matchmaking supply↔demand dan monetisasi koordinasi + data. Beda kategori bisnis: mereka jasa/manufaktur, kami platform multi-sisi.</p></div></div>
+      </div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q13</span>
+          <span class="acc-q">Bukankah Olio atau Kaffe Bueno sudah melakukan ini?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p>Tidak head-to-head. Olio = give-away gratis surplus makanan rumah tangga (bukan transaksi B2B bernilai). Kaffe Bueno / Coffeeco = biorefinery yang punya IP produk (asset-heavy). Kami justru <b>lapisan koordinasi yang bisa memasok</b> pemain seperti Kaffe Bueno, bukan menyaingi mereka. Kutipan favorit kami dari Olio: "waste is a coordination failure, not a production failure" — itulah yang kami selesaikan.</p></div></div>
+      </div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q14</span>
+          <span class="acc-q">Apa competitive moat kalian? Gampang ditiru tidak?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p>Empat lapis: (1) <b>network effect 8 entitas</b> yang saling mengunci — pesaing harus bangun semua sisi sekaligus dari nol; (2) <b>data aliran limbah eksklusif</b> yang menumpuk seiring waktu; (3) <b>legitimasi kelembagaan</b> dari partnership kampus &amp; DLH; (4) <b>sertifikasi Verified Circular Source</b> yang jadi standar — UMKM enggan pindah karena sertifikasinya ada di kami.</p></div></div>
+      </div>
+      <div class="qa-cat">🔴 Finansial</div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q15</span>
+          <span class="acc-q">Apakah carbon credit ini punya pasar nyata di Indonesia?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p>Ada infrastrukturnya — <b>IDXCarbon resmi sejak 26 Sep 2023</b>, dan <b>POJK 51/2017</b> mewajibkan emiten/perusahaan publik lapor keberlanjutan (ESG, pengelolaan limbah &amp; emisi). Tapi jujur: pasar masih tipis (~Rp50,6 M kumulatif s/d akhir 2024, likuiditas rendah). Jadi posisi kami bukan "jual kredit karbon", melainkan <b>ESG-enablement</b>: kami sediakan jejak ampas ter-divert + estimasi avoided emissions sebagai bahan pelaporan ESG korporat. (Lihat klaim rawan #5.)</p></div></div>
+      </div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q16</span>
+          <span class="acc-q">Unit economics-nya bagaimana — kapan profitable?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p>Model asset-light, biaya tetap rendah (tidak ada armada/gudang/pabrik). Biaya terbesar di awal adalah pengembangan platform dan akuisisi mitra. Begitu flywheel berputar, setiap kafe tambahan biaya marginalnya kecil sementara revenue subscription + komisi recurring — jadi margin membaik dengan skala. Kami tidak klaim profit cepat; kami klaim <b>path yang jelas via revenue recurring sejak bulan pertama</b>.</p></div></div>
+      </div>
+      <div class="qa-cat">⚫ "Kenapa Kalian" &amp; "Kalau Gagal"</div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q17</span>
+          <span class="acc-q">Kenapa harus kalian yang mengerjakan ini, kenapa sekarang?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p>Timing: <b>TPA Piyungan ditutup permanen Maret 2024</b>, memaksa DIY desentralisasi sampah organik di hulu — ampas kopi (organik, terkonsentrasi di kafe) adalah aliran paling mudah di-divert. Regulasi ESG (POJK 51/2017) menciptakan demand korporat akan bukti dampak terukur. Kami satukan urgensi lokal + regulasi nasional + model platform asset-light yang scalable. Celahnya nyata dan sekarang.</p></div></div>
+      </div>
+      <div class="accordion">
+        <button class="acc-head" onclick="toggleAcc(this)">
+          <span class="acc-num">Q18</span>
+          <span class="acc-q">Kalau gagal / asumsi terburuk, apa yang runtuh duluan dan apa rencana B?</span>
+          <span class="acc-icon">+</span>
+        </button>
+        <div class="acc-body"><div class="acc-body-inner"><p>Titik gagal utama = sisi supply-demand belum cukup tebal (<b>cold-start platform</b>). Mitigasi: mulai hiper-lokal di satu klaster (Hub Kampus sebagai agregator + backup supply), bukan langsung nasional. Risiko terbesar kedua = monetisasi carbon belum matang — tapi revenue inti kami subscription + komisi, bukan carbon, jadi carbon yang lambat tidak mematikan bisnis. Dan karena asset-light, downside-nya kecil: tidak ada aset fisik yang jadi beban kalau harus pivot. Arsitektur WasteLoop juga memungkinkan ekspansi ke limbah organik lain (bakery, sayur, cangkang telur) kalau ampas kopi saja tidak cukup.</p></div></div>
+      </div>
+      <div class="prose"><h3>Bagian B — 5 Klaim Rawan + Cara Jawab Aman (HAFAL INI)</h3>
+      <p>Lima titik di mana juri paling mungkin menjebak. Jawaban harus jujur, ditandai estimasi/proxy, dan tetap percaya diri. <b>Mengakui keterbatasan = naik kredibilitas, bukan turun.</b></p></div>
+<div class="risk-card"><h4>⚠️ Klaim Rawan #1 — Volume ampas kopi</h4><div class="risk-row no"><span class="ic">✗</span><span><b>JANGAN:</b> "Indonesia menghasilkan tepat 287.000 ton ampas kopi" (seolah sensus).</span></div><div class="risk-row yes"><span class="ic">✓</span><span><b>AMAN:</b> "Estimasi kami ordenya ratusan ribu ton — sekitar 250–300 ribu ton kering / &gt;500 ribu ton basah per tahun, dihitung dari konsumsi kopi domestik ~290 ribu ton/tahun (BPS), pakai faktor konversi 1 kg kopi seduh → ~0,9–1 kg ampas kering. Ini estimasi dari konsumsi, bukan sensus."</span></div><div class="risk-note">Kalau didesak: akui ini turunan/proxy, tunjukkan rentang justru menandakan kehati-hatian metodologis.</div></div>
+<div class="risk-card"><h4>⚠️ Klaim Rawan #2 — Pengurangan CO2e</h4><div class="risk-row no"><span class="ic">✗</span><span><b>JANGAN:</b> "Kami menghasilkan X kredit karbon" / sebut satu angka presisi tanpa sumber.</span></div><div class="risk-row yes"><span class="ic">✓</span><span><b>AMAN:</b> "Estimasi avoided emissions ~0,4–0,85 ton CO2e per ton ampas dialihkan dari TPA, berbasis faktor EPA (34 ton metana / 1.000 ton sampah makanan) dan GWP metana 25 (IPCC). Ini avoided-emissions estimasi, BUKAN kredit terverifikasi — belum lewat MRV/verifikasi pihak ketiga."</span></div><div class="risk-note">Catatan jujur: faktor EPA berbasis kondisi TPA AS (ada sebagian gas capture), ampas kopi kami pakai sebagai proxy sampah organik. Rentang 0,4 vs 0,85 = beda basis (life-cycle ACS vs metana langsung EPA), jangan dicampur dalam satu kalimat.</div></div>
+<div class="risk-card"><h4>⚠️ Klaim Rawan #3 — WasteScan AI</h4><div class="risk-row no"><span class="ic">✗</span><span><b>JANGAN:</b> pura-pura AI sudah jalan penuh di produksi.</span></div><div class="risk-row yes"><span class="ic">✓</span><span><b>AMAN:</b> "WasteScan di MVP ini mock by design — kami demokan alur dan UX-nya. Computer vision untuk estimasi berat &amp; deteksi kontaminasi ada di roadmap; secara teknis ini image-classification yang matang, tinggal data training. Yang kami validasi hari ini adalah arsitektur platform, bukan klaim AI produksi."</span></div></div>
+<div class="risk-card"><h4>⚠️ Klaim Rawan #4 — Kompetitor "ToastedCircular"</h4><div class="risk-row no"><span class="ic">✗</span><span><b>JANGAN:</b> sebut "ToastedCircular" — tidak ditemukan, tidak bisa diverifikasi, bisa langsung dibantah juri.</span></div><div class="risk-row yes"><span class="ic">✓</span><span><b>AMAN:</b> kalau perlu pembanding, pakai yang verifiable saja — Olio (sharing/food-waste), Kaffe Bueno / Coffeeco (upcycler kopi asset-heavy), Rebricks &amp; Waste4Change (lokal). "Kompetitor yang relevan dan terverifikasi adalah Olio untuk model sharing dan Kaffe Bueno untuk upcycling kopi — keduanya beda kategori dari kami."</span></div></div>
+<div class="risk-card"><h4>⚠️ Klaim Rawan #5 — Pasar carbon credit / revenue carbon</h4><div class="risk-row no"><span class="ic">✗</span><span><b>JANGAN:</b> "Kami jual kredit karbon di IDXCarbon" (pasar tipis ~Rp50 M kumulatif, likuiditas rendah, kredit kami belum tervalidasi).</span></div><div class="risk-row yes"><span class="ic">✓</span><span><b>AMAN:</b> "Kami posisikan carbon sebagai ESG-enablement, bukan jualan kredit. IDXCarbon resmi sejak 2023 dan POJK 51/2017 mewajibkan emiten lapor keberlanjutan — korporat butuh bukti pengelolaan limbah &amp; emisi. Kami sediakan jejak ampas ter-divert + estimasi avoided emissions sebagai bahan pelaporan ESG mereka. Monetisasi kredit langsung adalah roadmap setelah ada metodologi resmi (SPE-GRK/Verra/Gold Standard), bukan klaim hari ini."</span></div></div>
+      <div class="prose"><h3>Bagian C — Cheat-Sheet 1 Halaman (lirik saat tampil)</h3>
+      <h4>📊 Angka Kunci (semua dengan label)</h4></div>
+      <div class="tbl-wrap num">
+        <table>
+          <thead><tr><th>Topik</th><th>Angka</th><th>Sumber</th><th>Catatan</th></tr></thead>
+          <tbody>
+            <tr><td>Produksi kopi RI 2023</td><td>~760 ribu ton</td><td>BPS</td><td>data kuat</td></tr>
+            <tr><td>Konsumsi domestik</td><td>~290 ribu ton/th</td><td>BPS/USDA</td><td>data kuat</td></tr>
+            <tr><td>Per kapita</td><td>1,8 kg/th (naik dari 1,0 di 2013)</td><td>BPS</td><td>data kuat</td></tr>
+            <tr><td>Volume ampas</td><td>~250–300rb ton kering / &gt;500rb basah</td><td>ESTIMASI dari konsumsi</td><td>bukan sensus</td></tr>
+            <tr><td>Nutrisi ampas</td><td>N ~2% (1,2–2,4%), C:N ~20</td><td>Jurnal Foods 2024</td><td>peer-reviewed</td></tr>
+            <tr><td>CO2e dihindari</td><td>~0,4–0,85 ton/ton ampas</td><td>EPA + IPCC GWP 25</td><td>ESTIMASI avoided, bukan kredit</td></tr>
+            <tr><td>EPA factor</td><td>34 ton metana / 1.000 ton sampah makanan</td><td>EPA 2023</td><td>proxy TPA AS</td></tr>
+            <tr><td>IDXCarbon</td><td>launch 26 Sep 2023; ~Rp50,6 M kumulatif</td><td>BEI/OJK</td><td>pasar tipis</td></tr>
+            <tr><td>Regulasi ESG</td><td>POJK 51/2017 wajib lapor keberlanjutan</td><td>OJK</td><td>demand driver</td></tr>
+            <tr><td>Timing lokal</td><td>TPA Piyungan tutup permanen Mar 2024</td><td>Kompas/DLH</td><td>urgensi Jogja</td></tr>
+            <tr><td>Komisi marketplace</td><td>10–15%</td><td>model bisnis</td><td>primary revenue</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="prose"><h4>🎯 1-Liner Per Topik</h4></div>
+      <div class="oneliner">
+        <div class="ol-item"><b>Apa ini:</b> Matchmaker multi-sisi asset-light untuk ampas kopi — kami koordinasi, bukan olah material.</div>
+        <div class="ol-item"><b>Model disruption:</b> Level 4 (radical business model) + Level 6 (orchestrator interface) + Level 8 (value constellation 8 entitas).</div>
+        <div class="ol-item"><b>Coffee shop ikut karena:</b> disposal gratis + Eco-Badge + nol tambahan kerja.</div>
+        <div class="ol-item"><b>UMKM bayar karena:</b> beli kepastian supply, bukan beli ampas.</div>
+        <div class="ol-item"><b>Revenue tahun 1:</b> Subscription UMKM + komisi marketplace 10–15% (recurring sejak bulan 1).</div>
+        <div class="ol-item"><b>Moat:</b> network effect 8 entitas + data eksklusif + legitimasi kampus/DLH + sertifikasi.</div>
+        <div class="ol-item"><b>Volume ampas:</b> estimasi 250–300rb ton kering/th dari konsumsi ~290rb ton (BPS) — bukan sensus.</div>
+        <div class="ol-item"><b>Dampak iklim:</b> estimasi avoided 0,4–0,85 ton CO2e/ton (EPA/IPCC) — bukan kredit terverifikasi.</div>
+        <div class="ol-item"><b>WasteScan:</b> mock by design di MVP, computer vision = roadmap.</div>
+        <div class="ol-item"><b>Carbon:</b> ESG-enablement, bukan jual kredit (pasar IDXCarbon masih tipis).</div>
+        <div class="ol-item"><b>Kompetitor:</b> Olio (sharing) &amp; Kaffe Bueno (upcycler) beda kategori; kami asset-light, mereka asset-heavy. (JANGAN sebut ToastedCircular.)</div>
+        <div class="ol-item"><b>Kenapa sekarang:</b> Piyungan tutup + regulasi ESG = celah &amp; urgensi nyata.</div>
+        <div class="ol-item"><b>Kalau gagal:</b> asset-light = downside kecil; mulai hiper-lokal via Hub Kampus; revenue inti subscription bukan carbon; WasteLoop bisa pivot ke limbah organik lain.</div>
+        <div class="ol-item"><b>Tagline:</b> "From Waste to Wealth. From Coffee to Carbon." / "We&rsquo;re not a coffee app. We&rsquo;re the OS for circular economy."</div>
+      </div>
+
+      <div class="callout good">
+        <div class="ctitle">🚦 Kata yang SELALU diucap (refleks)</div>
+        <div class="word-do"><span>estimasi</span><span>berdasarkan BPS/EPA/IPCC</span><span>avoided emissions, bukan kredit terverifikasi</span><span>mock by design / roadmap</span><span>asset-light</span><span>ESG-enablement</span></div>
+      </div>
+      <div class="callout danger">
+        <div class="ctitle">⛔ Kata yang TIDAK boleh diucap</div>
+        <div class="word-dont"><span>sensus ampas</span><span>tepat X ton</span><span>kredit karbon yang kami hasilkan</span><span>kami jual kredit di IDXCarbon</span><span>AI-nya sudah jalan penuh</span><span>ToastedCircular</span></div>
+      </div>
+    </section>
+    <!-- ============ 05 ALUR ============ -->
+    <section class="panel" id="alur">
+      <div class="sec-head">
+        <div class="sec-eyebrow">05 — Alur &amp; Timing</div>
+        <h2>Skenario Presentasi (±7 menit)</h2>
+        <p class="lead">Timing tiap slide + kalimat transisi biar ngalir. 15 slide, 7 menit = rata-rata ~28 detik/slide. Tahan ritme. Navigasi deck: → / Space maju, ← mundur, N untuk presenter notes.</p>
+      </div>
+
+      <div class="callout warn">
+        <div class="ctitle">📌 TL;DR presenter (baca 30 detik sebelum maju)</div>
+        <ul style="margin:.3rem 0 0 1.1rem">
+          <li><b>3 slide yang TIDAK boleh diburu:</b> Slide 1 (hook), Slide 8 (live demo), Slide 11 (reveal WasteLoop). Itu beat emosional.</li>
+          <li><b>3 slide yang boleh dilewati cepat kalau mepet:</b> 6b (Data Architecture), 7b (BMC), 12 (Roadmap) — cukup "tunjuk dan sebut judulnya".</li>
+          <li><b>Demo = risiko terbesar.</b> Buka tab app SEBELUM mulai (sudah ke-load), jangan andalkan iframe di deck. Punya screenshot cadangan.</li>
+          <li><b>Tagline pengikat:</b> "From Waste to Wealth. From Coffee to Carbon." — dibuka di Slide 1, ditutup di Slide 13. Itu bracket cerita.</li>
+        </ul>
+      </div>
+
+      <div class="prose"><h3>Timeline Per Slide (total target 7:00)</h3></div>
+      <div class="timeline">
+
+        <div class="tl-act">Act 1 — Hook (0:00 – 1:25)</div>
+        <div class="tl-item">
+          <div class="tl-top"><h4>Slide 1 — Cover</h4><span class="badge b-time">0:00 · 0:35</span></div>
+          <div class="tl-pts">Poin wajib: nama <b>GroundsToGrow × WasteLoop</b>; tagline <b>"From Waste to Wealth, From Coffee to Carbon"</b>; sebut ini ekosistem multi-sisi 8 entitas, bukan app kopi biasa. Opening hook jalan di sini.</div>
+          <div class="tl-trans">→ Tapi sebelum bicara solusi, mari lihat dulu seberapa besar yang kita buang tiap hari.</div>
+        </div>
+        <div class="tl-item dark">
+          <div class="tl-top"><h4>Slide 2 — The Problem at Scale</h4><span class="badge b-time">0:35 · 0:30</span> <span class="badge b-slide">DARK</span></div>
+          <div class="tl-pts">Poin wajib: <b>~250–300 ribu ton ampas kering/tahun</b> terbuang; <b>Rp 0</b> nilai ter-capture hari ini (100% beban disposal); <b>TPA Piyungan tutup permanen (Mar 2024)</b>. Sebut tegas: "yang hilang bukan ampasnya, tapi koordinator."</div>
+          <div class="tl-trans">→ Jadi masalahnya bukan limbahnya. Masalahnya cara kita memandangnya.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top"><h4>Slide 3 — The Reframe</h4><span class="badge b-time">1:05 · 0:20</span></div>
+          <div class="tl-pts">Poin wajib: <b>"Ini bukan sampah — ini idle resource"</b>; rantai lama menaruh ampas di ujung, kami di titik awal loop; 4 hop nilai (kopi → skincare → kompos → tanaman).</div>
+          <div class="tl-trans">→ Dan reframe ini bukan opini — ini punya dasar teori yang jelas.</div>
+        </div>
+        <div class="tl-act">Act 2 — Insight (1:25 – 4:55)</div>
+        <div class="tl-item">
+          <div class="tl-top"><h4>Slide 4 — Digital Disruption Framework (L4-6-8)</h4><span class="badge b-time">1:25 · 0:30</span></div>
+          <div class="tl-pts">Pitch line teori (HAFALKAN): <b>"Business Model Disruption Level 4 (Radical), strategi Core Value Digital Interface (Level 6), membentuk 8-Entity Value Constellation (Level 8)."</b> L4 = model &amp; pasar baru; L6 = orchestrator asset-light (Airbnb/Uber); L8 = jaringan 8 entitas.</div>
+          <div class="tl-trans">→ Level 8 itu maksudnya apa? Inilah 8 entitasnya.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top"><h4>Slide 5 — 8-Entity Value Constellation</h4><span class="badge b-time">1:55 · 0:30</span></div>
+          <div class="tl-pts">Poin wajib: <b>4 Core</b> (Coffee Shop, UMKM Hilirisasi, End User, Brand/ESG Sponsor) + <b>4 Supporting</b> (Kampus, DLH, Urban Farming, Logistik); kunci: tiap entitas memberi DAN menerima nilai — bukan rantai satu arah.</div>
+          <div class="tl-trans">→ Kalau ini pemainnya, begini cara mereka bekerja sama — lima langkah.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top"><h4>Slide 6 — Business Process</h4><span class="badge b-time">2:25 · 0:30</span></div>
+          <div class="tl-pts">Poin wajib: 5 langkah <b>Submit → Smart Match → Pickup → Hilirisasi → Marketplace</b>; tunjuk loop balik (produk → kompos → urban farming); ESG terhitung tiap langkah.</div>
+          <div class="tl-trans">→ Dan proses ini bukan sekadar slide — di belakangnya ada cetak biru data yang sudah dirender.</div>
+        </div>
+        <div class="tl-item compress">
+          <div class="tl-top"><h4>Slide 6b — Data Architecture (DFD L1 + ERD)</h4><span class="badge b-time">2:55 · 0:25</span> <span class="badge b-mock">kompres kalau mepet</span></div>
+          <div class="tl-pts">Poin wajib: <b>DFD Level 1 (7 proses, 9 data store)</b> + <b>ERD 23 entitas</b> + flowchart WasteScan; penutup: "Pemetaan, bukan tebakan — backend tinggal ikut ERD ini saat pilot."</div>
+          <div class="tl-trans">→ Cetak biru sudah ada. Lalu, dari mana uangnya?</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-top"><h4>Slide 7 — Revenue Model</h4><span class="badge b-time">3:20 · 0:30</span></div>
+          <div class="tl-pts">Poin wajib: <b>6 stream</b>; <b>2 primary terbukti</b> = UMKM Subscription + Marketplace Commission 10–15%; 4 sisanya = upside (bonus, bukan fondasi); proyeksi Year 1 ~Rp 500jt–1.5M/bln.</div>
+          <div class="tl-trans">→ Semua ini terangkum rapi dalam satu kanvas.</div>
+        </div>
+        <div class="tl-item compress">
+          <div class="tl-top"><h4>Slide 7b — Business Model Canvas</h4><span class="badge b-time">3:50 · 0:25</span> <span class="badge b-mock">kompres kalau mepet</span></div>
+          <div class="tl-pts">Poin wajib: <b>9 blok BMC</b>; tekankan value prop berbeda per segmen + model asset-light (tanpa armada/gudang/pabrik → fixed cost rendah).</div>
+          <div class="tl-trans">→ Teori dan kanvas itu penting. Tapi kami tidak berhenti di slide. Ini sudah jadi aplikasi beneran.</div>
+        </div>
+        <div class="tl-item dark">
+          <div class="tl-top"><h4>Slide 8 — Live Demo</h4><span class="badge b-time">4:15 · 0:40</span> <span class="badge b-slide">DARK</span></div>
+          <div class="tl-pts">Poin wajib: <b>app live di Vercel, Next.js</b>; sorot 2 hero = <b>WasteScan</b> (submit ampas + Smart Match) dan <b>Marketplace 3-tab</b> (ampas mentah / produk olahan / biji petani); sebut URL. <b>JANGAN diburu.</b> Aksi: pindah ke tab browser yang sudah ke-load → klik WasteScan → tunjuk hasil ESG → buka Marketplace. Tetap pegang slide ini sebagai fallback.</div>
+          <div class="tl-trans">→ Dan begitu app ini hidup, sesuatu yang menarik terjadi pada ekosistemnya.</div>
+        </div>
+        <div class="tl-act">Act 2.5 → 3 — Jembatan (4:55 – 5:40)</div>
+        <div class="tl-item">
+          <div class="tl-top"><h4>Slide 9 — Network Effect (Flywheel)</h4><span class="badge b-time">4:55 · 0:25</span></div>
+          <div class="tl-pts">Poin wajib: <b>flywheel 8-sided</b> — tiap entitas baru menaikkan nilai 7 sisi lain; sebut Data Network Effect + Trust/Reputation (Eco-Badge + Verified Cert = switching cost).</div>
+          <div class="tl-trans">→ Tapi kami juga harus jujur — tidak semua yang kalian lihat sudah jalan penuh.</div>
+        </div>
+        <div class="tl-item dark">
+          <div class="tl-top"><h4>Slide 10 — Automation &amp; Honesty</h4><span class="badge b-time">5:20 · 0:20</span> <span class="badge b-slide">DARK</span></div>
+          <div class="tl-pts">Poin wajib: <b>Real</b> (ESG calc, Grounds Coin ledger) · <b>Mock UI</b> (WasteScan, Smart Matching — rule-based) · <b>Roadmap</b> (AI Vision, backend/payment/logistik API); tagline: "Honest by design."</div>
+          <div class="tl-trans">→ Sekarang, izinkan kami buka kartu sebenarnya tentang apa ini.</div>
+        </div>
+        <div class="tl-act">Act 3 — Vision (5:40 – 7:00)</div>
+        <div class="tl-item dark">
+          <div class="tl-top"><h4>Slide 11 — Reveal WasteLoop</h4><span class="badge b-time">5:40 · 0:35</span> <span class="badge b-slide">DARK</span></div>
+          <div class="tl-pts">Poin wajib (ucap pelan, beri jeda): <b>"We&rsquo;re not a coffee app. We&rsquo;re the OS for circular economy."</b>; GroundsToGrow = face yang familiar, <b>WasteLoop = engine</b> di belakangnya; sama engine bisa untuk bakery/sayur/telur — "kopi duluan karena ceritanya paling nempel." <b>JANGAN diburu — ini puncak.</b></div>
+          <div class="tl-trans">→ Dan jalan dari demo hari ini ke OS itu sudah kami petakan.</div>
+        </div>
+        <div class="tl-item compress">
+          <div class="tl-top"><h4>Slide 12 — Roadmap</h4><span class="badge b-time">6:15 · 0:20</span> <span class="badge b-mock">kompres kalau mepet</span></div>
+          <div class="tl-pts">Poin wajib: <b>Now (UAS)</b> MVP + 11 dok foundation → <b>0–6 bln</b> pilot cold-start (Hub UKDW, 5 kedai + 3–5 UMKM, DLH Sleman) → <b>6–12 bln</b> AI Vision + logistik API + carbon credit + ekspansi WasteLoop.</div>
+          <div class="tl-trans">→ Untuk menutup loop ini, kami butuh tiga hal — dan kami sudah punya timnya.</div>
+        </div>
+        <div class="tl-item dark">
+          <div class="tl-top"><h4>Slide 13 — Team, Ask &amp; Closing</h4><span class="badge b-time">6:35 · 0:25</span> <span class="badge b-slide">DARK</span></div>
+          <div class="tl-pts">Poin wajib: <b>tim 5 orang</b>; <b>3 ask</b> = Validasi (feedback Bu Dhika), Pilot Support (Hub kampus + DLH Sleman), Next Step (inkubasi LPPM + pitch pendanaan). Closing punch jalan di sini → balik ke tagline → "Terima kasih, kami buka Q&amp;A."</div>
+          
+        </div>
+      </div>
+      <div class="prose"><h3>Opening Hook (Slide 1 — ucap sebelum sebut nama, ±20 detik)</h3></div>
+      <div class="card card-surface">
+        <p style="font-style:italic;margin-top:0">"Pagi ini, sebelum kalian masuk ruangan ini, mungkin sudah ada secangkir kopi. Tapi coba pikirkan: ke mana ampasnya pergi setelah cangkir itu kosong? Jawabannya — tempat sampah. Setiap hari, di Indonesia, ratusan ribu ton ampas kopi dibuang dengan nilai ekonomi yang ter-capture: nol rupiah. Kami di sini untuk membuktikan satu hal — yang kalian sebut sampah, sebenarnya adalah sumber daya yang salah tempat."</p>
+        <p style="margin-bottom:0"><b>Beat:</b> jeda 1 detik setelah "nol rupiah." Lalu munculkan judul: "Kami GroundsToGrow. From Waste to Wealth. From Coffee to Carbon."</p>
+      </div>
+
+      <div class="prose"><h3>Closing Punch (Slide 13 — balik ke tagline, ±20 detik)</h3></div>
+      <div class="card card-surface">
+        <p style="font-style:italic;margin-top:0">"Kami tidak datang untuk sekadar meminta nilai. Kami datang meminta kesempatan membuktikan bahwa satu cangkir kopi yang kalian habiskan pagi ini bisa jadi skincare, jadi kompos, jadi tanaman — dan jadi pendapatan bagi orang yang selama ini cuma membuangnya. GroundsToGrow hari ini, WasteLoop esok hari."</p>
+        <p style="font-style:italic"><b>Punch line terakhir (pelan, tegas, lalu diam):</b> "From Waste to Wealth. From Coffee to Carbon. Terima kasih."</p>
+        <p style="margin-bottom:0"><b>Beat:</b> jeda penuh setelah "Carbon." sebelum "Terima kasih." Biarkan tagline mengendap.</p>
+      </div>
+
+      <div class="prose"><h3>Catatan Ritme</h3></div>
+      <div class="card">
+        <ul style="margin:0 0 0 1.2rem">
+          <li><b>Patokan tempo:</b> rata-rata 28 detik/slide. Kalau satu slide tembus 45 detik tanpa alasan kuat (demo/reveal), kamu kelamaan — potong.</li>
+          <li><b>3 jeda sengaja (silence = power):</b> (1) setelah "nol rupiah" di hook, (2) setelah ucap "OS for circular economy" Slide 11, (3) setelah "...to Carbon" di closing. Diam 1 detik penuh tiap kali.</li>
+          <li><b>Slide dark (2, 8, 10, 11, 13) = momen serius/dramatis</b> — turunkan volume sedikit, lebih pelan. Slide terang = lebih energik.</li>
+          <li><b>Jangan baca layar.</b> Layar = visual pendukung; mata ke juri. Speaker notes ada di tombol N kalau benar-benar lupa.</li>
+          <li><b>Demo safety:</b> sebelum mulai, tab app HARUS sudah terbuka &amp; ke-load di window terpisah. Iframe di deck bisa lambat/diblok. Siapkan 3 screenshot (landing, WasteScan hasil, Marketplace) sebagai fallback offline.</li>
+          <li><b>Hindari klik tengah layar</b> saat demo deck — area kiri/kanan = navigasi auto. Pakai panah keyboard biar aman.</li>
+        </ul>
+      </div>
+
+      <div class="callout info">
+        <div class="ctitle">⏱️ Versi Padat — kalau waktu mepet (target 5:00)</div>
+        Pertahankan 3 beat emosional + 2 primary fact. Gabung 1+2 jadi 1 napas hook (0:40) · Slide 3 reframe tetap (0:20) · Slide 4 sebut pitch-line L4-6-8 sekali (0:20) · Slide 5+6 digabung "8 entitas, 5 langkah" (0:35) · <b>SKIP 6b &amp; 7b</b> ("Data architecture dan BMC lengkap ada di deck") · Slide 7 revenue: hanya 2 primary + "4 lainnya upside" (0:20) · <b>Slide 8 demo tetap penuh (0:40)</b> · Gabung 9+10 (0:25) · <b>Slide 11 reveal tetap penuh (0:30)</b> · <b>SKIP 12</b> · Slide 13 ask + closing punch (0:25). <b>Total padat ≈ 5:08.</b> Yang TIDAK pernah dikorbankan: Opening hook, Live Demo, Reveal WasteLoop, Closing tagline.
+      </div>
+    </section>
+    <!-- ============ 06 DEMO ============ -->
+    <section class="panel" id="demo">
+      <div class="sec-head">
+        <div class="sec-eyebrow">06 — Demo Script (buat Samuel)</div>
+        <h2>Live Demo 2-3 Menit</h2>
+        <p class="lead">App live: <a href="https://groundstogrow-mvp.vercel.app" target="_blank" rel="noopener" style="color:var(--teal);font-weight:700">groundstogrow-mvp.vercel.app</a> · Target 2:30 (aman 2:00–3:00). Tone: ngalir, percaya diri, ceritain alur sirkular — bukan baca fitur satu-satu.</p>
+      </div>
+
+      <div class="callout warn">
+        <div class="ctitle">⚡ Sebelum mulai (pra-demo — siapkan 1 menit sebelum maju)</div>
+        <p style="margin:.2rem 0"><b>Buka 5 tab browser, sudah ke-load semua:</b> (1) <span class="mono">…/wastescan</span> (tab utama, mulai dari sini), (2) <span class="mono">…/marketplace</span>, (3) <span class="mono">…/checkout/success</span> (optional), (4) <span class="mono">…/dashboard</span>, (5) <span class="mono">…/</span> (Landing, buat penutup).</p>
+        <p style="margin:.2rem 0"><b>Penting (cart non-persisten):</b> keranjang &amp; order hilang kalau halaman di-refresh (state di memori, bukan localStorage). Selama demo <b>jangan refresh</b>, lakukan alur belanja dalam satu napas. Kalau tak sengaja refresh → ulang dari klik "Beli".</p>
+        <p style="margin:.2rem 0">Zoom browser 110%, kursor digedein. Wifi backup / hotspot HP nyala. Folder <span class="mono">team/demo-backup/</span> siap.</p>
+      </div>
+
+      <div class="callout danger">
+        <div class="ctitle">🧭 Catatan navigasi penting</div>
+        <ul style="margin:.2rem 0 0 1.1rem">
+          <li>Pindah screen pakai <b>menu atas</b> (Beranda · WasteScan · Dashboard · Marketplace · Histori). Cepat &amp; aman.</li>
+          <li><b>Keranjang TIDAK ada ikon di header.</b> Cart drawer muncul lewat bar mengambang <b>"Lihat Keranjang"</b> di bawah-tengah halaman Marketplace (cuma muncul setelah ada item).</li>
+          <li>⛔ <b>JANGAN klik "Submit Ampas Baru" di Dashboard</b> — link-nya ke route mati (<span class="mono">/waste-scan</span>) dan bisa kasih 404. Ke WasteScan pakai menu atas.</li>
+        </ul>
+      </div>
+
+      <div class="callout info">
+        <div class="ctitle">🎬 Kalimat pembuka begitu pindah ke slide demo</div>
+        "Oke, daripada cuma cerita — saya tunjukin langsung aplikasinya jalan. Ini bukan mockup gambar, ini <b>live di Vercel</b>, dan alurnya nyambung dari ampas sampai checkout."
+      </div>
+
+      <div class="prose"><h3>Script Demo (per langkah — waktu · klik · ucapan)</h3>
+      <p>Urutan cerita: <b>WasteScan (supply masuk) → Marketplace 3 tab (demand) → Beli → Cart → Checkout → Bayar → Sukses → Histori → Dashboard (dampak) → Landing 8-entity (zoom out).</b></p></div>
+
+        <div class="demo-step">
+          <div class="ds-time">0:00–0:14</div>
+          <div class="ds-content">
+            <div class="ds-action">WasteScan terbuka. Tunjuk panel kiri "Detail Ampas": dropdown Jenis Kopi (biarin Arabika), slider Volume (~2,5 kg), slider Freshness (~2 jam). Optional klik kotak "Foto Ampas" sekali.</div>
+            <div class="ds-say">"Kita mulai dari jantungnya: WasteScan. Bayangin saya Mbak Rina, owner kedai Kopi Sudut. Abis shift, ampas numpuk. Tinggal input: jenisnya Arabika, volumenya 2,5 kilo, dan masih segar — 2 jam." (geser slider sambil ngomong)</div>
+          </div>
+        </div>
+        <div class="demo-step">
+          <div class="ds-time">0:14–0:20</div>
+          <div class="ds-content">
+            <div class="ds-action">Klik tombol terracotta "Analisa dengan AI". Muncul layar gelap loading 3 langkah (deteksi → volume → cocokkan UMKM), ~1,8 detik.</div>
+            <div class="ds-say">"Saya klik Analisa dengan AI. Di balik ini idealnya jalan computer vision — di MVP ini sengaja kami buat mock, tapi alurnya end-to-end persis produk jadi." (biarin loading jalan)</div>
+          </div>
+        </div>
+        <div class="demo-step">
+          <div class="ds-time">0:20–0:38</div>
+          <div class="ds-content">
+            <div class="ds-action">Result card muncul di panel kanan: badge Grade (A/B/C), Jenis, Volume, Freshness, dan Rekomendasi penggunaan. Tunjuk badge grade + kotak rekomendasi.</div>
+            <div class="ds-say">"Keluar hasilnya: ampas saya diklasifikasi Grade A — Premium karena masih segar, dan AI langsung kasih rekomendasi penggunaan: cocok jadi bahan skincare. Yang tadinya &#39;sampah&#39; langsung punya kategori dan nilai."</div>
+          </div>
+        </div>
+        <div class="demo-step">
+          <div class="ds-time">0:38–0:52</div>
+          <div class="ds-content">
+            <div class="ds-action">Scroll ke "04 — Smart Match": 3 kartu UMKM dengan % match, jarak km, badge Accept / Menunggu. Sapu kursor ke ketiga kartu.</div>
+            <div class="ds-say">"Nah ini intinya — smart matching. Sistem nggak cuma bilang &#39;ini ampas&#39;, tapi langsung nyodorin 3 UMKM terdekat yang cocok, lengkap dengan skor kecocokan dan jarak pickup. Supply ketemu demand otomatis — ini sharing economy-nya."</div>
+          </div>
+        </div>
+        <div class="demo-step">
+          <div class="ds-time">0:52–1:02</div>
+          <div class="ds-content">
+            <div class="ds-action">Panel kiri, klik "Terbitkan ke Marketplace" (terracotta). Muncul toast sukses, app pindah otomatis ke Dashboard sebentar — langsung lanjut ke menu atas (jangan berhenti lama).</div>
+            <div class="ds-say">"Saya terbitkan listing-nya — dan listing ampas ini sekarang tayang di marketplace buat dilihat para UMKM dan konsumen. Yuk kita lihat marketplace-nya."</div>
+          </div>
+        </div>
+        <div class="demo-step">
+          <div class="ds-time">1:02–1:24</div>
+          <div class="ds-content">
+            <div class="ds-action">Klik menu atas "Marketplace". Switch cepat 3 tab: Ampas Mentah → Produk Olahan → Biji Kopi Petani. Berhenti sejenak di tiap tab.</div>
+            <div class="ds-say">"Ini Marketplace — di sinilah lingkarannya nyambung, 3 tab. Tab satu: ampas mentah dari kedai-kedai. Tab dua: produk olahan UMKM — sabun, briket, kompos. Tab tiga, yang bikin lingkaran ini penuh: biji kopi langsung dari petani."</div>
+          </div>
+        </div>
+        <div class="demo-step">
+          <div class="ds-time">1:24–1:34</div>
+          <div class="ds-content">
+            <div class="ds-action">Di tab Produk Olahan, tunjuk badge "Verified" di pojok kartu. Klik "Beli" di salah satu produk berharga. Muncul toast "Ditambahkan ke keranjang".</div>
+            <div class="ds-say">"Perhatikan badge Verified — penanda Circular Source, bukti produk ini beneran dari ampas yang ter-trace. Saya beli satu produk ini." (klik Beli) "Masuk keranjang."</div>
+          </div>
+        </div>
+        <div class="demo-step">
+          <div class="ds-time">1:34–1:44</div>
+          <div class="ds-content">
+            <div class="ds-action">Muncul bar mengambang di bawah-tengah (jumlah item + total Rp). Klik "Lihat Keranjang" → Cart drawer geser dari kanan. Tunjuk item + total.</div>
+            <div class="ds-say">"Begitu ada barang, muncul keranjang mengambang di bawah. Saya buka — ini isi keranjangnya: produknya, jumlah, dan total belanja. Bisa ubah kuantitas di sini."</div>
+          </div>
+        </div>
+        <div class="demo-step">
+          <div class="ds-time">1:44–1:52</div>
+          <div class="ds-content">
+            <div class="ds-action">Footer drawer klik "Lanjut ke Checkout" → halaman /checkout. Tunjuk form alamat (terisi dummy) + ringkasan kanan (Total + Ongkir Rp 15.000).</div>
+            <div class="ds-say">"Lanjut ke Checkout. Alamat pengiriman, rincian pesanan, ongkir — semua di sini, lengkap. Ringkasan tagihannya jelas di kanan."</div>
+          </div>
+        </div>
+        <div class="demo-step">
+          <div class="ds-time">1:52–2:08</div>
+          <div class="ds-content">
+            <div class="ds-action">Klik "Bayar Sekarang" → modal pembayaran ("SECURE CHECKOUT"). Default QRIS (ada juga Virtual Account &amp; Kartu Kredit). Klik "Bayar Sekarang" lagi → "Memproses…" (~2,5 dtk) → "Pembayaran Berhasil".</div>
+            <div class="ds-say">"Pilih metode bayar — QRIS, Virtual Account, atau kartu. Saya bayar." (klik) "Ini disimulasikan ya, tapi alur paymentnya utuh: proses, lalu konfirmasi berhasil." (biarin animasi jalan)</div>
+          </div>
+        </div>
+        <div class="demo-step">
+          <div class="ds-time">2:08–2:18</div>
+          <div class="ds-content">
+            <div class="ds-action">Otomatis pindah ke "Pesanan Berhasil!" (/checkout/success) — centang hijau, status "Menunggu Konfirmasi Penjual", "Dampak Positif". Klik "Lacak Pesanan Saya" → Histori (/orders).</div>
+            <div class="ds-say">"Dan pesanan berhasil. Perhatikan — bukan cuma &#39;sukses bayar&#39;, tapi ada baris Dampak Positif: tiap transaksi di sini berarti karbon yang dihindari. Saya lacak pesanannya."</div>
+          </div>
+        </div>
+        <div class="demo-step">
+          <div class="ds-time">2:18–2:28</div>
+          <div class="ds-content">
+            <div class="ds-action">Di Histori (/orders), tunjuk kartu pesanan: kode ORD, tanggal, badge status Diproses, item, dan total.</div>
+            <div class="ds-say">"Ini Histori transaksi — pesanan tadi langsung tercatat: nomor order, statusnya Diproses, dan rinciannya. Konsumen punya jejak belanja sirkularnya sendiri."</div>
+          </div>
+        </div>
+        <div class="demo-step">
+          <div class="ds-time">2:28–2:42</div>
+          <div class="ds-content">
+            <div class="ds-action">Klik menu atas "Dashboard" (Kopi Sudut). Tunjuk ESG Score 87/100 (gauge gelap), kartu Grounds Coin 3.892, Total Waste Diverted 156,5 kg, Carbon Saved 78,25 kg CO₂-eq.</div>
+            <div class="ds-say">"Sekarang sisi kedainya — semua aktivitas tadi kerekam di Dashboard: ESG Score 87, saldo Grounds Coin sebagai insentif, 156 kilo ampas teralihkan, dan estimasi karbon yang dihindari. Kedai punya angka buat laporan keberlanjutan."</div>
+          </div>
+        </div>
+        <div class="demo-step">
+          <div class="ds-time">2:42–2:55</div>
+          <div class="ds-content">
+            <div class="ds-action">Klik menu atas "Beranda", scroll ke "01 — Value Constellation / Delapan pihak, satu konstelasi nilai" (diagram entity). Sapu kursor ke lingkaran entity.</div>
+            <div class="ds-say">"Dan zoom out — ini bukan transaksi dua pihak. Ada 8 entitas: kedai, UMKM, konsumen, korporat ESG, plus kampus, DLH, komunitas urban farming, dan logistik. Tiap simpul nyetor sesuatu, narik nilai balik. Itu GroundsToGrow." (berhenti di diagram, balik ke slide)</div>
+          </div>
+        </div>
+      <div class="callout good"><div class="ctitle">Total ~2:55 (cerita penuh)</div>Versi cepat ~2:00 lihat di cheat-strip bawah.</div>
+
+      <div class="prose"><h3>Urutan Klik Paling Aman (cheat-strip)</h3>
+      <p>Hafalkan ritme klik ini — semua via menu atas kecuali disebut:</p></div>
+      <div class="cheat-strip"><span class="step">WasteScan</span> (tab utama)
+  <span class="arrow">→</span> [Analisa dengan AI] <span class="arrow">→</span> (loading) <span class="arrow">→</span> hasil + Smart Match
+  <span class="arrow">→</span> [Terbitkan ke Marketplace]   (auto ke Dashboard, jangan berhenti)
+Menu atas: <span class="step">Marketplace</span>
+  <span class="arrow">→</span> tab: Ampas <span class="arrow">→</span> Produk Olahan <span class="arrow">→</span> Biji Kopi Petani
+  <span class="arrow">→</span> di Produk Olahan: [Beli]  (toast)
+  <span class="arrow">→</span> bar bawah-tengah: [Lihat Keranjang]
+  <span class="arrow">→</span> drawer: [Lanjut ke Checkout]
+<span class="step">Checkout</span>
+  <span class="arrow">→</span> [Bayar Sekarang] <span class="arrow">→</span> modal: QRIS <span class="arrow">→</span> [Bayar Sekarang] <span class="arrow">→</span> (proses) <span class="arrow">→</span> sukses
+<span class="step">Layar Sukses</span>
+  <span class="arrow">→</span> [Lacak Pesanan Saya]   (ke Histori /orders)
+Menu atas: <span class="step">Dashboard</span>       (ESG 87 · Coin · kg · CO₂)
+Menu atas: <span class="step">Beranda</span>         (scroll ke diagram 8-entity) → balik ke slide</div>
+
+      <div class="callout warn">
+        <div class="ctitle">Aturan emas mulus</div>
+        <ol style="margin:.2rem 0 0 1.1rem">
+          <li><b>Jangan refresh</b> di tengah alur belanja (cart hilang). Kalau ke-refresh, ulang dari klik Beli.</li>
+          <li><b>Belanja "Beli" dari tab Produk Olahan</b> (harga jelas), bukan tab Ampas (beberapa Gratis Rp 0, total jadi kecil/nol).</li>
+          <li>Pindah screen <b>selalu lewat menu atas</b>, jangan tombol "Submit Ampas Baru" di Dashboard (route mati).</li>
+          <li>Kalau waktu mepet, pangkas: (a) skip eksplorasi 3 tab — langsung ke Produk Olahan + Beli; (b) skip Histori — dari layar Sukses langsung Dashboard.</li>
+        </ol>
+      </div>
+
+      <div class="callout info">
+        <div class="ctitle">Versi cepat ~2:00 (kalau dikejar waktu)</div>
+        WasteScan (Analisa → hasil + Smart Match, ~40 dtk) → Marketplace (sebut 3 tab, Beli 1 produk, ~25 dtk) → Lihat Keranjang → Checkout → Bayar Sekarang → modal Bayar → Sukses (~35 dtk) → Dashboard ESG 87 (~15 dtk) → Beranda 8-entity (~10 dtk). <b>Lewati Histori.</b>
+      </div>
+
+      <div class="prose"><h3>🛟 Plan B — Kalau Demo Crash</h3>
+      <p><b>Aturan #1:</b> jangan panik, jangan ngoprek live lebih dari 5 detik. Begitu loading/error, langsung pindah ke cadangan sambil ngomong tenang.</p></div>
+      <div class="card">
+        <p style="margin-top:0"><b>Cadangan WAJIB disiapkan (folder <span class="mono">team/demo-backup/</span>):</b></p>
+        <ul style="margin:0 0 .6rem 1.2rem">
+          <li><b>6 screenshot full-screen</b>: 01-wastescan-result · 02-marketplace-3tab · 03-cart-checkout · 04-payment-success · 05-dashboard-esg · 06-landing-8entity.</li>
+          <li><b>1 screen-recording 2–3 menit</b> (mp4) full walkthrough — internet mati total, putar ini.</li>
+          <li><b>PDF pitch deck</b> kebuka di tab lain (kalau app mati, lanjut dari deck /deck).</li>
+        </ul>
+        <p><b>Penyelamat per skenario (ucapkan santai):</b></p>
+        <ul style="margin:0 0 0 1.2rem">
+          <li><b>App lemot:</b> "Sambil ini loading, saya jelasin alurnya pakai screenshot — biar nggak makan waktu Bapak/Ibu."</li>
+          <li><b>Error / blank:</b> "Ini live deployment, kadang ada hiccup jaringan — tapi alurnya persis ini."</li>
+          <li><b>Checkout macet:</b> "Pembayaran ini disimulasikan, kalau ngadat saya tunjukin hasil akhirnya — yang penting alurnya nyambung sampai histori."</li>
+          <li><b>Keranjang kosong (ke-refresh):</b> "Sebentar, saya tambahin lagi ke keranjang." (klik Beli 1x, lanjut) — jangan panik, cepat.</li>
+          <li><b>Klik nyasar 404:</b> "Oke balik sebentar." (klik logo / menu atas) — abaikan, lanjut tenang.</li>
+          <li><b>Internet mati total:</b> "Koneksi venue lagi rewel, saya puterin rekaman demo yang sama persis." (putar mp4)</li>
+          <li><b>Recovery:</b> "Intinya satu: ampas yang tadinya sampah, lewat platform ini ketemu pembeli otomatis, sampai checkout dan tercatat dampak karbonnya. Itu yang barusan kelihatan."</li>
+        </ul>
+      </div>
+      <div class="callout good"><div class="ctitle">Mindset</div>Juri menilai <b>ide + eksekusi alur</b>, bukan kestabilan wifi venue. Screenshot/rekaman = demo yang sah.</div>
+
+      <div class="prose"><h3>⚠️ Hal yang Harus Jujur Ditandai Saat Demo</h3></div>
+      <div class="card">
+        <ol style="margin:0 0 0 1.2rem">
+          <li><b>WasteScan = mock by design</b> → "hasil klasifikasi &amp; matching disimulasikan dari input; AI Vision ada di roadmap." (Footer halaman WasteScan sudah nulis ini.)</li>
+          <li><b>Pembayaran = simulasi</b> → "payment gateway disimulasikan; alurnya utuh, integrasi real tinggal pasang."</li>
+          <li><b>Carbon / CO₂-eq = estimasi avoided emissions, BUKAN kredit terverifikasi</b> → angka Dashboard (78,25 kg CO₂-eq kedai; 5.432 kg kolektif platform) adalah proxy faktor EPA/IPCC, bahan pelaporan ESG.</li>
+          <li><b>Volume ampas = estimasi</b> dari konsumsi BPS (~290 ribu ton kopi → ~250 ribu ton ampas), bukan sensus.</li>
+        </ol>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div class="fab">
+  <button class="print-fab" title="Print / Simpan PDF" onclick="window.print()">🖨</button>
+  <button id="topFab" title="Ke atas" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+</div>
+
+<script>
+(function(){
+  var navLinks = document.querySelectorAll('.nav-link');
+  var panels = document.querySelectorAll('section.panel');
+  var mobileNav = document.getElementById('mobileNav');
+
+  function showSection(id){
+    panels.forEach(function(p){ p.classList.toggle('active', p.id === id); });
+    navLinks.forEach(function(l){ l.classList.toggle('active', l.dataset.target === id); });
+    if(mobileNav && mobileNav.value !== id) mobileNav.value = id;
+    window.scrollTo({top:0, behavior:'smooth'});
+    if(history.replaceState) history.replaceState(null,'','#'+id);
+  }
+
+  navLinks.forEach(function(l){
+    l.addEventListener('click', function(){ showSection(l.dataset.target); });
+  });
+  if(mobileNav){
+    mobileNav.addEventListener('change', function(){ showSection(mobileNav.value); });
+  }
+
+  // deep-link on load
+  var hash = (location.hash || '').replace('#','');
+  var valid = ['mulai','pembagian','panduan','qna','alur','demo'];
+  if(valid.indexOf(hash) !== -1) showSection(hash);
+
+  // person tabs
+  var personTabs = document.querySelectorAll('.person-tab');
+  var panes = document.querySelectorAll('.person-pane');
+  personTabs.forEach(function(t){
+    t.addEventListener('click', function(){
+      var who = t.dataset.person;
+      personTabs.forEach(function(x){ x.classList.toggle('active', x===t); });
+      panes.forEach(function(p){ p.classList.toggle('active', p.id === 'pane-'+who); });
+    });
+  });
+
+  // scroll-to-top FAB visibility
+  var topFab = document.getElementById('topFab');
+  window.addEventListener('scroll', function(){
+    if(window.scrollY > 400) topFab.classList.add('show');
+    else topFab.classList.remove('show');
+  });
+})();
+
+// accordion toggle (Q&A)
+function toggleAcc(btn){
+  var acc = btn.closest('.accordion');
+  var body = acc.querySelector('.acc-body');
+  var open = acc.classList.toggle('open');
+  body.style.maxHeight = open ? (body.scrollHeight + 40) + 'px' : '0px';
+}
+
+// "ini bagianku" highlight toggle
+function toggleMine(btn){
+  var card = btn.closest('.slide-card');
+  var on = card.classList.toggle('mine');
+  btn.textContent = on ? '★ bagianku ✓' : '★ ini bagianku';
+}
+</script>
+</body>
+</html>
