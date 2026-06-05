@@ -330,6 +330,36 @@ body.on-dark .hint{color:#b8a787;}
 .qr svg{width:100%;height:100%;}
 .url-big{font-family:var(--font-mono);font-weight:700;font-size:clamp(1rem,2vw,1.45rem);color:var(--primary);word-break:break-all;line-height:1.1;}
 
+/* user journey (persona timeline) */
+.uj-track{display:grid;grid-template-columns:repeat(5,1fr);gap:0;background:var(--border);border:1px solid var(--border);border-radius:14px;overflow:hidden;}
+@media(max-width:980px){.uj-track{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.uj-track{grid-template-columns:1fr;}}
+.uj-step{background:var(--card);padding:.9rem .95rem 1rem;position:relative;display:flex;flex-direction:column;border-top:3px solid var(--primary);}
+.uj-step.hi{background:rgba(232,169,61,.09);border-top-color:var(--highlight);}
+.uj-step .uj-no{font-family:var(--font-mono);font-weight:700;font-size:1.15rem;color:var(--primary);line-height:1;letter-spacing:.02em;}
+.uj-step.hi .uj-no{color:#a9781f;}
+.uj-step .uj-phase{font-family:var(--font-display);font-weight:600;font-size:1.02rem;margin-top:.35rem;line-height:1.1;}
+.uj-step .uj-tp{font-family:var(--font-mono);font-size:.58rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-top:.18rem;}
+.uj-step .uj-act{font-size:.76rem;color:var(--muted-foreground);line-height:1.42;margin-top:.5rem;flex:1;}
+.uj-step .uj-act strong{color:var(--foreground);font-weight:700;}
+.uj-step .uj-emo{font-family:var(--font-mono);font-size:.62rem;letter-spacing:.03em;margin-top:.6rem;padding:.28rem .55rem;border-radius:999px;align-self:flex-start;background:rgba(0,139,124,.1);color:var(--accent);border:1px solid rgba(0,139,124,.28);}
+.uj-step .uj-emo.pain{background:rgba(192,85,43,.1);color:var(--primary);border-color:rgba(192,85,43,.3);}
+.uj-step .uj-emo.win{background:rgba(61,92,63,.13);color:var(--success);border-color:rgba(61,92,63,.35);}
+.uj-secondary{display:flex;align-items:baseline;flex-wrap:wrap;gap:.55rem;background:var(--card);border:1px solid var(--border);border-left:3px solid var(--highlight);border-radius:12px;padding:.7rem .95rem;}
+.uj-secondary .uj-sec-tag{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.04em;color:#a9781f;font-weight:600;white-space:nowrap;}
+.uj-secondary .uj-sec-body{font-size:.78rem;color:var(--muted-foreground);line-height:1.45;}
+.uj-secondary .uj-sec-body strong{color:var(--foreground);font-weight:700;}
+.val-wrap{border-top:1px solid var(--border);padding-top:.9rem;}
+.val-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;}
+
+/* network-effect theory labels (direct vs indirect) */
+.ne-lab{font-family:var(--font-mono);font-weight:700;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;padding:.22rem .55rem;border-radius:6px;display:inline-block;}
+.ne-lab.ne-indirect{background:rgba(0,139,124,.12);color:var(--accent);border:1px solid rgba(0,139,124,.3);}
+.ne-lab.ne-direct{background:rgba(192,85,43,.1);color:var(--primary);border:1px solid rgba(192,85,43,.3);}
+.coldstart{display:flex;align-items:baseline;flex-wrap:wrap;gap:.55rem;background:var(--card);border:1px solid var(--border);border-left:3px solid var(--success);border-radius:10px;padding:.55rem .8rem;}
+.coldstart .cs-tag{font-family:var(--font-mono);font-weight:700;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--success);white-space:nowrap;}
+.coldstart .cs-body{font-size:.78rem;color:var(--muted-foreground);line-height:1.4;}
+
 /* flywheel */
 .wheel-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:2.4rem;align-items:center;}
 @media(max-width:900px){.wheel-wrap{grid-template-columns:1fr;}}
@@ -1036,6 +1066,90 @@ body.on-dark .hint{color:#b8a787;}
     </div>
   </section>
 
+  <!-- 8b. USER JOURNEY (persona) + MVP VALIDATION -->
+  <section class="slide surface" id="s8b" data-dark="false">
+    <div class="blob" style="background:rgba(192,85,43,.12);width:30vw;height:30vw;top:-8vw;right:-6vw;"></div>
+    <div class="inner">
+      <div class="anim flex between items-end wrap gap-m">
+        <div>
+          <div class="eyebrow">07.1 — User Journey</div>
+          <h2 class="h-lg mt-s" style="max-width:24ch;">Satu hari <span class="italic c-primary">Andi</span>, pemilik Kopi Sudut.</h2>
+        </div>
+        <div class="cardish anim" style="padding:.6rem .9rem;text-align:right;">
+          <div class="eyebrow no-rule" style="justify-content:flex-end;">Persona Utama</div>
+          <div class="mono-num" style="font-weight:700;font-size:1.02rem;color:var(--primary);">☕ Andi · coffee shop</div>
+        </div>
+      </div>
+
+      <!-- horizontal persona timeline: 5 tahap -->
+      <div class="anim stagger uj-track mt-l">
+        <div class="uj-step">
+          <div class="uj-no">01</div>
+          <div class="uj-phase">Awareness</div>
+          <div class="uj-tp">— di kedai</div>
+          <p class="uj-act">Tiap minggu bayar biaya buang ampas. Lihat Eco-Badge di kafe sebelah, jadi penasaran.</p>
+          <div class="uj-emo pain">beban biaya 😤</div>
+        </div>
+        <div class="uj-step">
+          <div class="uj-no">02</div>
+          <div class="uj-phase">Onboarding</div>
+          <div class="uj-tp">— Landing</div>
+          <p class="uj-act">Daftar 2 menit, langsung dapat QR Eco-Badge untuk dipajang di kasir.</p>
+          <div class="uj-emo">mudah, nol friksi ✦</div>
+        </div>
+        <div class="uj-step">
+          <div class="uj-no">03</div>
+          <div class="uj-phase">First Action</div>
+          <div class="uj-tp">— WasteScan</div>
+          <p class="uj-act">Tiap sore foto ampas → WasteScan kasih grade A/B/C otomatis → submit.</p>
+          <div class="uj-emo">terkontrol, cepat ⚡</div>
+        </div>
+        <div class="uj-step hi">
+          <div class="uj-no">04</div>
+          <div class="uj-phase">Aha-moment</div>
+          <div class="uj-tp">— Notif &amp; Pickup</div>
+          <p class="uj-act">Notif "3 UMKM mau ampasmu" + pickup terjadwal. Disposal jadi <strong>GRATIS</strong> + dapat Grounds Coin.</p>
+          <div class="uj-emo win">lega → senang 🎉</div>
+        </div>
+        <div class="uj-step">
+          <div class="uj-no">05</div>
+          <div class="uj-phase">Retention / Loop</div>
+          <div class="uj-tp">— Dashboard</div>
+          <p class="uj-act">Dashboard tunjukin carbon saved + ESG score naik. Pasang badge, pelanggan Gen-Z notice → submit rutin.</p>
+          <div class="uj-emo win">bangga sustainable 🌱</div>
+        </div>
+      </div>
+
+      <!-- persona sekunder -->
+      <div class="anim uj-secondary mt-m">
+        <span class="uj-sec-tag">🧴 Persona sekunder · Sari — UMKM skincare</span>
+        <span class="uj-sec-body"><strong>Pain:</strong> susah cari ampas konsisten → <strong>subscribe</strong> → auto-match supply tersortir + Verified Circular cert → bisa <strong>scale</strong> produksi.</span>
+      </div>
+
+      <!-- MVP VALIDATION block -->
+      <div class="anim val-wrap mt-l">
+        <div class="val-head">
+          <span class="eyebrow teal no-rule">Cara Uji ke User · Validasi MVP</span>
+          <span class="c-muted" style="font-size:.72rem;">hipotesis → metode → metrik</span>
+        </div>
+        <div class="fgrid f3 mt-s">
+          <div class="fcard bl-p">
+            <h4>Hipotesis</h4>
+            <p><strong>H1:</strong> Kedai mau submit ampas rutin kalau disposal gratis + Eco-Badge.<br><strong>H2:</strong> UMKM mau bayar subscription untuk supply tersortir konsisten.</p>
+          </div>
+          <div class="fcard bl-a">
+            <h4>Metode</h4>
+            <p>Usability test 5–8 kedai (pilot UKDW) · wawancara 3–5 UMKM · smoke-test landing page untuk ukur willingness-to-pay.</p>
+          </div>
+          <div class="fcard bl-g">
+            <h4>Metrik Sukses</h4>
+            <p><strong>Activation</strong> (% kedai submit ulang minggu ke-2) · <strong>match-rate</strong> (% listing ke-match &lt;24 jam) · <strong>WTP UMKM</strong> (% mau bayar).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- 9. NETWORK EFFECT FLYWHEEL -->
   <section class="slide" id="s9" data-dark="false">
     <div class="inner wheel-wrap">
@@ -1056,8 +1170,18 @@ body.on-dark .hint{color:#b8a787;}
         <h2 class="h-lg mt-s" style="max-width:18ch;">Tiap entitas baru <span class="italic c-accent">menaikkan nilai</span> 7 sisi lain.</h2>
         <p class="lead mt-s">Coffee shop tambah → UMKM happy → produk lebih banyak → konsumen naik → brand sponsor tertarik → fund besar → Kampus & DLH lihat dampak → endorse → coffee shop baru tertarik. <span class="c-primary" style="font-weight:600;">Loop yang mempercepat dirinya sendiri.</span></p>
         <div class="fgrid f2 mt-l">
-          <div class="fcard bl-a"><h4>Data Network Effect</h4><p>Makin banyak submit → matching makin akurat, prediksi waste flow makin presisi.</p></div>
-          <div class="fcard bl-p"><h4>Trust / Reputation</h4><p>Eco-Badge race antar kedai + Verified Cert jadi switching cost UMKM.</p></div>
+          <div class="fcard bl-a">
+            <h4><span class="ne-lab ne-indirect">Indirect · cross-side</span></h4>
+            <p>Makin banyak coffee shop (supply) → makin menarik bagi UMKM &amp; end user (demand), dan sebaliknya. <em>Inti dari multi-sided platform.</em></p>
+          </div>
+          <div class="fcard bl-p">
+            <h4><span class="ne-lab ne-direct">Direct · same-side</span></h4>
+            <p>Makin banyak kedai → "Eco-Badge race" antar kedai. Makin banyak UMKM → standar kualitas naik.</p>
+          </div>
+        </div>
+        <div class="coldstart mt-m">
+          <span class="cs-tag">Cold-start</span>
+          <span class="cs-body">Single-hub UKDW, seed sisi supply dulu (subsidi pickup), baru tarik UMKM.</span>
         </div>
       </div>
     </div>
@@ -1185,7 +1309,7 @@ body.on-dark .hint{color:#b8a787;}
 <nav id="nav">
   <button class="navbtn" id="prev" aria-label="Slide sebelumnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
   <div id="dots"></div>
-  <span id="counter">01 / 15</span>
+  <span id="counter">01 / 16</span>
   <button class="navbtn" id="next" aria-label="Slide berikutnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
   <button class="navbtn" id="notesBtn" aria-label="Presenter notes (N)" title="Presenter notes — tekan N"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H8l-4 4V4Z"/><path d="M8 8h8M8 12h5"/></svg></button>
 </nav>
@@ -1223,6 +1347,7 @@ body.on-dark .hint{color:#b8a787;}
     s7: "Model bisnis kami memiliki beberapa sumber pendapatan sehingga tidak bergantung pada satu aliran pendapatan saja. Dua stream primary — subscription UMKM dan komisi marketplace — sudah terbukti di pasar; sisanya kami perlakukan sebagai lapisan upside.",
     s7b: "Business Model Canvas merangkum semuanya dalam satu kanvas: sembilan blok yang saling mengunci. Inti yang kami tekankan — value proposition berbeda untuk tiap segmen, dan model asset-light tanpa armada, gudang, atau pabrik, sehingga biaya tetap rendah dan platform bisa fokus sebagai orchestrator.",
     s8: "Agar tidak hanya menjadi konsep, kami menyiapkan MVP berbasis web. WasteScan yang ditampilkan merupakan mock UI untuk menunjukkan alur pengguna dan masih menjadi roadmap untuk implementasi AI yang sebenarnya.",
+    s8b: "Mari lihat dari kacamata pengguna. Andi, pemilik Kopi Sudut, tiap minggu bayar biaya buang ampas — lalu lihat Eco-Badge kafe sebelah dan penasaran (awareness). Dia daftar 2 menit, dapat QR Eco-Badge (onboarding). Tiap sore foto ampas di WasteScan, dapat grade otomatis (first action). Aha-moment-nya: notif tiga UMKM mau ampasnya, disposal jadi gratis plus dapat Grounds Coin — beban berubah jadi senang. Lalu Dashboard tunjukin carbon saved dan ESG naik, dia pasang badge, pelanggan Gen-Z notice, jadi submit rutin (retention). Persona kedua, Sari UMKM skincare: pain-nya susah cari ampas konsisten, jadi subscribe untuk supply tersortir dan Verified Cert supaya bisa scale. Soal validasi: kami punya dua hipotesis — kedai mau submit rutin kalau gratis plus Eco-Badge, dan UMKM mau bayar subscription. Diuji lewat usability test 5–8 kedai, wawancara UMKM, dan smoke-test landing untuk ukur willingness-to-pay. Metrik suksesnya activation, match-rate, dan WTP.",
     s9: "Semakin banyak coffee shop yang bergabung, semakin besar pasokan. Semakin besar pasokan, semakin menarik bagi UMKM. Semakin banyak UMKM, semakin banyak produk untuk konsumen. Siklus ini terus memperkuat platform.",
     s10: "Kami memulai dengan MVP sederhana dan berkembang menuju sistem yang lebih terintegrasi melalui otomatisasi dan analitik. Kami jujur soal mana yang sudah real, mana yang masih mock UI, dan mana yang roadmap.",
     s11: "Sampai titik ini mungkin terlihat bahwa kami membangun aplikasi kopi. Namun sebenarnya GroundsToGrow hanyalah pintu masuk. Mesin di belakangnya bernama WasteLoop. Kami bukan aplikasi kopi. Kami adalah operating system untuk circular economy.",
