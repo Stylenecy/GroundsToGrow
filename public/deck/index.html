@@ -787,7 +787,7 @@ body.on-dark .hint{color:#b8a787;}
             <span class="dtag">foundation/04-DFD</span>
           </div>
           <div class="dframe">
-            <img src="assets/diagrams/dfd-level0-context.svg" alt="DFD Level 0 — platform GroundsToGrow sebagai pusat, 8 entitas plus Bank sebagai external entity, dengan aliran data masuk dan keluar." loading="lazy" />
+            <img src="assets/diagrams/dfd-level0-context.png" alt="DFD Level 0 — platform GroundsToGrow sebagai pusat, 8 entitas plus Bank sebagai external entity, dengan aliran data masuk dan keluar." loading="lazy" />
           </div>
           <div class="dcap">// platform di pusat · 8 entitas + Bank sebagai external entity · aliran data dua arah (submit, match, payout, ESG)</div>
         </div>
@@ -797,7 +797,7 @@ body.on-dark .hint{color:#b8a787;}
             <span class="dtag">foundation/03-Activity</span>
           </div>
           <div class="dframe">
-            <img src="assets/diagrams/activity-adcx01-end-to-end-circular.svg" alt="Activity diagram lintas-entitas: alur dari Coffee Shop submit, Smart Match, pickup, hilirisasi UMKM, sampai pembelian end user dan loop kompos." loading="lazy" />
+            <img src="assets/diagrams/activity-adcx01-end-to-end-circular.png" alt="Activity diagram lintas-entitas: alur dari Coffee Shop submit, Smart Match, pickup, hilirisasi UMKM, sampai pembelian end user dan loop kompos." loading="lazy" />
           </div>
           <div class="dcap">// swimlane lintas-entitas: Coffee Shop → Platform → UMKM → End User · loop balik ke kompos & urban farming</div>
         </div>
@@ -833,7 +833,7 @@ body.on-dark .hint{color:#b8a787;}
           <span class="dtag">foundation/04-DFD</span>
         </div>
         <div class="dframe">
-          <img src="assets/diagrams/dfd-level1-main-processes.svg" alt="DFD Level 1 — tujuh sub-proses platform GroundsToGrow dan sembilan data store, dengan aliran data antar proses." loading="lazy" />
+          <img src="assets/diagrams/dfd-level1-main-processes.png" alt="DFD Level 1 — tujuh sub-proses platform GroundsToGrow dan sembilan data store, dengan aliran data antar proses." loading="lazy" />
         </div>
         <div class="dcap">// 7 sub-proses: Listing, Smart Match, Pickup, Hilirisasi, Marketplace, ESG, Carbon · 9 data store</div>
       </div>
@@ -845,7 +845,7 @@ body.on-dark .hint{color:#b8a787;}
             <span class="dtag">foundation/05-ERD</span>
           </div>
           <div class="dframe">
-            <img src="assets/diagrams/erd-core-mvp.svg" alt="Entity Relationship Diagram core MVP — 23 entitas dengan relasi antar tabel: User, CoffeeShop, WasteListing, Match, Order, CarbonCredit, dan lainnya." loading="lazy" />
+            <img src="assets/diagrams/erd-core-mvp.png" alt="Entity Relationship Diagram core MVP — 23 entitas dengan relasi antar tabel: User, CoffeeShop, WasteListing, Match, Order, CarbonCredit, dan lainnya." loading="lazy" />
           </div>
           <div class="dcap">// 23 entitas berelasi · User · CoffeeShop · WasteListing · Match · Order · CarbonCredit</div>
         </div>
@@ -855,7 +855,7 @@ body.on-dark .hint{color:#b8a787;}
             <span class="dtag">foundation/06-Flowchart</span>
           </div>
           <div class="dframe">
-            <img src="assets/diagrams/flowchart-fc02-wastescan-demo.svg" alt="Flowchart FC-02 — alur user WasteScan: upload foto ampas, pilih jenis dan volume, smart analysis, lihat estimasi ESG, lalu Smart Match ke UMKM." loading="lazy" />
+            <img src="assets/diagrams/flowchart-fc02-wastescan-demo.png" alt="Flowchart FC-02 — alur user WasteScan: upload foto ampas, pilih jenis dan volume, smart analysis, lihat estimasi ESG, lalu Smart Match ke UMKM." loading="lazy" />
           </div>
           <div class="dcap">// alur WasteScan: foto → jenis & volume → smart analysis → estimasi ESG → Smart Match</div>
         </div>
@@ -1359,7 +1359,8 @@ body.on-dark .hint{color:#b8a787;}
 (function(){
   document.querySelectorAll('.diagram .dframe img').forEach(function(img){
     img.addEventListener('click', function(){
-      window.open(img.getAttribute('src'), '_blank', 'noopener');
+      // buka versi SVG (vektor, foreignObject render benar saat dibuka langsung) — crisp & kebaca
+      window.open(img.getAttribute('src').replace('.png', '.svg'), '_blank', 'noopener');
     });
   });
 })();
